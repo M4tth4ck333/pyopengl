@@ -1,10 +1,10 @@
 #! /usr/bin/env python
 from __future__ import print_function
-import pygamegltest
+import testdecorator
 from OpenGL.GL import glGetString, GL_SHADING_LANGUAGE_VERSION
 from OpenGL._bytes import as_8_bit
 
-@pygamegltest.pygametest(name='Get GL_SHADING_LANGUAGE_VERSION')
+@testdecorator.gltest(name='Get GL_SHADING_LANGUAGE_VERSION')
 def show_glsl_version():
     version = glGetString( GL_SHADING_LANGUAGE_VERSION )
     version = version.split(as_8_bit(' '))[0]

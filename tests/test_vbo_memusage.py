@@ -1,4 +1,4 @@
-import pygamegltest
+import testdecorator
 import os, sys
 
 # We have to import at least *one* VBO implementation...
@@ -29,7 +29,7 @@ def get_current_memory():
 
 @pytest.mark.skipif(not psutil, reason="No psutil available")
 @pytest.mark.skipif(not np, reason="No Numpy available")
-@pygamegltest.pygametest()
+@testdecorator.gltest
 def test_sf_2980896():
     """Test SF#2980896 report of memory leak on VBO transfer"""
     data = arrays.GLfloatArray.zeros((1000,))

@@ -5,14 +5,14 @@ import OpenGL
 
 OpenGL.SIZE_1_ARRAY_UNPACK = False  # just for convenience
 OpenGL.ERROR_ON_COPY = False  # we are checking a leak in the copying
-import pygamegltest
+import testdecorator
 import numpy as np
 from OpenGL.GL import *
 from OpenGL.GL import shaders
 from sys import getrefcount
 
 
-@pygamegltest.pygametest(name="Texture image 2d leak check")
+@testdecorator.gltest(name="Texture image 2d leak check")
 def main():
     data = np.zeros([256, 256, 3], dtype='b')
     glEnable(GL_TEXTURE_2D)

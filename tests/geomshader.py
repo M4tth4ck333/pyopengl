@@ -1,6 +1,6 @@
 """Transliteration of https://open.gl/feedback into Python"""
 from __future__ import print_function
-import pygamegltest
+import testdecorator
 from OpenGL._bytes import as_8_bit
 from OpenGL.GL import *
 from OpenGL.GL import shaders
@@ -33,7 +33,7 @@ geometry_shader = """#version 150 core
 """
 
 
-@pygamegltest.pygametest(name="Geometry Shader Test")
+@testdecorator.gltest(name="Geometry Shader Test")
 def main():
     program = shaders.compileProgram(
         shaders.compileShader([vertex_shader], GL_VERTEX_SHADER),
