@@ -185,8 +185,7 @@ class TestCore(basetestcase.BaseTest):
                     GL_UNSIGNED_BYTE,
                     data,
                 )
-                glFlush()
-                pygame.display.flip()
+                self.flip()
                 data[::2] = i
                 time.sleep(0.001)
 
@@ -232,8 +231,7 @@ class TestCore(basetestcase.BaseTest):
                         d.unbind()
                     lastPoint = array([[1.5, (1 / 255.0) * float(x), 0]])
                     d[-2:-1] = lastPoint
-                    glFlush()
-                    pygame.display.flip()
+                    self.flip()
                     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
                     time.sleep(0.001)
             finally:
