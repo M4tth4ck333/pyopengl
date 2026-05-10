@@ -5,7 +5,7 @@ Selection order matches ``basetestcase``:
 1. Determine which backends are importable (``pygame``, ``glfw``).
 2. If the ``TEST_WINDOWING`` env var is set, honour it when that backend
    is available; otherwise fall through to the first available backend.
-3. Default preference when ``TEST_WINDOWING`` is unset: pygame, then glfw.
+3. Default preference when ``TEST_WINDOWING`` is unset: glfw, then pygame.
 """
 from __future__ import print_function
 import os
@@ -24,7 +24,7 @@ def _installed(name):
         return False
 
 
-_AVAILABLE = [name for name in ('pygame', 'glfw') if _installed(name)]
+_AVAILABLE = [name for name in ('glfw', 'pygame') if _installed(name)]
 
 if not _AVAILABLE:
     raise ImportError(

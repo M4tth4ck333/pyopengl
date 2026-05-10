@@ -17,6 +17,7 @@ Usage:
 Each invocation creates a fresh GLFW window and tears it down afterwards,
 so this is intended for one-off checks rather than large test suites.
 """
+
 import glfw
 from functools import wraps
 
@@ -38,9 +39,11 @@ def gltest(maybe_function=None, *, size=(300, 300), name=None):
             try:
                 glfw.default_window_hints()
                 SCREEN = glfw.create_window(
-                    size[0], size[1],
+                    size[0],
+                    size[1],
                     name or function.__name__,
-                    None, None,
+                    None,
+                    None,
                 )
                 if not SCREEN:
                     raise RuntimeError('Failed to create GLFW window')
@@ -48,6 +51,7 @@ def gltest(maybe_function=None, *, size=(300, 300), name=None):
                 try:
                     return function(*args, **named)
                 finally:
+                    glfw.swap_buffers(SCREEN)
                     glfw.destroy_window(SCREEN)
                     SCREEN = None
             finally:

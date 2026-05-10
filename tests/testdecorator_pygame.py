@@ -43,6 +43,7 @@ def gltest(maybe_function=None, *, size=(300, 300), name=None):
             try:
                 return function(*args, **named)
             finally:
+                pygame.display.flip()
                 pygame.display.quit()
                 pygame.quit()
 
