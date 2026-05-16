@@ -43,21 +43,27 @@ PyOpenGL calls.
 Running Tests
 --------------
 
-You can run the PyOpenGL test suite from a source-code checkout, you will need:
+You can run the PyOpenGL test suite from a source-code checkout, the easiest
+way to run the tests with the uv runner:
+
 
 * git (for the checkout)
 * GLUT (FreeGLUT)
 * GLExtrusion library (libgle)
 * GLU (normally available on any OpenGL-capable machine)
-* tox (`pip install tox`)
+* [uv](https://docs.astral.sh/uv/)
 
 Running the test suite from a top-level checkout looks like::
 
-    $ tox
+    $ uv run --with .[dev,test] tox
 
 The result being a lot of tests being run in a matrix of environments.
-All of the environment will pull in pygame, some will also pull in 
+All of the environments will pull in glfw, some will also pull in 
 numpy. Some will have accelerate, and some will not.
+
+The test suite takes many minutes to complete due to the matrix of 
+supported configurations; it will open *many* windows, so it will be
+difficult to interact with your machine's keyboard as it runs.
 
 .. image:: https://travis-ci.org/mcfletch/pyopengl.svg?branch=master
     :target: https://travis-ci.org/mcfletch/pyopengl

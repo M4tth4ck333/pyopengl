@@ -8,6 +8,7 @@ authors = [
 readme = {file="README.md", content-type = "text/markdown"}
 license = "BSD-3-Clause"
 license-files = ["license.txt"]
+requires-python = ">=3.9"
 keywords = [
     "Graphics",
     "3D",
@@ -23,7 +24,6 @@ keywords = [
 ]
 classifiers = [
     "Programming Language :: Python",
-    "Programming Language :: Python :: 2",
     "Programming Language :: Python :: 3",
     "Topic :: Multimedia :: Graphics :: 3D Rendering",
     "Topic :: Software Development :: Libraries :: Python Modules",
@@ -36,7 +36,13 @@ Source = "https://github.com/mcfletch/pyopengl"
 Documentation = "https://mcfletch.github.io/pyopengl/documentation/index.html"
 
 [build-system]
-requires = [ "setuptools >= 77.0", "Cython >= 0.28", "numpy" ]
+# numpy 2.0+ produces wheels that are ABI-compatible with numpy >= 1.26 at runtime
+# via the PyDataType_* accessor backports. Mostly hit by cibuildwheel.
+requires = [
+    "setuptools >= 77.0",
+    "Cython >= 0.28",
+    "numpy >= 2.0",
+]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.dynamic]

@@ -67,29 +67,29 @@ jobs:
           python-version: 3.x
       - name: Set up QEMU
         if: runner.os == 'Linux'
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@v3
         with:
           platforms: all
 
       - name: Build wheels (develop)
-        uses: pypa/cibuildwheel@v3.1.3
+        uses: pypa/cibuildwheel@v3.4.1
         if: ${{ github.ref == 'refs/heads/develop' }}
         with:
           package-dir: "./accelerate"
           output-dir: "./accelerate/dist"
         env:
           BUILD_EXTENSION: yes
-          CIBW_SKIP: "pp*"
+          CIBW_SKIP: "pp* cp36-* cp37-* cp38-*"
 
       - name: Build wheels (master)
-        uses: pypa/cibuildwheel@v3.1.3
+        uses: pypa/cibuildwheel@v3.4.1
         if: ${{ github.ref == 'refs/heads/master' }}
         with:
           package-dir: "./accelerate"
           output-dir: "./accelerate/dist"
         env:
           BUILD_EXTENSION: yes
-          CIBW_SKIP: "pp*"
+          CIBW_SKIP: "pp* cp36-* cp37-* cp38-*"
 
       - name: Save wheels
         uses: actions/upload-artifact@v4

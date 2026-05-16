@@ -1,3 +1,3 @@
 #! /bin/bash
 
-bzr log --short -r tag:release-3.0.0.. > ChangeLog.txt
+git log --pretty=format:'%h %ad %an%n    %s%n' --date=short release-3.0.0..HEAD > ChangeLog.txt
