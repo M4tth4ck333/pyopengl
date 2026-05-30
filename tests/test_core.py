@@ -1,6 +1,5 @@
 #! /usr/bin/env python
 from __future__ import print_function
-import pygame, pygame.display
 import logging, time, traceback, unittest, os, pytest
 
 logging.basicConfig(level=logging.INFO)
@@ -18,7 +17,6 @@ try:
 except ImportError as err:
     array = None
 
-pygame.display.init()
 import OpenGL
 
 if os.environ.get('TEST_NO_ACCELERATE'):
@@ -693,5 +691,3 @@ class TestCore(basetestcase.BaseTest):
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
     unittest.main()
-    pygame.display.quit()
-    pygame.quit()
