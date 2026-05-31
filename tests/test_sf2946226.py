@@ -1,51 +1,45 @@
-import pygame, sys
-from pygame.locals import *
+import unittest
 import OpenGL
-
-OpenGL.USE_ACCELERATE = False
+from basetestcase import BaseTest
 from OpenGL.GL import *
 from OpenGL.GL.EXT.framebuffer_object import *
-from OpenGL import error
 
 
-def draw():
-    glClearColor(0.0, 0.0, 0.0, 0.0)
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-    # draw stuff here
-    pygame.display.flip()
+class TestSF2946226(BaseTest):
+    """Regression for SF#2946226.
 
+    Attaching a texture to an EXT framebuffer object used to raise spuriously
+    when the C accelerator was disabled. ``OpenGL.USE_ACCELERATE`` is an
+    import-time flag and cannot be flipped here, so this test only runs when the
+    accelerator is already off -- run the suite with ``TEST_NO_ACCELERATE=1`` to
+    exercise it; otherwise it is skipped.
+    """
 
-def main():
-    pygame.init()
-    pygame.display.set_mode((512, 512), OPENGL | DOUBLEBUF)
-
-    # setup a texture
-    tex = glGenTextures(1)
-    glBindTexture(GL_TEXTURE_2D, tex)
-    glTexImage2D(
-        GL_TEXTURE_2D, 0, GL_RGBA8, 512, 512, 0, GL_RGBA, GL_UNSIGNED_BYTE, None
+    @unittest.skipIf(
+        OpenGL.USE_ACCELERATE,
+        "requires the C accelerator disabled (run with TEST_NO_ACCELERATE=1)",
     )
-    glBindTexture(GL_TEXTURE_2D, 0)
+    def test_framebuffer_texture_2d_ext(self):
+        if not glGenFramebuffersEXT:
+            self.skipTest('EXT_framebuffer_object not supported')
 
-    # setup teh fbo
-    fbo = glGenFramebuffersEXT(1)
-    glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fbo)
-    glBindTexture(GL_TEXTURE_2D, tex)
+        tex = glGenTextures(1)
+        glBindTexture(GL_TEXTURE_2D, tex)
+        glTexImage2D(
+            GL_TEXTURE_2D, 0, GL_RGBA8, 512, 512, 0, GL_RGBA, GL_UNSIGNED_BYTE, None
+        )
+        glBindTexture(GL_TEXTURE_2D, 0)
 
-    # this call produces an error!
+        fbo = glGenFramebuffersEXT(1)
+        glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fbo)
+        glBindTexture(GL_TEXTURE_2D, tex)
 
-    glFramebufferTexture2DEXT(
-        GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_2D, tex, 0
-    )
-
-    while 1:
-        event = pygame.event.poll()
-        if event.type is QUIT:
-            sys.exit(0)
-        draw()
-        print('OK')
-        break
+        # This call used to raise spuriously (SF#2946226); it should succeed.
+        glFramebufferTexture2DEXT(
+            GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_2D, tex, 0
+        )
+        glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0)
 
 
 if __name__ == "__main__":
-    main()
+    unittest.main()

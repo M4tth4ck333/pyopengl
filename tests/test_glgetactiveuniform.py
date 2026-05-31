@@ -1,8 +1,8 @@
 from __future__ import print_function
-import pygame
-from pygame.locals import *
+import unittest
+from basetestcase import BaseTest
 from OpenGL.GL import *
-from OpenGL.GL.shaders import *
+from OpenGL.GL.shaders import compileProgram, compileShader
 from OpenGL.GL.ARB.shader_objects import glGetActiveUniformARB
 
 vertex_shader = """
@@ -14,20 +14,26 @@ void main(void)
 """
 
 
-def main():
-    pygame.init()
-    disp = pygame.display.set_mode((1024, 768), OPENGL | DOUBLEBUF)
-
-    program = compileProgram(compileShader(vertex_shader, GL_VERTEX_SHADER))
-
-    nu = glGetProgramiv(program, GL_ACTIVE_UNIFORMS)
-    for i in range(nu):
-        name, size, type = glGetActiveUniform(program, i)
-        print('CORE - ', name, size, type)
-        glGetActiveUniformARB(program, i)
-        print('ARB  - ', name, size, type)
-    print('OK')
+class TestGetActiveUniform(BaseTest):
+    def test_glGetActiveUniform(self):
+        """glGetActiveUniform (core) and glGetActiveUniformARB agree on the uniforms"""
+        if not glCreateProgram:
+            self.skipTest('Shaders not supported on this implementation')
+        # vertex-only program; validate=False avoids the spurious "no fragment
+        # shader" validation failure on some drivers (we never render it).
+        program = compileProgram(
+            compileShader(vertex_shader, GL_VERTEX_SHADER), validate=False
+        )
+        nu = glGetProgramiv(program, GL_ACTIVE_UNIFORMS)
+        assert nu >= 1, nu
+        names = []
+        for i in range(nu):
+            name, size, type = glGetActiveUniform(program, i)
+            # the ARB entry point must be callable without error too
+            glGetActiveUniformARB(program, i)
+            names.append(name.decode() if isinstance(name, bytes) else name)
+        assert 'scale' in names, names
 
 
 if __name__ == "__main__":
-    main()
+    unittest.main()
