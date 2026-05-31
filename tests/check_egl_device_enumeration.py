@@ -25,6 +25,7 @@ def main():
                     continue
             except EGLError as err:
                 log.warning("Unable to initialise EGL for display %d: %s", i, err)
+                continue
             log.info("Display #%d, Version %s.%s", i, major.value, minor.value)
             for key in [
                 EGL_VENDOR,
