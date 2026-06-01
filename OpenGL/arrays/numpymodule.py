@@ -244,6 +244,8 @@ ARRAY_TO_GL_TYPE_MAPPING = {
     lookupDtype('c'): GL_1_1.GL_UNSIGNED_BYTE,
     lookupDtype('b'): GL_1_1.GL_BYTE,
     lookupDtype('I'): GL_1_1.GL_UNSIGNED_INT,
+    lookupDtype('Q'): GL_1_1.GL_UNSIGNED_INT64,
+    lookupDtype('q'): GL_1_1.GL_INT64,
     #lookupDtype('P'), _types.GL_VOID_P, # normally duplicates another type (e.g. 'I')
     None: None,
 }
@@ -255,6 +257,8 @@ GL_TYPE_TO_ARRAY_MAPPING = {
     GL_1_1.GL_BYTE: lookupDtype('b'),
     GL_1_1.GL_SHORT: lookupDtype(SHORT_TYPE),
     GL_1_1.GL_UNSIGNED_INT: lookupDtype('I'),
+    GL_1_1.GL_UNSIGNED_INT64: lookupDtype('Q'),
+    GL_1_1.GL_INT64: lookupDtype('q'),
     GL_1_1.GL_UNSIGNED_BYTE: lookupDtype('B'),
     GL_1_1.GL_UNSIGNED_SHORT: lookupDtype(USHORT_TYPE),
     _types.GL_VOID_P: lookupDtype('P'),
@@ -268,5 +272,7 @@ GL_TYPE_TO_ARRAY_MAPPING = {
     'H': lookupDtype('H'),
     'b': lookupDtype('b'),
     'B': lookupDtype('B'),
+    'Q': lookupDtype('Q'),
+    'q': lookupDtype('q'),
     's': lookupDtype('B'),
 }

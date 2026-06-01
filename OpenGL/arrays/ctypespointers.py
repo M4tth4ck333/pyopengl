@@ -61,9 +61,11 @@ ARRAY_TO_GL_TYPE_MAPPING = {
     _types.GLfloat: GL_1_1.GL_FLOAT,
     _types.GLint: GL_1_1.GL_INT,
     _types.GLuint: GL_1_1.GL_UNSIGNED_INT,
+    _types.GLuint64: GL_1_1.GL_UNSIGNED_INT64,
+    _types.GLint64: GL_1_1.GL_INT64,
     _types.GLshort: GL_1_1.GL_SHORT,
     _types.GLushort: GL_1_1.GL_UNSIGNED_SHORT,
-        
+
     _types.GLchar: GL_1_1.GL_CHAR,
     _types.GLbyte: GL_1_1.GL_BYTE,
     _types.GLubyte: GL_1_1.GL_UNSIGNED_BYTE,
@@ -73,6 +75,8 @@ GL_TYPE_TO_ARRAY_MAPPING = {
     GL_1_1.GL_FLOAT: _types.GLfloat,
     GL_1_1.GL_INT: _types.GLint,
     GL_1_1.GL_UNSIGNED_INT: _types.GLuint,
+    GL_1_1.GL_UNSIGNED_INT64: _types.GLuint64,
+    GL_1_1.GL_INT64: _types.GLint64,
     GL_1_1.GL_SHORT: _types.GLshort,
     GL_1_1.GL_UNSIGNED_SHORT: _types.GLushort,
         
