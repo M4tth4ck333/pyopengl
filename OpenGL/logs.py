@@ -72,20 +72,22 @@ class _ErrorLoggedFunction ( _LoggedFunction ):
             raise
     
 
-def logOnFail( function, log ):
-    """Produce possible log-wrapped version of function
-
-    function -- callable object to be wrapped
-    log -- the log to which to log information
+def logOnFailDec( log ):
+    """Decorator that optionally enables logging to given log on failures
     
+    log -- logger to which to log the messages
+
     Uses ERROR_LOGGING and FULL_LOGGING
     to determine whether/how to wrap the function.
     """
-    if ERROR_LOGGING or FULL_LOGGING:
-        if FULL_LOGGING:
-            loggedFunction = _FullLoggedFunction( function, log )
+    def withLogOnFail(function):
+
+        if ERROR_LOGGING or FULL_LOGGING:
+            if FULL_LOGGING:
+                loggedFunction = _FullLoggedFunction( function, log )
+            else:
+                loggedFunction = _ErrorLoggedFunction( function, log )
+            return loggedFunction
         else:
-            loggedFunction = _ErrorLoggedFunction( function, log )
-        return loggedFunction
-    else:
-        return function
+            return function
+    return withLogOnFail

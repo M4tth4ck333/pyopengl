@@ -145,7 +145,7 @@ class BasePlatform(object):
 
     def wrapLogging(self, func):
         """Wrap function with logging operations if appropriate"""
-        return logs.logOnFail(func, logs.getLog('OpenGL.errors'))
+        return logs.logOnFailDec(logs.getLog('OpenGL.errors'))(func)
 
     def finalArgType(self, typ):
         """Retrieve a final type for arg-type"""
@@ -174,7 +174,9 @@ class BasePlatform(object):
 
         raises AttributeError if can't find the procedure...
         """
-        is_core = (not extension) or extension.split('_')[1] == 'VERSION'
+        # Core/version modules name themselves e.g. GLES2_VERSION_GLES2_2_0 or
+        # GLES2_ES_VERSION_3_2 -- the 'VERSION' token is not always at index 1.
+        is_core = (not extension) or 'VERSION' in extension.split('_')
         if (not is_core) and not self.checkExtension(extension):
             raise AttributeError("""Extension not available""")
         argTypes = [self.finalArgType(t) for t in argTypes]
@@ -290,6 +292,13 @@ class BasePlatform(object):
         #            return True
         if not name:
             return True
+        # The GLES raw modules name their extensions e.g. 'GLES2_OES_foo', but the
+        # GL extension string reported by the driver is 'GL_OES_foo'.  Normalise so
+        # the lookup matches (desktop modules already use the 'GL_' form).
+        if name.startswith('GLES'):
+            tail = name.split('_', 1)
+            if len(tail) == 2:
+                name = 'GL_' + tail[1]
         context = self.GetCurrentContext()
         if context:
             from OpenGL import contextdata
