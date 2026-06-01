@@ -20,6 +20,8 @@ import os
 import ctypes
 import time
 import unittest
+import contextlib
+import typing
 
 # OpenGL-ES is reached through the EGL platform; make sure that is selected
 # before anything pulls in ``OpenGL`` for the first time.
@@ -100,7 +102,7 @@ class BaseESTestCase(unittest.TestCase):
             return value.decode('ascii', 'replace')
         return value
 
-    def getInteger(self, enum, count=1):
+    def getInteger(self, enum, count=1) -> typing.Union[int,list]:
         """Return ``glGetIntegerv`` as an ``int`` (count==1) or list of ints."""
         buf = (ctypes.c_int * count)()
         _gl.glGetIntegerv(enum, buf)
@@ -122,6 +124,39 @@ class BaseESTestCase(unittest.TestCase):
         """Skip the test unless ``name`` is an advertised extension."""
         if name not in self.extensions():
             self.skipTest('extension %s not available' % (name,))
+
+    @contextlib.contextmanager
+    def allow_missing(self):
+        """Skip the test if an entry point is not actually exported by the driver.
+
+        ``bool(fn)`` is unreliable for ES extension procedures resolved via
+        eglGetProcAddress, so the only sound probe is to call and catch the
+        resulting NullFunctionError (common for extensions whose functionality is
+        core, where the suffixed aliases are not separately exported).
+        """
+        from OpenGL import error
+        try:
+            yield
+        except error.NullFunctionError as err:
+            self.skipTest('entry point not exported: %s' % (err,))
+
+    @contextlib.contextmanager
+    def exercise(self):
+        """Smoke-test extension entry points for reachability.
+
+        Skips when an entry point is not exported, and tolerates GLErrors raised
+        by incomplete/edge setup (the goal is that the entry point reaches the
+        driver, not full GL-semantic validation of every extension corner).
+        """
+        from OpenGL import error
+        try:
+            yield
+        except error.NullFunctionError as err:
+            self.skipTest('entry point not exported: %s' % (err,))
+        except error.GLError:
+            pass
+        while _gl.glGetError() != _gl.GL_NO_ERROR:
+            pass
 
     # --- error / pixel helpers -------------------------------------------
     def check_error(self, context=''):

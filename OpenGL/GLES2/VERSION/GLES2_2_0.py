@@ -487,3 +487,53 @@ def glVertexAttribPointer(
         stride,
         arrays.ArrayDatatype.voidDataPointer(array),
     )
+
+
+# Friendly auto-size / auto-count forms, as desktop GL_1_5.py / exceptional.py.
+from OpenGL._bytes import integer_types as _integer_types
+
+
+@_lazy(glBufferData)
+def glBufferData(baseOperation, target, size, data=None, usage=None):
+    """glBufferData(target, data, usage) -- size may be omitted and derived"""
+    if usage is None:
+        usage = data
+        data = size
+        size = None
+    data = arrays.ArrayDatatype.asArray(data)
+    if size is None:
+        size = arrays.ArrayDatatype.arrayByteCount(data)
+    return baseOperation(target, size, data, usage)
+
+
+@_lazy(glBufferSubData)
+def glBufferSubData(baseOperation, target, offset, size=None, data=None):
+    """glBufferSubData(target, offset, data) -- size may be omitted and derived"""
+    if size is None:
+        if data is None:
+            raise TypeError("Need data or size")
+    elif (not isinstance(size, _integer_types)) and (data is None):
+        data = size
+        size = None
+    if size is not None:
+        size = int(size)
+    data = arrays.ArrayDatatype.asArray(data)
+    if size is None:
+        size = arrays.ArrayDatatype.arrayByteCount(data)
+    return baseOperation(target, offset, size, data)
+
+
+def _delete_wrapper(baseOperation):
+    """glDelete*(arrayOrCount[, array]) -- count derived from the array if omitted."""
+    def deleter(baseOperation, n, arrays_=None):
+        if arrays_ is None:
+            arrays_ = arrays.GLuintArray.asArray(n)
+            n = arrays.GLuintArray.arraySize(arrays_)
+        return baseOperation(n, arrays_)
+    return _lazy(baseOperation)(deleter)
+
+
+glDeleteBuffers = _delete_wrapper(glDeleteBuffers)
+glDeleteFramebuffers = _delete_wrapper(glDeleteFramebuffers)
+glDeleteRenderbuffers = _delete_wrapper(glDeleteRenderbuffers)
+glDeleteTextures = _delete_wrapper(glDeleteTextures)

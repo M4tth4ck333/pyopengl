@@ -28,6 +28,7 @@ from OpenGL.GLES3 import (
     glActiveTexture,
     glTexParameteri,
     glCompressedTexImage2D,
+    glCompressedTexSubImage2D,
     glGetAttribLocation,
     glGetUniformLocation,
     glUniform1i,
@@ -70,6 +71,10 @@ class TestES3CompressedTexture(ESTestCase):
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
         glCompressedTexImage2D(
             GL_TEXTURE_2D, 0, GL_COMPRESSED_RGB8_ETC2, 4, 4, 0, 8, ETC2_BLOCK
+        )
+        # patch the same block in place to exercise the sub-image path
+        glCompressedTexSubImage2D(
+            GL_TEXTURE_2D, 0, 0, 0, 4, 4, GL_COMPRESSED_RGB8_ETC2, 8, ETC2_BLOCK
         )
         self.check_error('compressed upload')
 

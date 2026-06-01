@@ -207,11 +207,16 @@ class _GLQuerier(ExtensionQuerier):
 
         if not platform.PLATFORM.CurrentContextIsValid():
             return False
+        import ctypes
         from OpenGL.raw.GL._types import GLint
         from OpenGL.raw.GL.VERSION.GL_1_1 import glGetString, glGetError
         from OpenGL.raw.GL.VERSION.GL_1_1 import GL_EXTENSIONS
         from OpenGL import error
 
+        # The raw glGetString defaults to an ArrayDatatype restype that raises a
+        # TypeError when called (see OpenGL/GL/glget.py); force the string restype
+        # so this works under the GLES platform too.
+        glGetString.restype = ctypes.c_char_p
         try:
             extensions = glGetString(GL_EXTENSIONS)
             if glGetError():
@@ -220,11 +225,12 @@ class _GLQuerier(ExtensionQuerier):
                 extensions = extensions.split()
             else:
                 return False
-        except (AttributeError, error.GLError):
+        except (AttributeError, TypeError, error.GLError):
             # OpenGL 3.0 deprecates glGetString( GL_EXTENSIONS )
             from OpenGL.raw.GL.VERSION.GL_3_0 import GL_NUM_EXTENSIONS, glGetStringi
             from OpenGL.raw.GL.VERSION.GL_1_1 import glGetIntegerv
 
+            glGetStringi.restype = ctypes.c_char_p
             count = GLint()
             glGetIntegerv(GL_NUM_EXTENSIONS, count)
             extensions = []
