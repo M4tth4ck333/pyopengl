@@ -28,9 +28,9 @@ class GLUStruct( object ):
     WRAPPER_METHODS = None
     def noteObject( self, object ):
         """Note object for later retrieval as a Python object pointer
-        
-        This is the registration point for "original object return", returns 
-        a void pointer to the Python object, though this is, effectively, an 
+
+        This is the registration point for "original object return", returns
+        a void pointer to the Python object, though this is, effectively, an
         opaque value.
         """
         identity = id(object)

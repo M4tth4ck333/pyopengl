@@ -21,6 +21,7 @@ __all__ = (
     'gluNurbsCallback',
     'gluNurbsCallbackData',
     'gluNurbsCallbackDataEXT',
+    'gluGetNurbsProperty',
     'gluNurbsCurve',
     'gluNurbsSurface',
     'gluPwlCurve',
@@ -136,6 +137,12 @@ class GLUnurbs(glustruct.GLUStruct, _simple.GLUnurbs):
 # XXX yes, this is a side-effect...
 _simple.gluNewNurbsRenderer.restype = ctypes.POINTER( GLUnurbs )
 
+# Type the user-data argument as a bare void* so the integer handle returned by
+# noteObject can be passed straight through (ctypes converts int -> void*).  The
+# generated array argtype would instead try to byref the int and raise.
+_simple.gluNurbsCallbackData.argtypes = [ctypes.POINTER( GLUnurbs ), ctypes.c_void_p]
+_simple.gluNurbsCallbackDataEXT.argtypes = [ctypes.POINTER( GLUnurbs ), ctypes.c_void_p]
+
 def _callbackWithType( funcType ):
     """Get gluNurbsCallback function with set last arg-type"""
     result =  platform.copyBaseFunction(
@@ -173,6 +180,19 @@ def gluNurbsCallbackData( baseFunction, nurb, userData ):
     return baseFunction(
         nurb, nurb.noteObject( userData )
     )
+
+@_lazy( _simple.gluGetNurbsProperty )
+def gluGetNurbsProperty( baseFunction, nurb, property, value=None ):
+    """Retrieve a single float for a nurbs-renderer property
+
+    Allocates the output float automatically when ``value`` is not provided,
+    mirroring gluGetTessProperty.
+    """
+    if value is None:
+        value = _simple.GLfloat( 0.0 )
+        baseFunction( nurb, property, value )
+        return value.value
+    return baseFunction( nurb, property, value )
 
 MAX_ORDER = 8
 def checkOrder( order,knotCount,name ):

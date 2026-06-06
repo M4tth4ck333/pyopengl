@@ -10,6 +10,16 @@ GLU = PLATFORM.GLU
 from OpenGL.lazywrapper import lazy as _lazy
 import ctypes
 
+# Type the OOR user-data arguments as a bare void* so the integer handle from
+# GLUStruct.noteObject passes straight through (ctypes converts int -> void*);
+# the generated array argtype would instead try to byref the int and raise.
+_simple.gluTessBeginPolygon.argtypes = (
+    list(_simple.gluTessBeginPolygon.argtypes[:1]) + [ctypes.c_void_p]
+)
+_simple.gluTessVertex.argtypes = (
+    list(_simple.gluTessVertex.argtypes[:2]) + [ctypes.c_void_p]
+)
+
 
 class GLUtesselator(glustruct.GLUStruct, _simple.GLUtesselator):
     """Implementation class for GLUTessellator structures in OpenGL-ctypes"""
@@ -74,14 +84,12 @@ class GLUtesselator(glustruct.GLUStruct, _simple.GLUtesselator):
             raise ValueError(
                 """Require 3 doubles for array location, got: %s""" % (location,)
             )
-        oorValue = self.noteObject(data)
-        vp = ctypes.c_void_p(oorValue)
         self.vertexCache.append(location)
-        return gluTessVertexBase(self, location, vp)
+        return gluTessVertexBase(self, location, self.noteObject(data))
 
     def gluTessBeginPolygon(self, data):
         """Note the object pointer to return it as a Python object"""
-        return _simple.gluTessBeginPolygon(self, ctypes.c_void_p(self.noteObject(data)))
+        return _simple.gluTessBeginPolygon(self, self.noteObject(data))
 
     def combineWrapper(self, function):
         """Wrap a Python function with ctypes-compatible wrapper for combine callback
@@ -125,9 +133,9 @@ class GLUtesselator(glustruct.GLUStruct, _simple.GLUtesselator):
                         str(err),
                     )
                 )
-            outP = ctypes.c_void_p(self.noteObject(result))
             if outData:
-                outData[0] = outP
+                # c_void_p slot accepts the integer handle directly.
+                outData[0] = self.noteObject(result)
             else:
                 raise RuntimeError("Null outData passed to callback")
             return None
