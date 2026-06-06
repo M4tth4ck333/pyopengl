@@ -27,6 +27,16 @@ from OpenGL.GL.NV.primitive_restart import *  # noqa: F401,F403
 from OpenGL.GL.EXT.gpu_program_parameters import *  # noqa: F401,F403
 from OpenGL.GL.EXT.compiled_vertex_array import *  # noqa: F401,F403
 from OpenGL.GL.ATI.separate_stencil import *  # noqa: F401,F403
+from OpenGL.GL.ARB.color_buffer_float import *  # noqa: F401,F403
+from OpenGL.GL.ARB.multisample import *  # noqa: F401,F403
+from OpenGL.GL.ATI.draw_buffers import *  # noqa: F401,F403
+from OpenGL.GL.EXT.blend_color import *  # noqa: F401,F403
+from OpenGL.GL.EXT.blend_func_separate import *  # noqa: F401,F403
+from OpenGL.GL.EXT.blend_minmax import *  # noqa: F401,F403
+from OpenGL.GL.EXT.draw_range_elements import *  # noqa: F401,F403
+from OpenGL.GL.EXT.stencil_two_side import *  # noqa: F401,F403
+from OpenGL.GL.EXT.texture_buffer_object import *  # noqa: F401,F403
+from OpenGL.GL.INGR.blend_func_separate import *  # noqa: F401,F403
 
 
 class TestLegacyCompat(GLTestCase):
@@ -256,6 +266,78 @@ class TestLegacyCompat(GLTestCase):
         with self.allow_missing():
             glStencilFuncSeparateATI(GL_ALWAYS, GL_ALWAYS, 0, 0xFF)
             glStencilOpSeparateATI(GL_FRONT, GL_KEEP, GL_KEEP, GL_KEEP)
+
+    def test_clamp_color_arb(self):
+        self.require_extension('GL_ARB_color_buffer_float')
+        with self.allow_missing():
+            glClampColorARB(GL_CLAMP_VERTEX_COLOR_ARB, GL_TRUE)  # the default
+
+    def test_sample_coverage_arb(self):
+        self.require_extension('GL_ARB_multisample')
+        with self.allow_missing():
+            glSampleCoverageARB(1.0, GL_FALSE)  # the default
+
+    def test_draw_buffers_ati(self):
+        self.require_extension('GL_ATI_draw_buffers')
+        with self.allow_missing():
+            # GL_BACK is not a valid glDrawBuffers entry pre-4.5; use BACK_LEFT
+            glDrawBuffersATI(1, np.array([GL_BACK_LEFT], 'I'))
+
+    def test_blend_color_ext(self):
+        self.require_extension('GL_EXT_blend_color')
+        with self.allow_missing():
+            glBlendColorEXT(0.25, 0.5, 0.75, 1.0)
+            glBlendColorEXT(0.0, 0.0, 0.0, 0.0)  # the default
+
+    def test_blend_minmax_ext(self):
+        self.require_extension('GL_EXT_blend_minmax')
+        with self.allow_missing():
+            glBlendEquationEXT(GL_MIN_EXT)
+            glBlendEquationEXT(GL_MAX_EXT)
+            glBlendEquationEXT(GL_FUNC_ADD_EXT)  # the default
+
+    def test_blend_func_separate_ext(self):
+        self.require_extension('GL_EXT_blend_func_separate')
+        with self.allow_missing():
+            glBlendFuncSeparateEXT(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO)
+            glBlendFunc(GL_ONE, GL_ZERO)  # back to the default
+
+    def test_blend_func_separate_ingr(self):
+        self.require_extension('GL_INGR_blend_func_separate')
+        with self.allow_missing():
+            # INGR variant only guarantees a restricted factor subset; ONE/ZERO
+            # are valid in both it and the EXT version it aliases
+            glBlendFuncSeparateINGR(GL_ONE, GL_ZERO, GL_ONE, GL_ZERO)
+
+    def test_draw_range_elements_ext(self):
+        self.require_extension('GL_EXT_draw_range_elements')
+        with self.allow_missing():
+            glVertexPointer(3, GL_FLOAT, 0, np.zeros((3, 3), 'f'))
+            glEnableClientState(GL_VERTEX_ARRAY)
+            glDrawRangeElementsEXT(
+                GL_TRIANGLES, 0, 2, 3, GL_UNSIGNED_INT, np.array([0, 1, 2], 'I')
+            )
+            glDisableClientState(GL_VERTEX_ARRAY)
+
+    def test_stencil_two_side_ext(self):
+        self.require_extension('GL_EXT_stencil_two_side')
+        with self.allow_missing():
+            glEnable(GL_STENCIL_TEST_TWO_SIDE_EXT)
+            glActiveStencilFaceEXT(GL_BACK)
+            glActiveStencilFaceEXT(GL_FRONT)
+            glDisable(GL_STENCIL_TEST_TWO_SIDE_EXT)
+
+    def test_texture_buffer_object_ext(self):
+        self.require_extension('GL_EXT_texture_buffer_object')
+        with self.allow_missing():
+            buf = int(glGenBuffers(1))
+            glBindBuffer(GL_TEXTURE_BUFFER_EXT, buf)
+            glBufferData(GL_TEXTURE_BUFFER_EXT, np.zeros(16, 'f'), GL_STATIC_DRAW)
+            tex = int(glGenTextures(1))
+            glBindTexture(GL_TEXTURE_BUFFER_EXT, tex)
+            glTexBufferEXT(GL_TEXTURE_BUFFER_EXT, GL_RGBA32F, buf)
+            glTexBufferEXT(GL_TEXTURE_BUFFER_EXT, GL_RGBA32F, 0)  # detach
+            glBindBuffer(GL_TEXTURE_BUFFER_EXT, 0)
 
 
 if __name__ == '__main__':

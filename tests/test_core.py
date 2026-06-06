@@ -601,7 +601,11 @@ class TestCore(basetestcase.BaseTest):
 
         glSelectBuffer(100)
         glRenderMode(GL_SELECT)
-        glCallList(1)
+        # ``first`` is the COMPILE_AND_EXECUTE list that runs glInitNames then
+        # glCallLists([second]); ``second`` pushes a single name.  glGenLists
+        # does not necessarily hand back id 1 (other tests share this context),
+        # so call ``first`` explicitly rather than the literal list 1.
+        glCallList(first)
         depth = glGetIntegerv(GL_NAME_STACK_DEPTH)
         assert depth in (1, (1,)), depth  # should have a single record
         glPopName()

@@ -1,10 +1,22 @@
-from os_egl import egl_context
+from os_egl import egl_context, NoEGLSupport, NoConfig
+from checkutils import skip
 from OpenGL import EGL
+from OpenGL.raw.EGL._errors import EGLError
 from OpenGL.EGL.EXT import device_query, device_enumeration
 from OpenGL.GL import GLint
 
 
 def main():
+    try:
+        _run()
+    except (NoEGLSupport, NoConfig, EGLError) as err:
+        # No usable EGL display in this environment (e.g. headless/wayland
+        # where the raw default display cannot be initialised) -- this is a
+        # skip, not a failure, matching the other raw-EGL check scripts.
+        skip('EGL not usable in this environment: %s' % (err,))
+
+
+def _run():
     with egl_context(output=None, pbuffer=True) as context:
         display, context, surface = context
         print("Vendor: %s" % (EGL.eglQueryString(display, EGL.EGL_VENDOR)))

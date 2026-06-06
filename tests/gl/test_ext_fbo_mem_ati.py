@@ -1,6 +1,7 @@
 #! /usr/bin/env python3
-"""GL_EXT_framebuffer_object (pre-core FBOs), GL_EXT_memory_object (external
-memory queries) and GL_ATI_fragment_shader (legacy register combiners)."""
+"""GL_EXT_framebuffer_object (pre-core FBOs), the EXT framebuffer aliases of
+core blit/multisample/layered-attachment, GL_EXT_memory_object (+ _fd external
+import) and GL_ATI_fragment_shader (legacy register combiners)."""
 
 import unittest
 import numpy as np
@@ -8,7 +9,11 @@ import numpy as np
 from gltestcase import GLTestCase
 from OpenGL.GL import *  # noqa: F401,F403
 from OpenGL.GL.EXT.framebuffer_object import *  # noqa: F401,F403
+from OpenGL.GL.EXT.framebuffer_blit import *  # noqa: F401,F403
+from OpenGL.GL.EXT.framebuffer_multisample import *  # noqa: F401,F403
+from OpenGL.GL.EXT.texture_array import *  # noqa: F401,F403
 from OpenGL.GL.EXT.memory_object import *  # noqa: F401,F403
+from OpenGL.GL.EXT.memory_object_fd import *  # noqa: F401,F403
 from OpenGL.GL.ATI.fragment_shader import *  # noqa: F401,F403
 
 
@@ -83,6 +88,53 @@ class TestEXTFramebufferObject(GLTestCase):
         self.check_error('EXT framebuffer object')
 
 
+class TestEXTFramebufferAliases(GLTestCase):
+    """EXT-suffixed aliases of core framebuffer entry points: the blit,
+    multisample renderbuffer storage and layered (texture-array) attachment
+    that predate their promotion into GL 3.0."""
+
+    profile = 'core'
+    gl_version = (4, 5)
+
+    def test_framebuffer_blit(self):
+        self.require_extension('GL_EXT_framebuffer_blit')
+        src = int(glGenFramebuffers(1))
+        dst = int(glGenFramebuffers(1))
+        for fbo in (src, dst):
+            glBindFramebuffer(GL_FRAMEBUFFER, fbo)
+            rb = int(glGenRenderbuffers(1))
+            glBindRenderbuffer(GL_RENDERBUFFER, rb)
+            glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA8, 16, 16)
+            glFramebufferRenderbuffer(
+                GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, rb
+            )
+        glBindFramebuffer(GL_READ_FRAMEBUFFER, src)
+        glBindFramebuffer(GL_DRAW_FRAMEBUFFER, dst)
+        with self.exercise():
+            glBlitFramebufferEXT(
+                0, 0, 16, 16, 0, 0, 16, 16, GL_COLOR_BUFFER_BIT, GL_NEAREST
+            )
+
+    def test_framebuffer_multisample(self):
+        self.require_extension('GL_EXT_framebuffer_multisample')
+        rb = int(glGenRenderbuffers(1))
+        glBindRenderbuffer(GL_RENDERBUFFER, rb)
+        with self.exercise():
+            glRenderbufferStorageMultisampleEXT(GL_RENDERBUFFER, 4, GL_RGBA8, 16, 16)
+
+    def test_texture_array_layer_attach(self):
+        self.require_extension('GL_EXT_texture_array')
+        arr = int(glGenTextures(1))
+        glBindTexture(GL_TEXTURE_2D_ARRAY, arr)
+        glTexStorage3D(GL_TEXTURE_2D_ARRAY, 1, GL_RGBA8, 16, 16, 2)
+        fbo = int(glGenFramebuffers(1))
+        glBindFramebuffer(GL_FRAMEBUFFER, fbo)
+        with self.exercise():
+            glFramebufferTextureLayerEXT(
+                GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, arr, 0, 0
+            )
+
+
 class TestEXTMemoryObject(GLTestCase):
     profile = 'core'
     gl_version = (4, 5)
@@ -138,6 +190,17 @@ class TestEXTMemoryObject(GLTestCase):
             glTextureStorageMem3DEXT(int(glGenTextures(1)), 1, GL_RGBA8, 4, 4, 4, m2, 0)
             glTextureStorageMem3DMultisampleEXT(
                 int(glGenTextures(1)), 4, GL_RGBA8, 4, 4, 2, GL_TRUE, m2, 0
+            )
+
+    def test_memory_object_fd(self):
+        self.require_extension('GL_EXT_memory_object_fd')
+        # No opaque-fd handle is available headless; fd=-1 is rejected with a
+        # GLError, which exercise() tolerates -- the wrapper still runs.
+        with self.exercise():
+            mids = np.zeros(1, 'I')
+            glCreateMemoryObjectsEXT(1, mids)
+            glImportMemoryFdEXT(
+                int(mids[0]), 1024, GL_HANDLE_TYPE_OPAQUE_FD_EXT, -1
             )
 
 

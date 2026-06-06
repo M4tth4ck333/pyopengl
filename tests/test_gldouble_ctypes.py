@@ -10,8 +10,6 @@ from OpenGL.GLUT import *
 from OpenGL.GL import GLdouble
 from OpenGL.arrays import arraydatatype
 
-handler = arraydatatype.ArrayDatatype.getHandler(GLdouble * 16)
-handler.registerReturn()
 import time, traceback, os
 
 start = time.time()
@@ -90,6 +88,12 @@ def printFunction(name):
 
 if __name__ == "__main__":
     import sys
+
+    # Registering the ctypes handler as the default return type is the whole
+    # point of this manual demo, but it mutates global state, so only do it
+    # when run as a standalone script -- never on pytest import/collection.
+    handler = arraydatatype.ArrayDatatype.getHandler(GLdouble * 16)
+    handler.registerReturn()
 
     newArgv = glutInit(sys.argv)
     print('newArguments', newArgv)

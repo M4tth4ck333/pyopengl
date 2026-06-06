@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 """Integer/64-bit shader I/O extensions: GL_ARB_gpu_shader_int64,
-GL_EXT_vertex_attrib_64bit, GL_EXT_gpu_shader4 -- exercised against real
-programs in a core context."""
+GL_AMD_gpu_shader_int64 (its NV-named alias), GL_EXT_vertex_attrib_64bit,
+GL_EXT_gpu_shader4 -- exercised against real programs in a core context."""
 
 import unittest
 import ctypes
@@ -10,6 +10,7 @@ import numpy as np
 from gltestcase import GLTestCase
 from OpenGL.GL import *  # noqa: F401,F403
 from OpenGL.GL.ARB.gpu_shader_int64 import *  # noqa: F401,F403
+from OpenGL.GL.AMD.gpu_shader_int64 import *  # noqa: F401,F403
 from OpenGL.GL.EXT.vertex_attrib_64bit import *  # noqa: F401,F403
 from OpenGL.GL.EXT.gpu_shader4 import *  # noqa: F401,F403
 
@@ -77,6 +78,54 @@ class TestGPUShaderInt64(GLTestCase):
             glProgramUniform4ui64ARB(prog, L('u4'), 1, 2, 3, 4)
             glProgramUniform4ui64vARB(prog, L('u4'), 1, np.array([1, 2, 3, 4], 'Q'))
         self.check_error('int64 uniforms')
+
+    def test_int64_uniforms_amd(self):
+        """GL_AMD_gpu_shader_int64: the NV-suffixed alias of the ARB int64
+        uniform family (same int64 GLSL, glUniform*64NV / glProgramUniform*64NV
+        entry points)."""
+        self.require_extension('GL_AMD_gpu_shader_int64')
+        with self.allow_missing():
+            prog = self.compile_program(VS.replace('150', '450'), I64_FS)
+            glUseProgram(prog)
+
+            def L(n):
+                return glGetUniformLocation(prog, n)
+
+            glUniform1i64NV(L('i1'), 1)
+            glUniform1i64vNV(L('i1'), 1, np.array([1], 'q'))
+            glUniform2i64NV(L('i2'), 1, 2)
+            glUniform2i64vNV(L('i2'), 1, np.array([1, 2], 'q'))
+            glUniform3i64NV(L('i3'), 1, 2, 3)
+            glUniform3i64vNV(L('i3'), 1, np.array([1, 2, 3], 'q'))
+            glUniform4i64NV(L('i4'), 1, 2, 3, 4)
+            glUniform4i64vNV(L('i4'), 1, np.array([1, 2, 3, 4], 'q'))
+            glUniform1ui64NV(L('u1'), 1)
+            glUniform1ui64vNV(L('u1'), 1, np.array([1], 'Q'))
+            glUniform2ui64NV(L('u2'), 1, 2)
+            glUniform2ui64vNV(L('u2'), 1, np.array([1, 2], 'Q'))
+            glUniform3ui64NV(L('u3'), 1, 2, 3)
+            glUniform3ui64vNV(L('u3'), 1, np.array([1, 2, 3], 'Q'))
+            glUniform4ui64NV(L('u4'), 1, 2, 3, 4)
+            glUniform4ui64vNV(L('u4'), 1, np.array([1, 2, 3, 4], 'Q'))
+            glGetUniformi64vNV(prog, L('i1'), np.zeros(1, 'q'))
+            glGetUniformui64vNV(prog, L('u1'), np.zeros(1, 'Q'))
+            glProgramUniform1i64NV(prog, L('i1'), 1)
+            glProgramUniform1i64vNV(prog, L('i1'), 1, np.array([1], 'q'))
+            glProgramUniform2i64NV(prog, L('i2'), 1, 2)
+            glProgramUniform2i64vNV(prog, L('i2'), 1, np.array([1, 2], 'q'))
+            glProgramUniform3i64NV(prog, L('i3'), 1, 2, 3)
+            glProgramUniform3i64vNV(prog, L('i3'), 1, np.array([1, 2, 3], 'q'))
+            glProgramUniform4i64NV(prog, L('i4'), 1, 2, 3, 4)
+            glProgramUniform4i64vNV(prog, L('i4'), 1, np.array([1, 2, 3, 4], 'q'))
+            glProgramUniform1ui64NV(prog, L('u1'), 1)
+            glProgramUniform1ui64vNV(prog, L('u1'), 1, np.array([1], 'Q'))
+            glProgramUniform2ui64NV(prog, L('u2'), 1, 2)
+            glProgramUniform2ui64vNV(prog, L('u2'), 1, np.array([1, 2], 'Q'))
+            glProgramUniform3ui64NV(prog, L('u3'), 1, 2, 3)
+            glProgramUniform3ui64vNV(prog, L('u3'), 1, np.array([1, 2, 3], 'Q'))
+            glProgramUniform4ui64NV(prog, L('u4'), 1, 2, 3, 4)
+            glProgramUniform4ui64vNV(prog, L('u4'), 1, np.array([1, 2, 3, 4], 'Q'))
+        self.check_error('AMD int64 uniforms')
 
     def test_attrib_64bit(self):
         self.require_extension('GL_EXT_vertex_attrib_64bit')
