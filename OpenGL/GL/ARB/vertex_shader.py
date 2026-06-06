@@ -130,14 +130,15 @@ from OpenGL.GL.ARB.shader_objects import glGetObjectParameterivARB
 
 
 @_lazy(glGetActiveAttribARB)
-def glGetActiveAttribARB(baseOperation, program, index):
-    """Retrieve the name, size and type of the uniform of the index in the program"""
+def glGetActiveAttribARB(baseOperation, program, index, bufSize=None):
+    """Retrieve the name, size and type of the attribute of the index in the program"""
     max_index = int(glGetObjectParameterivARB(program, GL_OBJECT_ACTIVE_ATTRIBUTES_ARB))
-    length = int(
-        glGetObjectParameterivARB(program, GL_OBJECT_ACTIVE_ATTRIBUTE_MAX_LENGTH_ARB)
-    )
-    if index < max_index and index >= 0 and length > 0:
-        length, name, size, type = baseOperation(program, index)
+    if bufSize is None:
+        bufSize = int(
+            glGetObjectParameterivARB(program, GL_OBJECT_ACTIVE_ATTRIBUTE_MAX_LENGTH_ARB)
+        )
+    if index < max_index and index >= 0 and bufSize > 0:
+        length, name, size, type = baseOperation(program, index, bufSize)
         if hasattr(name, 'tobytes'):
             name = name.tobytes().rstrip(b'\000')
         elif hasattr(name, 'tostring'):
