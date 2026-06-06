@@ -23,8 +23,12 @@ class Constant( object ):
             elif isinstance( value, (bytes,unicode) ) and cls is not StringConstant:
                 return StringConstant( name, as_8_bit(value) )
         if isinstance( value, integer_types ):
-            if value > maxsize: # TODO: I'm guessing this should really by sizeof GLint, not 
-                value = - (value & maxsize)
+            if value > maxsize:
+                # Two's-complement wrap into the platform's signed range so the
+                # value round-trips through ctypes.  e.g. GL_TIMEOUT_IGNORED
+                # 0xFFFFFFFFFFFFFFFF -> -1 (ctypes c_uint64(-1) == 0xFFFF...FFFF).
+                # The old '-(value & maxsize)' produced -0x7FFF...FFFF instead.
+                value = value - 2 * (maxsize + 1)
         base = super(Constant,cls).__new__( cls, value )
         base.name = name
         if _configflags.MODULE_ANNOTATIONS:
