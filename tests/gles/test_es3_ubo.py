@@ -1,28 +1,60 @@
 #! /usr/bin/env python3
 """GLES3.0: uniform blocks, unsigned/integer uniforms, non-square matrices,
 integer vertex attributes and indexed/64-bit state queries."""
+
 import unittest
 import numpy as np
 
 from egltestcase import ESTestCase
 
 from OpenGL.GLES3 import (
-    GL_UNIFORM_BUFFER, GL_STATIC_DRAW, GL_ARRAY_BUFFER, GL_INT,
-    GL_UNIFORM_BLOCK_DATA_SIZE, GL_UNIFORM_TYPE,
-    GL_MAX_ELEMENT_INDEX, GL_UNIFORM_BUFFER_BINDING,
+    GL_UNIFORM_BUFFER,
+    GL_STATIC_DRAW,
+    GL_ARRAY_BUFFER,
+    GL_INT,
+    GL_UNIFORM_BLOCK_DATA_SIZE,
+    GL_UNIFORM_TYPE,
+    GL_MAX_ELEMENT_INDEX,
+    GL_UNIFORM_BUFFER_BINDING,
     GL_CURRENT_VERTEX_ATTRIB,
-    glUseProgram, glGetUniformLocation,
-    glGetUniformBlockIndex, glGetActiveUniformBlockiv, glGetActiveUniformBlockName,
-    glUniformBlockBinding, glGetActiveUniformsiv,
-    glGenBuffers, glBindBuffer, glBufferData, glBindBufferBase, glBindBufferRange,
-    glUniform1ui, glUniform2ui, glUniform3ui, glUniform4ui,
-    glUniform1uiv, glUniform2uiv, glUniform3uiv, glUniform4uiv, glGetUniformuiv,
-    glUniformMatrix2x3fv, glUniformMatrix3x2fv, glUniformMatrix2x4fv,
-    glUniformMatrix4x2fv, glUniformMatrix3x4fv, glUniformMatrix4x3fv,
-    glVertexAttribI4i, glVertexAttribI4iv, glVertexAttribI4ui, glVertexAttribI4uiv,
-    glVertexAttribIPointer, glGetVertexAttribIiv, glGetVertexAttribIuiv,
+    glUseProgram,
+    glGetUniformLocation,
+    glGetUniformBlockIndex,
+    glGetActiveUniformBlockiv,
+    glGetActiveUniformBlockName,
+    glUniformBlockBinding,
+    glGetActiveUniformsiv,
+    glGenBuffers,
+    glBindBuffer,
+    glBufferData,
+    glBindBufferBase,
+    glBindBufferRange,
+    glUniform1ui,
+    glUniform2ui,
+    glUniform3ui,
+    glUniform4ui,
+    glUniform1uiv,
+    glUniform2uiv,
+    glUniform3uiv,
+    glUniform4uiv,
+    glGetUniformuiv,
+    glUniformMatrix2x3fv,
+    glUniformMatrix3x2fv,
+    glUniformMatrix2x4fv,
+    glUniformMatrix4x2fv,
+    glUniformMatrix3x4fv,
+    glUniformMatrix4x3fv,
+    glVertexAttribI4i,
+    glVertexAttribI4iv,
+    glVertexAttribI4ui,
+    glVertexAttribI4uiv,
+    glVertexAttribIPointer,
+    glGetVertexAttribIiv,
+    glGetVertexAttribIuiv,
     glGetFragDataLocation,
-    glGetIntegeri_v, glGetInteger64v, glGetInteger64i_v,
+    glGetIntegeri_v,
+    glGetInteger64v,
+    glGetInteger64i_v,
 )
 
 VERTEX = '''#version 300 es
@@ -62,7 +94,7 @@ class TestES3UBO(ESTestCase):
         glGetActiveUniformBlockiv(program, index, GL_UNIFORM_BLOCK_DATA_SIZE, size)
         self.assertGreaterEqual(int(size[0]), 16)
         length, chars = glGetActiveUniformBlockName(program, index, 64)
-        name = bytes(bytearray(int(c) for c in chars[:int(length)])).decode()
+        name = bytes(bytearray(int(c) for c in chars[: int(length)])).decode()
         self.assertIn('Block', name)
         glUniformBlockBinding(program, index, 0)
 
@@ -80,7 +112,8 @@ class TestES3UBO(ESTestCase):
     def test_uint_uniforms(self):
         program = self.compile_program(VERTEX, FRAGMENT)
         glUseProgram(program)
-        loc = lambda n: glGetUniformLocation(program, n)
+        def loc(n):
+            return glGetUniformLocation(program, n)
         glUniform1ui(loc('uu'), 1)
         glUniform2ui(loc('uu2'), 1, 2)
         glUniform3ui(loc('uu3'), 1, 2, 3)
@@ -97,7 +130,8 @@ class TestES3UBO(ESTestCase):
     def test_nonsquare_matrices(self):
         program = self.compile_program(VERTEX, FRAGMENT)
         glUseProgram(program)
-        loc = lambda n: glGetUniformLocation(program, n)
+        def loc(n):
+            return glGetUniformLocation(program, n)
         glUniformMatrix2x3fv(loc('m23'), 1, False, np.zeros((2, 3), 'f'))
         glUniformMatrix3x2fv(loc('m32'), 1, False, np.zeros((3, 2), 'f'))
         glUniformMatrix2x4fv(loc('m24'), 1, False, np.zeros((2, 4), 'f'))

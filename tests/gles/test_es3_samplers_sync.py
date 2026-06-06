@@ -1,20 +1,40 @@
 #! /usr/bin/env python3
 """GLES3.0: sampler objects and fence sync objects."""
+
 import unittest
 import numpy as np
 
 from egltestcase import ESTestCase
 
 from OpenGL.GLES3 import (
-    GL_TEXTURE_MIN_FILTER, GL_TEXTURE_MAG_FILTER, GL_TEXTURE_WRAP_S,
-    GL_NEAREST, GL_LINEAR, GL_CLAMP_TO_EDGE,
-    GL_SYNC_GPU_COMMANDS_COMPLETE, GL_SYNC_FLUSH_COMMANDS_BIT, GL_SYNC_STATUS,
-    GL_ALREADY_SIGNALED, GL_CONDITION_SATISFIED, GL_TIMEOUT_EXPIRED,
-    glGenSamplers, glBindSampler, glIsSampler, glDeleteSamplers,
-    glSamplerParameteri, glSamplerParameterf,
-    glSamplerParameteriv, glSamplerParameterfv,
-    glGetSamplerParameteriv, glGetSamplerParameterfv,
-    glFenceSync, glIsSync, glClientWaitSync, glWaitSync, glGetSynciv, glDeleteSync,
+    GL_TEXTURE_MIN_FILTER,
+    GL_TEXTURE_MAG_FILTER,
+    GL_TEXTURE_WRAP_S,
+    GL_NEAREST,
+    GL_LINEAR,
+    GL_CLAMP_TO_EDGE,
+    GL_SYNC_GPU_COMMANDS_COMPLETE,
+    GL_SYNC_FLUSH_COMMANDS_BIT,
+    GL_SYNC_STATUS,
+    GL_ALREADY_SIGNALED,
+    GL_CONDITION_SATISFIED,
+    GL_TIMEOUT_EXPIRED,
+    glGenSamplers,
+    glBindSampler,
+    glIsSampler,
+    glDeleteSamplers,
+    glSamplerParameteri,
+    glSamplerParameterf,
+    glSamplerParameteriv,
+    glSamplerParameterfv,
+    glGetSamplerParameteriv,
+    glGetSamplerParameterfv,
+    glFenceSync,
+    glIsSync,
+    glClientWaitSync,
+    glWaitSync,
+    glGetSynciv,
+    glDeleteSync,
     glFlush,
 )
 
@@ -49,10 +69,14 @@ class TestES3SamplersSync(ESTestCase):
         sync = glFenceSync(GL_SYNC_GPU_COMMANDS_COMPLETE, 0)
         self.assertTrue(glIsSync(sync))
         glFlush()
-        status = glClientWaitSync(sync, GL_SYNC_FLUSH_COMMANDS_BIT, 10 ** 9)
+        status = glClientWaitSync(sync, GL_SYNC_FLUSH_COMMANDS_BIT, 10**9)
         self.assertIn(
             int(status),
-            (int(GL_ALREADY_SIGNALED), int(GL_CONDITION_SATISFIED), int(GL_TIMEOUT_EXPIRED)),
+            (
+                int(GL_ALREADY_SIGNALED),
+                int(GL_CONDITION_SATISFIED),
+                int(GL_TIMEOUT_EXPIRED),
+            ),
         )
         glWaitSync(sync, 0, GL_TIMEOUT_IGNORED)
 

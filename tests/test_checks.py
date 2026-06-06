@@ -4,6 +4,7 @@ import os, sys, subprocess, logging
 import pytest
 from functools import wraps
 from OpenGL.GLUT import glutInit
+from checkutils import SKIP_EXIT_CODE
 
 WAYLAND = os.environ.get('XDG_SESSION_TYPE') == 'wayland'
 
@@ -83,6 +84,11 @@ def check_test(func):
             log.warning('ERROR reported by process: %s', err)
             raise
         output = stdout.decode('utf-8', errors='ignore')
+        if pipe.returncode == SKIP_EXIT_CODE:
+            pytest.skip(
+                'Check script signalled skip on %s: %s'
+                % (func.__name__, output.strip() or stderr.decode('utf-8', errors='ignore').strip())
+            )
         lines = [x.strip() for x in output.strip().splitlines()]
         if not lines:
             log.error(

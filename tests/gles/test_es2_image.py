@@ -6,6 +6,7 @@ quad with nearest filtering (so each screen quadrant shows one texel), then
 reads the whole framebuffer back with the auto-allocating glReadPixels and
 checks each quadrant against the source texels.
 """
+
 import unittest
 import numpy as np
 
@@ -121,7 +122,9 @@ class TestES2Image(ESTestCase):
         }
         for name, (actual, expected) in corners.items():
             self.assertEqual(
-                tuple(actual), expected, '%s quadrant: %r != %r' % (name, tuple(actual), expected)
+                tuple(actual),
+                expected,
+                '%s quadrant: %r != %r' % (name, tuple(actual), expected),
             )
 
     def test_undersized_upload_raises(self):

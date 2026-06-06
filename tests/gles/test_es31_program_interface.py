@@ -1,14 +1,21 @@
 #! /usr/bin/env python3
 """GLES3.1: program interface query (glGetProgramResource*) entry points."""
+
 import unittest
 import numpy as np
 
 from egltestcase import ESTestCase
 
 from OpenGL.GLES3 import (
-    GL_UNIFORM, GL_PROGRAM_INPUT, GL_ACTIVE_RESOURCES, GL_TYPE,
-    glGetProgramInterfaceiv, glGetProgramResourceIndex, glGetProgramResourceName,
-    glGetProgramResourceiv, glGetProgramResourceLocation,
+    GL_UNIFORM,
+    GL_PROGRAM_INPUT,
+    GL_ACTIVE_RESOURCES,
+    GL_TYPE,
+    glGetProgramInterfaceiv,
+    glGetProgramResourceIndex,
+    glGetProgramResourceName,
+    glGetProgramResourceiv,
+    glGetProgramResourceLocation,
 )
 
 VERTEX = '''#version 310 es
@@ -37,7 +44,7 @@ class TestES31ProgramInterface(ESTestCase):
         self.assertNotEqual(int(index), 0xFFFFFFFF)
 
         length, chars = glGetProgramResourceName(program, GL_UNIFORM, index, 64)
-        name = bytes(bytearray(int(c) for c in chars[:int(length)])).decode()
+        name = bytes(bytearray(int(c) for c in chars[: int(length)])).decode()
         self.assertEqual(name, 'color')
 
         props = np.array([GL_TYPE], 'i')

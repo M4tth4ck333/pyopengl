@@ -4,6 +4,7 @@
 Dispatches a compute shader that fills an SSBO, then maps the buffer back and
 checks the values.
 """
+
 import unittest
 import ctypes
 import numpy as np

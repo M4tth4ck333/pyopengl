@@ -7,6 +7,7 @@ verifying the result by pixel readback.  Exercises FBO completeness,
 render-to-texture, and using the rendered texture as input -- the ES way to
 "read back a texture" (glGetTexImage does not exist in ES).
 """
+
 import unittest
 import numpy as np
 
@@ -95,8 +96,15 @@ class TestES2FBO(ESTestCase):
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE)
         glTexImage2D(
-            GL_TEXTURE_2D, 0, GL_RGBA, fbo_size, fbo_size, 0,
-            GL_RGBA, GL_UNSIGNED_BYTE, None,
+            GL_TEXTURE_2D,
+            0,
+            GL_RGBA,
+            fbo_size,
+            fbo_size,
+            0,
+            GL_RGBA,
+            GL_UNSIGNED_BYTE,
+            None,
         )
 
         fbo = glGenFramebuffers(1)
@@ -148,8 +156,8 @@ class TestES2FBO(ESTestCase):
         self.check_error('sample fbo texture')
 
         cx, cy = self.width // 2, self.height // 2
-        self.assert_pixel(cx, cy, GREEN)   # centre: the triangle drawn into the FBO
-        self.assert_pixel(4, 4, ORANGE)    # corner: the FBO clear colour
+        self.assert_pixel(cx, cy, GREEN)  # centre: the triangle drawn into the FBO
+        self.assert_pixel(4, 4, ORANGE)  # corner: the FBO clear colour
 
 
 if __name__ == '__main__':

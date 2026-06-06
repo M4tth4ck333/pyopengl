@@ -606,7 +606,7 @@ class TestCore(basetestcase.BaseTest):
         assert depth in (1, (1,)), depth  # should have a single record
         glPopName()
         records = glRenderMode(GL_RENDER)
-        # reporter says sees two records, Linux sees none, Win32 sees 1 :(
+        # reporter says sees two records, Linux sees 0, Win32 sees 1 :(
         assert len(records) == 1, records
 
     def test_orinput_handling(self):

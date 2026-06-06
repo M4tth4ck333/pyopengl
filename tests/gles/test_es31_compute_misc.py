@@ -1,6 +1,7 @@
 #! /usr/bin/env python3
 """GLES3.1: image load/store, indirect dispatch/draw, framebuffer-without-
 attachments, multisample textures, texture-level and vertex-binding state."""
+
 import unittest
 import ctypes
 import numpy as np
@@ -8,28 +9,62 @@ import numpy as np
 from egltestcase import ESTestCase
 
 from OpenGL.GLES3 import (
-    GL_TEXTURE_2D, GL_TEXTURE_2D_MULTISAMPLE, GL_R32UI, GL_RGBA8, GL_WRITE_ONLY,
-    GL_FALSE, GL_TRUE, GL_FLOAT, GL_INT, GL_TRIANGLES, GL_UNSIGNED_INT,
-    GL_ARRAY_BUFFER, GL_ELEMENT_ARRAY_BUFFER, GL_STATIC_DRAW,
-    GL_DISPATCH_INDIRECT_BUFFER, GL_DRAW_INDIRECT_BUFFER,
+    GL_TEXTURE_2D,
+    GL_TEXTURE_2D_MULTISAMPLE,
+    GL_R32UI,
+    GL_RGBA8,
+    GL_WRITE_ONLY,
+    GL_FALSE,
+    GL_TRUE,
+    GL_FLOAT,
+    GL_INT,
+    GL_TRIANGLES,
+    GL_UNSIGNED_INT,
+    GL_ARRAY_BUFFER,
+    GL_ELEMENT_ARRAY_BUFFER,
+    GL_STATIC_DRAW,
+    GL_DISPATCH_INDIRECT_BUFFER,
+    GL_DRAW_INDIRECT_BUFFER,
     GL_SHADER_IMAGE_ACCESS_BARRIER_BIT,
-    GL_FRAMEBUFFER, GL_FRAMEBUFFER_DEFAULT_WIDTH, GL_FRAMEBUFFER_DEFAULT_HEIGHT,
-    GL_SAMPLE_POSITION, GL_TEXTURE_WIDTH, GL_SHADER_STORAGE_BUFFER_BINDING,
+    GL_FRAMEBUFFER,
+    GL_FRAMEBUFFER_DEFAULT_WIDTH,
+    GL_FRAMEBUFFER_DEFAULT_HEIGHT,
+    GL_SAMPLE_POSITION,
+    GL_TEXTURE_WIDTH,
+    GL_SHADER_STORAGE_BUFFER_BINDING,
     GL_COLOR_ATTACHMENT0,
     glFramebufferTexture2D,
-    glGenTextures, glBindTexture, glTexStorage2D, glTexStorage2DMultisample,
-    glBindImageTexture, glUseProgram,
-    glGenBuffers, glBindBuffer, glBufferData,
-    glDispatchComputeIndirect, glMemoryBarrierByRegion,
-    glGenVertexArrays, glBindVertexArray,
-    glEnableVertexAttribArray, glVertexAttribPointer,
-    glDrawArraysIndirect, glDrawElementsIndirect,
-    glGenFramebuffers, glBindFramebuffer,
-    glFramebufferParameteri, glGetFramebufferParameteriv,
-    glGetMultisamplefv, glSampleMaski,
-    glGetTexLevelParameteriv, glGetTexLevelParameterfv, glGetBooleani_v,
-    glBindVertexBuffer, glVertexAttribFormat, glVertexAttribIFormat,
-    glVertexAttribBinding, glVertexBindingDivisor,
+    glGenTextures,
+    glBindTexture,
+    glTexStorage2D,
+    glTexStorage2DMultisample,
+    glBindImageTexture,
+    glUseProgram,
+    glGenBuffers,
+    glBindBuffer,
+    glBufferData,
+    glDispatchComputeIndirect,
+    glMemoryBarrierByRegion,
+    glGenVertexArrays,
+    glBindVertexArray,
+    glEnableVertexAttribArray,
+    glVertexAttribPointer,
+    glDrawArraysIndirect,
+    glDrawElementsIndirect,
+    glGenFramebuffers,
+    glBindFramebuffer,
+    glFramebufferParameteri,
+    glGetFramebufferParameteriv,
+    glGetMultisamplefv,
+    glSampleMaski,
+    glGetTexLevelParameteriv,
+    glGetTexLevelParameterfv,
+    glGetBooleani_v,
+    glBindVertexBuffer,
+    glVertexAttribFormat,
+    glVertexAttribIFormat,
+    glVertexAttribBinding,
+    glVertexBindingDivisor,
 )
 
 COMPUTE = '''#version 310 es
@@ -75,23 +110,31 @@ class TestES31ComputeMisc(ESTestCase):
         glBindVertexArray(int(vao))
         vbo = glGenBuffers(1)
         glBindBuffer(GL_ARRAY_BUFFER, vbo)
-        glBufferData(GL_ARRAY_BUFFER, 24, np.array([(-1, -1), (1, -1), (0, 1)], 'f'),
-                     GL_STATIC_DRAW)
+        glBufferData(
+            GL_ARRAY_BUFFER,
+            24,
+            np.array([(-1, -1), (1, -1), (0, 1)], 'f'),
+            GL_STATIC_DRAW,
+        )
         glEnableVertexAttribArray(0)
         glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, None)
         ebo = glGenBuffers(1)
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo)
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, 12, np.array([0, 1, 2], 'u4'), GL_STATIC_DRAW)
+        glBufferData(
+            GL_ELEMENT_ARRAY_BUFFER, 12, np.array([0, 1, 2], 'u4'), GL_STATIC_DRAW
+        )
 
         indirect = glGenBuffers(1)
         glBindBuffer(GL_DRAW_INDIRECT_BUFFER, indirect)
         # arrays-indirect: count, instanceCount, first, baseInstance
-        glBufferData(GL_DRAW_INDIRECT_BUFFER, 16, np.array([3, 1, 0, 0], 'u4'),
-                     GL_STATIC_DRAW)
+        glBufferData(
+            GL_DRAW_INDIRECT_BUFFER, 16, np.array([3, 1, 0, 0], 'u4'), GL_STATIC_DRAW
+        )
         glDrawArraysIndirect(GL_TRIANGLES, ctypes.c_void_p(0))
         # elements-indirect: count, instanceCount, firstIndex, baseVertex, baseInstance
-        glBufferData(GL_DRAW_INDIRECT_BUFFER, 20, np.array([3, 1, 0, 0, 0], 'u4'),
-                     GL_STATIC_DRAW)
+        glBufferData(
+            GL_DRAW_INDIRECT_BUFFER, 20, np.array([3, 1, 0, 0, 0], 'u4'), GL_STATIC_DRAW
+        )
         glDrawElementsIndirect(GL_TRIANGLES, GL_UNSIGNED_INT, ctypes.c_void_p(0))
         self.check_error('indirect draws')
 
@@ -109,7 +152,9 @@ class TestES31ComputeMisc(ESTestCase):
     def test_multisample_and_levels(self):
         tex = glGenTextures(1)
         glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, tex)
-        glTexStorage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, 4, GL_RGBA8, 16, 16, GL_TRUE)
+        glTexStorage2DMultisample(
+            GL_TEXTURE_2D_MULTISAMPLE, 4, GL_RGBA8, 16, 16, GL_TRUE
+        )
         width = np.zeros(1, 'i')
         glGetTexLevelParameteriv(GL_TEXTURE_2D_MULTISAMPLE, 0, GL_TEXTURE_WIDTH, width)
         self.assertEqual(int(width[0]), 16)

@@ -6,6 +6,7 @@ module), scans the ``check_es*.py`` tests for the commands they call, and
 reports coverage.  Run directly to print a summary, or with ``--md`` to (re)write
 ES_COVERAGE.md.
 """
+
 import os
 import re
 import sys
@@ -104,8 +105,10 @@ def main():
     if ext:
         total, covered, per_ext = ext
         pct = (100.0 * len(covered) / len(total)) if total else 0.0
-        print('%-9s %6d %7d %5.1f%%  (supported extensions)'
-              % ('EXT', len(total), len(covered), pct))
+        print(
+            '%-9s %6d %7d %5.1f%%  (supported extensions)'
+            % ('EXT', len(total), len(covered), pct)
+        )
         if '--ext' in sys.argv:
             for name, funcs, c in per_ext:
                 print('  %-46s %2d/%2d' % (name, len(c), len(funcs)))

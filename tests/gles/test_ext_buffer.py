@@ -1,22 +1,40 @@
 #! /usr/bin/env python3
 """Buffer / object extensions: storage, mapping, VAO, program binary,
 sampler objects, framebuffer discard and external memory objects."""
+
 import unittest
 import ctypes
 import numpy as np
 
 from egltestcase import ESTestCase
 from OpenGL.GLES3 import (
-    GL_ARRAY_BUFFER, GL_STATIC_DRAW, GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
-    GL_TEXTURE_MIN_FILTER, GL_NEAREST, GL_LINEAR, GL_RGBA8, GL_TEXTURE_2D,
-    GL_MAP_WRITE_BIT, GL_MAP_FLUSH_EXPLICIT_BIT, GL_BUFFER_MAP_POINTER,
-    glGenBuffers, glBindBuffer, glBufferData,
-    glGenTextures, glBindTexture,
+    GL_ARRAY_BUFFER,
+    GL_STATIC_DRAW,
+    GL_FRAMEBUFFER,
+    GL_COLOR_ATTACHMENT0,
+    GL_TEXTURE_MIN_FILTER,
+    GL_NEAREST,
+    GL_LINEAR,
+    GL_RGBA8,
+    GL_TEXTURE_2D,
+    GL_TEXTURE_3D,
+    GL_TEXTURE_2D_MULTISAMPLE,
+    GL_TRUE,
+    GL_MAP_WRITE_BIT,
+    GL_MAP_FLUSH_EXPLICIT_BIT,
+    GL_BUFFER_MAP_POINTER,
+    glGenBuffers,
+    glBindBuffer,
+    glBufferData,
+    glGenTextures,
+    glBindTexture,
 )
 from OpenGL.GLES2.EXT.buffer_storage import GL_DYNAMIC_STORAGE_BIT_EXT
 from OpenGL.GLES2.OES.mapbuffer import GL_WRITE_ONLY_OES
 from OpenGL.GLES2.EXT.memory_object import (
-    GL_DEDICATED_MEMORY_OBJECT_EXT, GL_DEVICE_UUID_EXT, GL_DRIVER_UUID_EXT,
+    GL_DEDICATED_MEMORY_OBJECT_EXT,
+    GL_DEVICE_UUID_EXT,
+    GL_DRIVER_UUID_EXT,
 )
 from OpenGL.GLES2.EXT import buffer_storage as ext_bufstore
 from OpenGL.GLES2.OES import mapbuffer as oes_map
@@ -41,7 +59,9 @@ class TestBufferExtensions(ESTestCase):
     def _array_buffer(self, nbytes=64):
         buf = glGenBuffers(1)
         glBindBuffer(GL_ARRAY_BUFFER, buf)
-        glBufferData(GL_ARRAY_BUFFER, nbytes, np.zeros(nbytes // 4, 'f'), GL_STATIC_DRAW)
+        glBufferData(
+            GL_ARRAY_BUFFER, nbytes, np.zeros(nbytes // 4, 'f'), GL_STATIC_DRAW
+        )
         return buf
 
     def test_mesa_sampler_objects(self):
@@ -51,11 +71,21 @@ class TestBufferExtensions(ESTestCase):
             s = int(ids)
             mesa_samplers.glBindSampler(0, s)
             mesa_samplers.glSamplerParameteri(s, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
-            mesa_samplers.glSamplerParameterf(s, GL_TEXTURE_MIN_FILTER, float(GL_NEAREST))
-            mesa_samplers.glSamplerParameteriv(s, GL_TEXTURE_MIN_FILTER, [int(GL_NEAREST)])
-            mesa_samplers.glSamplerParameterfv(s, GL_TEXTURE_MIN_FILTER, [float(GL_NEAREST)])
-            mesa_samplers.glGetSamplerParameteriv(s, GL_TEXTURE_MIN_FILTER, np.zeros(1, 'i'))
-            mesa_samplers.glGetSamplerParameterfv(s, GL_TEXTURE_MIN_FILTER, np.zeros(1, 'f'))
+            mesa_samplers.glSamplerParameterf(
+                s, GL_TEXTURE_MIN_FILTER, float(GL_NEAREST)
+            )
+            mesa_samplers.glSamplerParameteriv(
+                s, GL_TEXTURE_MIN_FILTER, [int(GL_NEAREST)]
+            )
+            mesa_samplers.glSamplerParameterfv(
+                s, GL_TEXTURE_MIN_FILTER, [float(GL_NEAREST)]
+            )
+            mesa_samplers.glGetSamplerParameteriv(
+                s, GL_TEXTURE_MIN_FILTER, np.zeros(1, 'i')
+            )
+            mesa_samplers.glGetSamplerParameterfv(
+                s, GL_TEXTURE_MIN_FILTER, np.zeros(1, 'f')
+            )
             self.assertTrue(mesa_samplers.glIsSampler(s))
             mesa_samplers.glDeleteSamplers(1, [s])
             self.check_error('mesa sampler objects')
@@ -75,7 +105,12 @@ class TestBufferExtensions(ESTestCase):
     def test_oes_get_program_binary(self):
         self.require_extension('GL_OES_get_program_binary')
         with self.exercise():
-            from OpenGL.GLES3 import glGetProgramiv, glCreateProgram, GL_PROGRAM_BINARY_LENGTH
+            from OpenGL.GLES3 import (
+                glGetProgramiv,
+                glCreateProgram,
+                GL_PROGRAM_BINARY_LENGTH,
+            )
+
             program = self.compile_program(VERTEX, FRAGMENT)
             length = int(glGetProgramiv(program, GL_PROGRAM_BINARY_LENGTH))
             if length < 1:
@@ -94,7 +129,9 @@ class TestBufferExtensions(ESTestCase):
             self._array_buffer()
             oes_map.glMapBufferOES(GL_ARRAY_BUFFER, GL_WRITE_ONLY_OES)
             ptr = ctypes.c_void_p()
-            oes_map.glGetBufferPointervOES(GL_ARRAY_BUFFER, GL_BUFFER_MAP_POINTER, ctypes.byref(ptr))
+            oes_map.glGetBufferPointervOES(
+                GL_ARRAY_BUFFER, GL_BUFFER_MAP_POINTER, ctypes.byref(ptr)
+            )
             oes_map.glUnmapBufferOES(GL_ARRAY_BUFFER)
             self.check_error('oes mapbuffer')
 
@@ -103,7 +140,9 @@ class TestBufferExtensions(ESTestCase):
         with self.exercise():
             buf = glGenBuffers(1)
             glBindBuffer(GL_ARRAY_BUFFER, buf)
-            ext_bufstore.glBufferStorageEXT(GL_ARRAY_BUFFER, 64, None, GL_DYNAMIC_STORAGE_BIT_EXT)
+            ext_bufstore.glBufferStorageEXT(
+                GL_ARRAY_BUFFER, 64, None, GL_DYNAMIC_STORAGE_BIT_EXT
+            )
             self.check_error('ext buffer storage')
 
     def test_ext_map_buffer_range(self):
@@ -111,16 +150,20 @@ class TestBufferExtensions(ESTestCase):
         with self.exercise():
             self._array_buffer()
             ext_maprange.glMapBufferRangeEXT(
-                GL_ARRAY_BUFFER, 0, 32, GL_MAP_WRITE_BIT | GL_MAP_FLUSH_EXPLICIT_BIT)
+                GL_ARRAY_BUFFER, 0, 32, GL_MAP_WRITE_BIT | GL_MAP_FLUSH_EXPLICIT_BIT
+            )
             ext_maprange.glFlushMappedBufferRangeEXT(GL_ARRAY_BUFFER, 0, 32)
             from OpenGL.GLES3 import glUnmapBuffer
+
             glUnmapBuffer(GL_ARRAY_BUFFER)
             self.check_error('ext map buffer range')
 
     def test_ext_discard_framebuffer(self):
         self.require_extension('GL_EXT_discard_framebuffer')
         with self.exercise():
-            ext_discard.glDiscardFramebufferEXT(GL_FRAMEBUFFER, 1, [GL_COLOR_ATTACHMENT0])
+            ext_discard.glDiscardFramebufferEXT(
+                GL_FRAMEBUFFER, 1, [GL_COLOR_ATTACHMENT0]
+            )
             self.check_error('discard framebuffer')
 
     def test_ext_memory_object(self):
@@ -130,20 +173,55 @@ class TestBufferExtensions(ESTestCase):
             ext_memory.glCreateMemoryObjectsEXT(1, ids)
             mem = int(ids[0])
             self.assertIn(bool(ext_memory.glIsMemoryObjectEXT(mem)), (True, False))
-            ext_memory.glMemoryObjectParameterivEXT(mem, GL_DEDICATED_MEMORY_OBJECT_EXT, np.array([1], 'i'))
-            ext_memory.glGetMemoryObjectParameterivEXT(mem, GL_DEDICATED_MEMORY_OBJECT_EXT, np.zeros(1, 'i'))
+            ext_memory.glMemoryObjectParameterivEXT(
+                mem, GL_DEDICATED_MEMORY_OBJECT_EXT, np.array([1], 'i')
+            )
+            ext_memory.glGetMemoryObjectParameterivEXT(
+                mem, GL_DEDICATED_MEMORY_OBJECT_EXT, np.zeros(1, 'i')
+            )
             ext_memory.glGetUnsignedBytevEXT(GL_DEVICE_UUID_EXT, np.zeros(16, 'u1'))
-            ext_memory.glGetUnsignedBytei_vEXT(GL_DRIVER_UUID_EXT, 0, np.zeros(16, 'u1'))
+            ext_memory.glGetUnsignedBytei_vEXT(
+                GL_DRIVER_UUID_EXT, 0, np.zeros(16, 'u1')
+            )
             ext_memory.glDeleteMemoryObjectsEXT(1, [mem])
             self.check_error('memory object basics')
-            # texture/buffer-from-memory entry points require imported external
-            # memory (EXT_memory_object_fd); referenced for coverage:
-            _ = (ext_memory.glTexStorageMem1DEXT, ext_memory.glTexStorageMem2DEXT,
-                 ext_memory.glTexStorageMem2DMultisampleEXT, ext_memory.glTexStorageMem3DEXT,
-                 ext_memory.glTexStorageMem3DMultisampleEXT, ext_memory.glTextureStorageMem1DEXT,
-                 ext_memory.glTextureStorageMem2DEXT, ext_memory.glTextureStorageMem2DMultisampleEXT,
-                 ext_memory.glTextureStorageMem3DEXT, ext_memory.glTextureStorageMem3DMultisampleEXT,
-                 ext_memory.glBufferStorageMemEXT, ext_memory.glNamedBufferStorageMemEXT)
+        # storage-from-memory needs an imported external allocation we cannot make
+        # here, so these fail GL validation -- but they still drive the wrappers'
+        # argument marshalling, which is what we test; exercise() tolerates the error
+        with self.exercise():
+            m2 = np.zeros(1, 'u4')
+            ext_memory.glCreateMemoryObjectsEXT(1, m2)
+            mm = int(m2[0])
+            buf2 = int(glGenBuffers(1))
+            glBindBuffer(GL_ARRAY_BUFFER, buf2)
+            ext_memory.glBufferStorageMemEXT(GL_ARRAY_BUFFER, 64, mm, 0)
+            ext_memory.glNamedBufferStorageMemEXT(int(glGenBuffers(1)), 64, mm, 0)
+            glBindTexture(GL_TEXTURE_2D, int(glGenTextures(1)))
+            ext_memory.glTexStorageMem1DEXT(GL_TEXTURE_2D, 1, GL_RGBA8, 4, mm, 0)
+            ext_memory.glTexStorageMem2DEXT(GL_TEXTURE_2D, 1, GL_RGBA8, 4, 4, mm, 0)
+            ext_memory.glTexStorageMem2DMultisampleEXT(
+                GL_TEXTURE_2D_MULTISAMPLE, 4, GL_RGBA8, 4, 4, GL_TRUE, mm, 0
+            )
+            glBindTexture(GL_TEXTURE_3D, int(glGenTextures(1)))
+            ext_memory.glTexStorageMem3DEXT(GL_TEXTURE_3D, 1, GL_RGBA8, 4, 4, 4, mm, 0)
+            ext_memory.glTexStorageMem3DMultisampleEXT(
+                GL_TEXTURE_3D, 4, GL_RGBA8, 4, 4, 4, GL_TRUE, mm, 0
+            )
+            ext_memory.glTextureStorageMem1DEXT(
+                int(glGenTextures(1)), 1, GL_RGBA8, 4, mm, 0
+            )
+            ext_memory.glTextureStorageMem2DEXT(
+                int(glGenTextures(1)), 1, GL_RGBA8, 4, 4, mm, 0
+            )
+            ext_memory.glTextureStorageMem2DMultisampleEXT(
+                int(glGenTextures(1)), 4, GL_RGBA8, 4, 4, GL_TRUE, mm, 0
+            )
+            ext_memory.glTextureStorageMem3DEXT(
+                int(glGenTextures(1)), 1, GL_RGBA8, 4, 4, 4, mm, 0
+            )
+            ext_memory.glTextureStorageMem3DMultisampleEXT(
+                int(glGenTextures(1)), 4, GL_RGBA8, 4, 4, 4, GL_TRUE, mm, 0
+            )
 
 
 if __name__ == '__main__':

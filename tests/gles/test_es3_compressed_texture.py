@@ -7,6 +7,7 @@ confirm the result is uniform, grey and distinct from the clear colour -- i.e.
 the compressed data was decoded and sampled.  (The exact decoded value is
 decoder-defined, so it is not hard-coded.)
 """
+
 import unittest
 import numpy as np
 
@@ -99,13 +100,15 @@ class TestES3CompressedTexture(ESTestCase):
         image = self.read_image()
         qx, qy = self.width // 4, self.height // 4
         samples = [
-            tuple(int(c) for c in image[y, x])
+            tuple(int(c) for c in image[int(y), int(x)])
             for y in (qy, 3 * qy)
             for x in (qx, 3 * qx)
         ]
         first = samples[0]
         for s in samples[1:]:
-            self.assertEqual(s, first, 'compressed texture not uniform: %r' % (samples,))
+            self.assertEqual(
+                s, first, 'compressed texture not uniform: %r' % (samples,)
+            )
         r, g, b, a = first
         self.assertTrue(abs(r - g) <= 4 and abs(g - b) <= 4, 'not grey: %r' % (first,))
         self.assertNotEqual((r, g, b), (0, 0, 64), 'texture not applied (still clear)')

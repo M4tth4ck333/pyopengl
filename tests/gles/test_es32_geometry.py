@@ -5,6 +5,7 @@ Geometry shaders are core in ES3.2.  A single GL_POINTS vertex is expanded by
 the geometry shader into a centred triangle, verified by pixel readback.
 Skips where an ES3.2 context is unavailable.
 """
+
 import unittest
 import numpy as np
 

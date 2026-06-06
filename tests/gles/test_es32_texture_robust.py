@@ -1,6 +1,7 @@
 #! /usr/bin/env python3
 """GLES3.2: texture buffers, integer texture/sampler params, multisample-array
 storage and the KHR_robustness sized queries."""
+
 import unittest
 import ctypes
 import numpy as np
@@ -8,22 +9,43 @@ import numpy as np
 from egltestcase import ESTestCase
 
 from OpenGL.GLES3 import (
-    GL_ARRAY_BUFFER, GL_STATIC_DRAW, GL_R32UI, GL_RGBA8,
-    GL_TEXTURE_2D, GL_RGBA, GL_UNSIGNED_BYTE, GL_NO_ERROR,
-    glGenBuffers, glBindBuffer, glBufferData,
-    glGenTextures, glBindTexture,
-    glGenSamplers, glDeleteSamplers,
-    glUseProgram, glGetUniformLocation,
+    GL_ARRAY_BUFFER,
+    GL_STATIC_DRAW,
+    GL_R32UI,
+    GL_RGBA8,
+    GL_TEXTURE_2D,
+    GL_RGBA,
+    GL_UNSIGNED_BYTE,
+    GL_NO_ERROR,
+    glGenBuffers,
+    glBindBuffer,
+    glBufferData,
+    glGenTextures,
+    glBindTexture,
+    glGenSamplers,
+    glDeleteSamplers,
+    glUseProgram,
+    glGetUniformLocation,
 )
 from OpenGL.GLES2.ES.VERSION_3_2 import (
-    GL_TEXTURE_BUFFER, GL_TEXTURE_BORDER_COLOR, GL_TEXTURE_2D_MULTISAMPLE_ARRAY,
-    glTexBuffer, glTexBufferRange,
-    glTexParameterIiv, glTexParameterIuiv,
-    glGetTexParameterIiv, glGetTexParameterIuiv,
-    glSamplerParameterIiv, glSamplerParameterIuiv,
-    glGetSamplerParameterIiv, glGetSamplerParameterIuiv,
+    GL_TEXTURE_BUFFER,
+    GL_TEXTURE_BORDER_COLOR,
+    GL_TEXTURE_2D_MULTISAMPLE_ARRAY,
+    glTexBuffer,
+    glTexBufferRange,
+    glTexParameterIiv,
+    glTexParameterIuiv,
+    glGetTexParameterIiv,
+    glGetTexParameterIuiv,
+    glSamplerParameterIiv,
+    glSamplerParameterIuiv,
+    glGetSamplerParameterIiv,
+    glGetSamplerParameterIuiv,
     glTexStorage3DMultisample,
-    glReadnPixels, glGetnUniformfv, glGetnUniformiv, glGetnUniformuiv,
+    glReadnPixels,
+    glGetnUniformfv,
+    glGetnUniformiv,
+    glGetnUniformuiv,
     glGetGraphicsResetStatus,
 )
 
@@ -55,16 +77,24 @@ class TestES32TextureRobust(ESTestCase):
     def test_integer_params(self):
         tex = glGenTextures(1)
         glBindTexture(GL_TEXTURE_2D, tex)
-        glTexParameterIiv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, np.array([1, 2, 3, 4], 'i'))
-        glTexParameterIuiv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, np.array([1, 2, 3, 4], 'u4'))
+        glTexParameterIiv(
+            GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, np.array([1, 2, 3, 4], 'i')
+        )
+        glTexParameterIuiv(
+            GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, np.array([1, 2, 3, 4], 'u4')
+        )
         ibuf = np.zeros(4, 'i')
         glGetTexParameterIiv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, ibuf)
         ubuf = np.zeros(4, 'u4')
         glGetTexParameterIuiv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, ubuf)
 
         sampler = glGenSamplers(1)
-        glSamplerParameterIiv(sampler, GL_TEXTURE_BORDER_COLOR, np.array([1, 2, 3, 4], 'i'))
-        glSamplerParameterIuiv(sampler, GL_TEXTURE_BORDER_COLOR, np.array([1, 2, 3, 4], 'u4'))
+        glSamplerParameterIiv(
+            sampler, GL_TEXTURE_BORDER_COLOR, np.array([1, 2, 3, 4], 'i')
+        )
+        glSamplerParameterIuiv(
+            sampler, GL_TEXTURE_BORDER_COLOR, np.array([1, 2, 3, 4], 'u4')
+        )
         glGetSamplerParameterIiv(sampler, GL_TEXTURE_BORDER_COLOR, ibuf)
         glGetSamplerParameterIuiv(sampler, GL_TEXTURE_BORDER_COLOR, ubuf)
         self.check_error('integer params')
@@ -83,7 +113,9 @@ class TestES32TextureRobust(ESTestCase):
 
         size = self.width * self.height * 4
         buf = (ctypes.c_ubyte * size)()
-        glReadnPixels(0, 0, self.width, self.height, GL_RGBA, GL_UNSIGNED_BYTE, size, buf)
+        glReadnPixels(
+            0, 0, self.width, self.height, GL_RGBA, GL_UNSIGNED_BYTE, size, buf
+        )
 
         program = self.compile_program(VERTEX, FRAGMENT)
         glUseProgram(program)

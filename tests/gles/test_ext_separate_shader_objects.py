@@ -1,29 +1,61 @@
 #! /usr/bin/env python3
 """GL_EXT_separate_shader_objects: EXT separable programs and glProgramUniform*EXT."""
+
 import unittest
 import ctypes
 import numpy as np
 
 from egltestcase import ESTestCase
 
-from OpenGL.GLES2 import GL_VERTEX_SHADER, GL_FRAGMENT_SHADER
+from OpenGL.GLES2 import GL_VERTEX_SHADER, GL_FRAGMENT_SHADER, GL_TRUE
 from OpenGL.GLES3 import GL_FRAGMENT_SHADER_BIT
 from OpenGL.GLES2.EXT.separate_shader_objects import (
-    glCreateShaderProgramvEXT, glGenProgramPipelinesEXT, glBindProgramPipelineEXT,
-    glUseProgramStagesEXT, glActiveShaderProgramEXT, glValidateProgramPipelineEXT,
-    glGetProgramPipelineivEXT, glGetProgramPipelineInfoLogEXT, glIsProgramPipelineEXT,
-    glDeleteProgramPipelinesEXT, glProgramParameteriEXT,
-    glProgramUniform1fEXT, glProgramUniform2fEXT, glProgramUniform3fEXT, glProgramUniform4fEXT,
-    glProgramUniform1iEXT, glProgramUniform2iEXT, glProgramUniform3iEXT, glProgramUniform4iEXT,
-    glProgramUniform1uiEXT, glProgramUniform2uiEXT, glProgramUniform3uiEXT, glProgramUniform4uiEXT,
-    glProgramUniform1fvEXT, glProgramUniform2fvEXT, glProgramUniform3fvEXT, glProgramUniform4fvEXT,
-    glProgramUniform1ivEXT, glProgramUniform2ivEXT, glProgramUniform3ivEXT, glProgramUniform4ivEXT,
-    glProgramUniform1uivEXT, glProgramUniform2uivEXT, glProgramUniform3uivEXT, glProgramUniform4uivEXT,
-    glProgramUniformMatrix2fvEXT, glProgramUniformMatrix3fvEXT, glProgramUniformMatrix4fvEXT,
-    glProgramUniformMatrix2x3fvEXT, glProgramUniformMatrix3x2fvEXT,
-    glProgramUniformMatrix2x4fvEXT, glProgramUniformMatrix4x2fvEXT,
-    glProgramUniformMatrix3x4fvEXT, glProgramUniformMatrix4x3fvEXT,
+    glCreateShaderProgramvEXT,
+    glGenProgramPipelinesEXT,
+    glBindProgramPipelineEXT,
+    glUseProgramStagesEXT,
+    glActiveShaderProgramEXT,
+    glValidateProgramPipelineEXT,
+    glGetProgramPipelineivEXT,
+    glGetProgramPipelineInfoLogEXT,
+    glIsProgramPipelineEXT,
+    glDeleteProgramPipelinesEXT,
+    glProgramParameteriEXT,
+    glProgramUniform1fEXT,
+    glProgramUniform2fEXT,
+    glProgramUniform3fEXT,
+    glProgramUniform4fEXT,
+    glProgramUniform1iEXT,
+    glProgramUniform2iEXT,
+    glProgramUniform3iEXT,
+    glProgramUniform4iEXT,
+    glProgramUniform1uiEXT,
+    glProgramUniform2uiEXT,
+    glProgramUniform3uiEXT,
+    glProgramUniform4uiEXT,
+    glProgramUniform1fvEXT,
+    glProgramUniform2fvEXT,
+    glProgramUniform3fvEXT,
+    glProgramUniform4fvEXT,
+    glProgramUniform1ivEXT,
+    glProgramUniform2ivEXT,
+    glProgramUniform3ivEXT,
+    glProgramUniform4ivEXT,
+    glProgramUniform1uivEXT,
+    glProgramUniform2uivEXT,
+    glProgramUniform3uivEXT,
+    glProgramUniform4uivEXT,
+    glProgramUniformMatrix2fvEXT,
+    glProgramUniformMatrix3fvEXT,
+    glProgramUniformMatrix4fvEXT,
+    glProgramUniformMatrix2x3fvEXT,
+    glProgramUniformMatrix3x2fvEXT,
+    glProgramUniformMatrix2x4fvEXT,
+    glProgramUniformMatrix4x2fvEXT,
+    glProgramUniformMatrix3x4fvEXT,
+    glProgramUniformMatrix4x3fvEXT,
     GL_ACTIVE_PROGRAM_EXT,
+    GL_PROGRAM_SEPARABLE_EXT,
 )
 from OpenGL.GLES3 import glGetUniformLocation
 
@@ -69,14 +101,15 @@ class TestEXTSeparateShaderObjects(ESTestCase):
         glActiveShaderProgramEXT(pipeline, p)
         glValidateProgramPipelineEXT(pipeline)
         self.assertTrue(glIsProgramPipelineEXT(pipeline))
-        glProgramParameteriEXT  # referenced; retrievable-hint not needed here
+        glProgramParameteriEXT(p, GL_PROGRAM_SEPARABLE_EXT, GL_TRUE)
         info = np.zeros(1, 'i')
         glGetProgramPipelineivEXT(pipeline, GL_ACTIVE_PROGRAM_EXT, info)
         length = (ctypes.c_int * 1)()
         log = (ctypes.c_char * 256)()
         glGetProgramPipelineInfoLogEXT(pipeline, 256, length, log)
 
-        loc = lambda n: glGetUniformLocation(p, n)
+        def loc(n):
+            return glGetUniformLocation(p, n)
         glProgramUniform1fEXT(p, loc('uf'), 1.0)
         glProgramUniform2fEXT(p, loc('uv2'), 1.0, 2.0)
         glProgramUniform3fEXT(p, loc('uv3'), 1.0, 2.0, 3.0)

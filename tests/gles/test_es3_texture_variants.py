@@ -7,6 +7,7 @@ Verifies the input image entry points (which forward numpy data) actually round
 * a 2D texture patched with glTexSubImage2D then glGenerateMipmap, and
 * a 3D texture uploaded with glTexImage3D and sampled at a chosen layer.
 """
+
 import unittest
 import numpy as np
 
@@ -116,10 +117,19 @@ class TestES3TextureVariants(ESTestCase):
         self._nearest_clamp(GL_TEXTURE_2D, (GL_TEXTURE_WRAP_S, GL_TEXTURE_WRAP_T))
 
         base = np.tile(np.array(BLUE, np.uint8), (2, 2, 1))
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 2, 2, 0, GL_RGBA, GL_UNSIGNED_BYTE, base)
+        glTexImage2D(
+            GL_TEXTURE_2D, 0, GL_RGBA, 2, 2, 0, GL_RGBA, GL_UNSIGNED_BYTE, base
+        )
         # patch the bottom-left texel (origin) to red
         glTexSubImage2D(
-            GL_TEXTURE_2D, 0, 0, 0, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE,
+            GL_TEXTURE_2D,
+            0,
+            0,
+            0,
+            1,
+            1,
+            GL_RGBA,
+            GL_UNSIGNED_BYTE,
             np.array([[RED]], np.uint8),
         )
         glGenerateMipmap(GL_TEXTURE_2D)
@@ -131,8 +141,8 @@ class TestES3TextureVariants(ESTestCase):
         self.check_error('2d draw')
 
         qx, qy = self.width // 4, self.height // 4
-        self.assert_pixel(qx, qy, RED)            # bottom-left: patched texel
-        self.assert_pixel(3 * qx, 3 * qy, BLUE)   # top-right: untouched
+        self.assert_pixel(qx, qy, RED)  # bottom-left: patched texel
+        self.assert_pixel(3 * qx, 3 * qy, BLUE)  # top-right: untouched
 
     def test_3d_texture(self):
         program = self.compile_program(VERTEX_SHADER, FRAGMENT_3D)
@@ -167,13 +177,30 @@ class TestES3TextureVariants(ESTestCase):
         too_small = np.zeros((2, 2, 2, 4), np.uint8)  # 32 bytes; 4x4x4 needs 256
         with self.assertRaises(ValueError):
             glTexImage3D(
-                GL_TEXTURE_3D, 0, GL_RGBA, 4, 4, 4, 0,
-                GL_RGBA, GL_UNSIGNED_BYTE, too_small,
+                GL_TEXTURE_3D,
+                0,
+                GL_RGBA,
+                4,
+                4,
+                4,
+                0,
+                GL_RGBA,
+                GL_UNSIGNED_BYTE,
+                too_small,
             )
         with self.assertRaises(ValueError):
             glTexSubImage3D(
-                GL_TEXTURE_3D, 0, 0, 0, 0, 2, 2, 2,
-                GL_RGBA, GL_UNSIGNED_BYTE, np.zeros((1, 1, 1, 4), np.uint8),
+                GL_TEXTURE_3D,
+                0,
+                0,
+                0,
+                0,
+                2,
+                2,
+                2,
+                GL_RGBA,
+                GL_UNSIGNED_BYTE,
+                np.zeros((1, 1, 1, 4), np.uint8),
             )
 
 

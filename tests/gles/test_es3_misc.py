@@ -1,5 +1,6 @@
 #! /usr/bin/env python3
 """GLES3.0: compressed 3D textures, copy-to-3D, VAO management, program binary."""
+
 import unittest
 import ctypes
 import numpy as np
@@ -7,17 +8,39 @@ import numpy as np
 from egltestcase import ESTestCase
 
 from OpenGL.GLES3 import (
-    GL_TEXTURE_2D_ARRAY, GL_RGBA8, GL_COMPRESSED_RGB8_ETC2,
-    GL_VERTEX_SHADER, GL_FRAGMENT_SHADER, GL_LINK_STATUS, GL_TRUE,
-    GL_PROGRAM_BINARY_RETRIEVABLE_HINT, GL_PROGRAM_BINARY_LENGTH,
+    GL_TEXTURE_2D_ARRAY,
+    GL_RGBA8,
+    GL_COMPRESSED_RGB8_ETC2,
+    GL_VERTEX_SHADER,
+    GL_FRAGMENT_SHADER,
+    GL_LINK_STATUS,
+    GL_TRUE,
+    GL_PROGRAM_BINARY_RETRIEVABLE_HINT,
+    GL_PROGRAM_BINARY_LENGTH,
     GL_ACTIVE_UNIFORMS,
-    glGenTextures, glBindTexture, glTexStorage3D,
-    glCompressedTexImage3D, glCompressedTexSubImage3D, glCopyTexSubImage3D,
-    glGenVertexArrays, glBindVertexArray, glIsVertexArray, glDeleteVertexArrays,
-    glCreateShader, glShaderSource, glCompileShader,
-    glCreateProgram, glAttachShader, glLinkProgram, glGetProgramiv,
-    glProgramParameteri, glGetProgramBinary, glProgramBinary,
-    glGetUniformIndices, glGetActiveUniformsiv, GL_UNIFORM_TYPE,
+    glGenTextures,
+    glBindTexture,
+    glTexStorage3D,
+    glCompressedTexImage3D,
+    glCompressedTexSubImage3D,
+    glCopyTexSubImage3D,
+    glGenVertexArrays,
+    glBindVertexArray,
+    glIsVertexArray,
+    glDeleteVertexArrays,
+    glCreateShader,
+    glShaderSource,
+    glCompileShader,
+    glCreateProgram,
+    glAttachShader,
+    glLinkProgram,
+    glGetProgramiv,
+    glProgramParameteri,
+    glGetProgramBinary,
+    glProgramBinary,
+    glGetUniformIndices,
+    glGetActiveUniformsiv,
+    GL_UNIFORM_TYPE,
 )
 
 VERTEX = '''#version 300 es
@@ -44,7 +67,17 @@ class TestES3Misc(ESTestCase):
             GL_TEXTURE_2D_ARRAY, 0, GL_COMPRESSED_RGB8_ETC2, 4, 4, 1, 0, 8, ETC2_BLOCK
         )
         glCompressedTexSubImage3D(
-            GL_TEXTURE_2D_ARRAY, 0, 0, 0, 0, 4, 4, 1, GL_COMPRESSED_RGB8_ETC2, 8, ETC2_BLOCK
+            GL_TEXTURE_2D_ARRAY,
+            0,
+            0,
+            0,
+            0,
+            4,
+            4,
+            1,
+            GL_COMPRESSED_RGB8_ETC2,
+            8,
+            ETC2_BLOCK,
         )
         # copy the (cleared) framebuffer into an uncompressed array layer
         copy = glGenTextures(1)

@@ -1,25 +1,50 @@
 #! /usr/bin/env python3
 """GLES3.0: immutable storage, multisample renderbuffers, clear-buffer,
 blit/invalidate and layered-FBO entry points."""
+
 import unittest
 import numpy as np
 
 from egltestcase import ESTestCase
 
 from OpenGL.GLES3 import (
-    GL_TEXTURE_2D, GL_TEXTURE_3D, GL_TEXTURE_2D_ARRAY, GL_RENDERBUFFER,
-    GL_RGBA8, GL_RGBA8I, GL_RGBA8UI,
-    GL_NUM_SAMPLE_COUNTS, GL_COLOR, GL_DEPTH_STENCIL,
-    GL_FRAMEBUFFER, GL_READ_FRAMEBUFFER, GL_DRAW_FRAMEBUFFER,
-    GL_COLOR_ATTACHMENT0, GL_COLOR_BUFFER_BIT, GL_NEAREST,
-    glGenTextures, glBindTexture, glTexStorage2D, glTexStorage3D,
+    GL_TEXTURE_2D,
+    GL_TEXTURE_3D,
+    GL_TEXTURE_2D_ARRAY,
+    GL_RENDERBUFFER,
+    GL_RGBA8,
+    GL_RGBA8I,
+    GL_RGBA8UI,
+    GL_NUM_SAMPLE_COUNTS,
+    GL_COLOR,
+    GL_DEPTH_STENCIL,
+    GL_FRAMEBUFFER,
+    GL_READ_FRAMEBUFFER,
+    GL_DRAW_FRAMEBUFFER,
+    GL_COLOR_ATTACHMENT0,
+    GL_COLOR_BUFFER_BIT,
+    GL_NEAREST,
+    glGenTextures,
+    glBindTexture,
+    glTexStorage2D,
+    glTexStorage3D,
     glGetInternalformativ,
-    glGenRenderbuffers, glBindRenderbuffer, glRenderbufferStorageMultisample,
-    glGenFramebuffers, glBindFramebuffer, glFramebufferTexture2D,
+    glGenRenderbuffers,
+    glBindRenderbuffer,
+    glRenderbufferStorageMultisample,
+    glGenFramebuffers,
+    glBindFramebuffer,
+    glFramebufferTexture2D,
     glFramebufferTextureLayer,
-    glClearBufferfv, glClearBufferiv, glClearBufferuiv, glClearBufferfi,
-    glDrawBuffers, glReadBuffer, glBlitFramebuffer,
-    glInvalidateFramebuffer, glInvalidateSubFramebuffer,
+    glClearBufferfv,
+    glClearBufferiv,
+    glClearBufferuiv,
+    glClearBufferfi,
+    glDrawBuffers,
+    glReadBuffer,
+    glBlitFramebuffer,
+    glInvalidateFramebuffer,
+    glInvalidateSubFramebuffer,
 )
 
 
@@ -37,7 +62,9 @@ class TestES3FBOStorage(ESTestCase):
         glTexStorage3D(GL_TEXTURE_3D, 1, GL_RGBA8, 4, 4, 4)
 
         counts = np.zeros(1, 'i')
-        glGetInternalformativ(GL_RENDERBUFFER, GL_RGBA8, GL_NUM_SAMPLE_COUNTS, 1, counts)
+        glGetInternalformativ(
+            GL_RENDERBUFFER, GL_RGBA8, GL_NUM_SAMPLE_COUNTS, 1, counts
+        )
         self.assertGreaterEqual(int(counts[0]), 0)
         self.check_error('immutable storage')
 

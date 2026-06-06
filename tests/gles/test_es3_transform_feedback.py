@@ -1,5 +1,6 @@
 #! /usr/bin/env python3
 """GLES3.0: transform feedback capture of a vertex shader's output."""
+
 import unittest
 import ctypes
 import numpy as np
@@ -7,20 +8,47 @@ import numpy as np
 from egltestcase import ESTestCase
 
 from OpenGL.GLES3 import (
-    GL_VERTEX_SHADER, GL_FRAGMENT_SHADER, GL_LINK_STATUS, GL_TRUE,
-    GL_ARRAY_BUFFER, GL_STATIC_DRAW, GL_FLOAT, GL_POINTS,
-    GL_INTERLEAVED_ATTRIBS, GL_TRANSFORM_FEEDBACK, GL_TRANSFORM_FEEDBACK_BUFFER,
-    GL_RASTERIZER_DISCARD, GL_MAP_READ_BIT, GL_DYNAMIC_COPY,
-    glCreateProgram, glAttachShader, glLinkProgram, glGetProgramiv, glUseProgram,
-    glTransformFeedbackVaryings, glGetTransformFeedbackVarying,
-    glGenTransformFeedbacks, glBindTransformFeedback, glIsTransformFeedback,
+    GL_VERTEX_SHADER,
+    GL_FRAGMENT_SHADER,
+    GL_LINK_STATUS,
+    GL_TRUE,
+    GL_ARRAY_BUFFER,
+    GL_STATIC_DRAW,
+    GL_FLOAT,
+    GL_POINTS,
+    GL_INTERLEAVED_ATTRIBS,
+    GL_TRANSFORM_FEEDBACK,
+    GL_TRANSFORM_FEEDBACK_BUFFER,
+    GL_RASTERIZER_DISCARD,
+    GL_MAP_READ_BIT,
+    GL_DYNAMIC_COPY,
+    glCreateProgram,
+    glAttachShader,
+    glLinkProgram,
+    glGetProgramiv,
+    glUseProgram,
+    glTransformFeedbackVaryings,
+    glGetTransformFeedbackVarying,
+    glGenTransformFeedbacks,
+    glBindTransformFeedback,
+    glIsTransformFeedback,
     glDeleteTransformFeedbacks,
-    glBeginTransformFeedback, glEndTransformFeedback,
-    glPauseTransformFeedback, glResumeTransformFeedback,
-    glGenBuffers, glBindBuffer, glBufferData, glBindBufferBase,
-    glGetAttribLocation, glEnableVertexAttribArray, glVertexAttribPointer,
-    glEnable, glDisable, glDrawArrays,
-    glMapBufferRange, glUnmapBuffer,
+    glBeginTransformFeedback,
+    glEndTransformFeedback,
+    glPauseTransformFeedback,
+    glResumeTransformFeedback,
+    glGenBuffers,
+    glBindBuffer,
+    glBufferData,
+    glBindBufferBase,
+    glGetAttribLocation,
+    glEnableVertexAttribArray,
+    glVertexAttribPointer,
+    glEnable,
+    glDisable,
+    glDrawArrays,
+    glMapBufferRange,
+    glUnmapBuffer,
 )
 from OpenGL.GLES2 import shaders
 

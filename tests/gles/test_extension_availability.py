@@ -7,6 +7,7 @@ universal "is this available?" idiom) returned False even for entry points that
 called successfully.  Now ``bool(fn)`` is True iff the extension is supported and
 the entry point is exported.
 """
+
 import os
 import json
 import importlib
@@ -49,8 +50,9 @@ class TestExtensionAvailability(ESTestCase):
                 fn = getattr(module, fname, None)
                 if fn is None:
                     continue
-                self.assertTrue(bool(fn), '%s: bool() False but %s is supported'
-                                % (fname, ext))
+                self.assertTrue(
+                    bool(fn), '%s: bool() False but %s is supported' % (fname, ext)
+                )
                 checked += 1
         self.assertGreater(checked, 0, 'no supported extension functions checked')
 
@@ -58,12 +60,16 @@ class TestExtensionAvailability(ESTestCase):
         """An entry point of an unsupported extension reports bool(fn) == False."""
         available = self.extensions()
         candidates = [
-            ('GL_APPLE_framebuffer_multisample',
-             'OpenGL.GLES2.APPLE.framebuffer_multisample',
-             'glRenderbufferStorageMultisampleAPPLE'),
-            ('GL_IMG_multisampled_render_to_texture',
-             'OpenGL.GLES2.IMG.multisampled_render_to_texture',
-             'glRenderbufferStorageMultisampleIMG'),
+            (
+                'GL_APPLE_framebuffer_multisample',
+                'OpenGL.GLES2.APPLE.framebuffer_multisample',
+                'glRenderbufferStorageMultisampleAPPLE',
+            ),
+            (
+                'GL_IMG_multisampled_render_to_texture',
+                'OpenGL.GLES2.IMG.multisampled_render_to_texture',
+                'glRenderbufferStorageMultisampleIMG',
+            ),
         ]
         for ext, modname, fname in candidates:
             if ext in available:

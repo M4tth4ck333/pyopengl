@@ -1,22 +1,39 @@
 #! /usr/bin/env python3
 """GLES3.2: KHR_debug -- message callback/insert/control, groups and labels."""
+
 import unittest
 import ctypes
 
 from egltestcase import ESTestCase
 
 from OpenGL.GLES2 import (
-    GL_DONT_CARE, GL_TRUE, GL_NO_ERROR,
-    glEnable, glGenBuffers, glBindBuffer, GL_ARRAY_BUFFER,
+    GL_DONT_CARE,
+    GL_TRUE,
+    GL_NO_ERROR,
+    glEnable,
+    glGenBuffers,
+    glBindBuffer,
+    GL_ARRAY_BUFFER,
 )
 from OpenGL.GLES2.ES.VERSION_3_2 import (
     GLDEBUGPROC,
-    GL_DEBUG_OUTPUT, GL_DEBUG_OUTPUT_SYNCHRONOUS,
-    GL_DEBUG_SOURCE_APPLICATION, GL_DEBUG_TYPE_OTHER, GL_DEBUG_SEVERITY_NOTIFICATION,
-    GL_DEBUG_CALLBACK_FUNCTION, GL_BUFFER,
-    glDebugMessageControl, glDebugMessageInsert, glDebugMessageCallback,
-    glGetDebugMessageLog, glPushDebugGroup, glPopDebugGroup,
-    glObjectLabel, glGetObjectLabel, glObjectPtrLabel, glGetObjectPtrLabel,
+    GL_DEBUG_OUTPUT,
+    GL_DEBUG_OUTPUT_SYNCHRONOUS,
+    GL_DEBUG_SOURCE_APPLICATION,
+    GL_DEBUG_TYPE_OTHER,
+    GL_DEBUG_SEVERITY_NOTIFICATION,
+    GL_DEBUG_CALLBACK_FUNCTION,
+    GL_BUFFER,
+    glDebugMessageControl,
+    glDebugMessageInsert,
+    glDebugMessageCallback,
+    glGetDebugMessageLog,
+    glPushDebugGroup,
+    glPopDebugGroup,
+    glObjectLabel,
+    glGetObjectLabel,
+    glObjectPtrLabel,
+    glGetObjectPtrLabel,
     glGetPointerv,
 )
 
@@ -46,10 +63,16 @@ class TestES32Debug(ESTestCase):
         glEnable(GL_DEBUG_OUTPUT)
         glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS)
         glDebugMessageCallback(callback, None)
-        glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, None, GL_TRUE)
+        glDebugMessageControl(
+            GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, None, GL_TRUE
+        )
         glDebugMessageInsert(
-            GL_DEBUG_SOURCE_APPLICATION, GL_DEBUG_TYPE_OTHER, 1,
-            GL_DEBUG_SEVERITY_NOTIFICATION, -1, b'hello-debug',
+            GL_DEBUG_SOURCE_APPLICATION,
+            GL_DEBUG_TYPE_OTHER,
+            1,
+            GL_DEBUG_SEVERITY_NOTIFICATION,
+            -1,
+            b'hello-debug',
         )
         self.assertTrue(
             any(b'hello-debug' in m for m in captured),
@@ -73,11 +96,18 @@ class TestES32Debug(ESTestCase):
         buf = glGenBuffers(1)
         glBindBuffer(GL_ARRAY_BUFFER, buf)
         glObjectLabel(GL_BUFFER, buf, -1, b'my-buffer')
-        self.assertEqual(_decode_label(glGetObjectLabel(GL_BUFFER, buf, 64)), 'my-buffer')
+        self.assertEqual(
+            _decode_label(glGetObjectLabel(GL_BUFFER, buf, 64)), 'my-buffer'
+        )
         self.check_error('groups/labels')
 
     def test_ptr_label(self):
-        from OpenGL.GLES3 import glFenceSync, glDeleteSync, GL_SYNC_GPU_COMMANDS_COMPLETE
+        from OpenGL.GLES3 import (
+            glFenceSync,
+            glDeleteSync,
+            GL_SYNC_GPU_COMMANDS_COMPLETE,
+        )
+
         sync = glFenceSync(GL_SYNC_GPU_COMMANDS_COMPLETE, 0)
         glObjectPtrLabel(sync, -1, b'my-sync')
         glGetObjectPtrLabel(sync, 64)

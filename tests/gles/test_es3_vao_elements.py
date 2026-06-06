@@ -5,6 +5,7 @@ Exercises ES3-core features: a vertex array object, an element buffer drawn
 with 32-bit indices, a ``#version 300 es`` shader, and the indexed extension
 query.
 """
+
 import unittest
 import ctypes
 import numpy as np

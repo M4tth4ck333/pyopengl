@@ -1,5 +1,6 @@
 #! /usr/bin/env python3
 """GLES3.1: separable program objects, pipelines and the glProgramUniform* family."""
+
 import unittest
 import ctypes
 import numpy as np
@@ -7,25 +8,58 @@ import numpy as np
 from egltestcase import ESTestCase
 
 from OpenGL.GLES3 import (
-    GL_VERTEX_SHADER, GL_FRAGMENT_SHADER,
-    GL_VERTEX_SHADER_BIT, GL_FRAGMENT_SHADER_BIT,
-    GL_LINK_STATUS, GL_TRUE, GL_ACTIVE_PROGRAM,
-    glGetProgramiv, glGetUniformLocation,
+    GL_VERTEX_SHADER,
+    GL_FRAGMENT_SHADER,
+    GL_VERTEX_SHADER_BIT,
+    GL_FRAGMENT_SHADER_BIT,
+    GL_LINK_STATUS,
+    GL_TRUE,
+    GL_ACTIVE_PROGRAM,
+    glGetProgramiv,
+    glGetUniformLocation,
     glCreateShaderProgramv,
-    glGenProgramPipelines, glBindProgramPipeline, glUseProgramStages,
-    glActiveShaderProgram, glValidateProgramPipeline,
-    glGetProgramPipelineiv, glGetProgramPipelineInfoLog,
-    glIsProgramPipeline, glDeleteProgramPipelines,
-    glProgramUniform1f, glProgramUniform2f, glProgramUniform3f, glProgramUniform4f,
-    glProgramUniform1i, glProgramUniform2i, glProgramUniform3i, glProgramUniform4i,
-    glProgramUniform1ui, glProgramUniform2ui, glProgramUniform3ui, glProgramUniform4ui,
-    glProgramUniform1fv, glProgramUniform2fv, glProgramUniform3fv, glProgramUniform4fv,
-    glProgramUniform1iv, glProgramUniform2iv, glProgramUniform3iv, glProgramUniform4iv,
-    glProgramUniform1uiv, glProgramUniform2uiv, glProgramUniform3uiv, glProgramUniform4uiv,
-    glProgramUniformMatrix2fv, glProgramUniformMatrix3fv, glProgramUniformMatrix4fv,
-    glProgramUniformMatrix2x3fv, glProgramUniformMatrix3x2fv,
-    glProgramUniformMatrix2x4fv, glProgramUniformMatrix4x2fv,
-    glProgramUniformMatrix3x4fv, glProgramUniformMatrix4x3fv,
+    glGenProgramPipelines,
+    glBindProgramPipeline,
+    glUseProgramStages,
+    glActiveShaderProgram,
+    glValidateProgramPipeline,
+    glGetProgramPipelineiv,
+    glGetProgramPipelineInfoLog,
+    glIsProgramPipeline,
+    glDeleteProgramPipelines,
+    glProgramUniform1f,
+    glProgramUniform2f,
+    glProgramUniform3f,
+    glProgramUniform4f,
+    glProgramUniform1i,
+    glProgramUniform2i,
+    glProgramUniform3i,
+    glProgramUniform4i,
+    glProgramUniform1ui,
+    glProgramUniform2ui,
+    glProgramUniform3ui,
+    glProgramUniform4ui,
+    glProgramUniform1fv,
+    glProgramUniform2fv,
+    glProgramUniform3fv,
+    glProgramUniform4fv,
+    glProgramUniform1iv,
+    glProgramUniform2iv,
+    glProgramUniform3iv,
+    glProgramUniform4iv,
+    glProgramUniform1uiv,
+    glProgramUniform2uiv,
+    glProgramUniform3uiv,
+    glProgramUniform4uiv,
+    glProgramUniformMatrix2fv,
+    glProgramUniformMatrix3fv,
+    glProgramUniformMatrix4fv,
+    glProgramUniformMatrix2x3fv,
+    glProgramUniformMatrix3x2fv,
+    glProgramUniformMatrix2x4fv,
+    glProgramUniformMatrix4x2fv,
+    glProgramUniformMatrix3x4fv,
+    glProgramUniformMatrix4x3fv,
 )
 
 VERTEX = '''#version 310 es
@@ -83,7 +117,8 @@ class TestES31ProgramPipeline(ESTestCase):
         glDeleteProgramPipelines(1, [pipeline])
 
     def _set_uniforms(self, p):
-        loc = lambda n: glGetUniformLocation(p, n)
+        def loc(n):
+            return glGetUniformLocation(p, n)
         glProgramUniform1f(p, loc('uf'), 1.0)
         glProgramUniform2f(p, loc('uv2'), 1.0, 2.0)
         glProgramUniform3f(p, loc('uv3'), 1.0, 2.0, 3.0)

@@ -8,10 +8,13 @@ Basically just to check if the EGL code works...
 NOTE: this test program is both MIT (MESA) and GPLv2 licensed due to use of 
 sample code from python-Xlib.
 """
-import pygame.display
-import pygame
 import os
 import logging
+import checkutils
+
+checkutils.require('pygame')
+import pygame.display
+import pygame
 import numpy
 
 if not os.environ.get("PYOPENGL_PLATFORM"):

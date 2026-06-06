@@ -1,15 +1,28 @@
 #! /usr/bin/env python3
 """State / rasterization extensions: blend variants, indexed blend, viewport
 arrays, polygon-offset clamp, clip control, framebuffer attach, multiview."""
+
 import unittest
 import numpy as np
 
 from egltestcase import ESTestCase
 from OpenGL.GLES3 import (
-    GL_BLEND, GL_FUNC_ADD, GL_FUNC_SUBTRACT, GL_ONE, GL_ZERO, GL_TRUE,
-    GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, GL_RGBA8,
+    GL_BLEND,
+    GL_FUNC_ADD,
+    GL_FUNC_SUBTRACT,
+    GL_ONE,
+    GL_ZERO,
+    GL_TRUE,
+    GL_FRAMEBUFFER,
+    GL_COLOR_ATTACHMENT0,
+    GL_TEXTURE_2D,
+    GL_RGBA8,
     GL_COLOR_ATTACHMENT0 as ATTACH,
-    glGenTextures, glBindTexture, glTexStorage2D, glGenFramebuffers, glBindFramebuffer,
+    glGenTextures,
+    glBindTexture,
+    glTexStorage2D,
+    glGenFramebuffers,
+    glBindFramebuffer,
 )
 
 from OpenGL.GLES2.EXT import blend_func_extended as bfe
@@ -144,8 +157,12 @@ class TestStateExtensions(ESTestCase):
         self.require_extension('GL_MESA_framebuffer_flip_y')
         with self.exercise():
             self._color_fbo()
-            mesa_flip.glFramebufferParameteriMESA(GL_FRAMEBUFFER, GL_FRAMEBUFFER_FLIP_Y_MESA, GL_TRUE)
-            mesa_flip.glGetFramebufferParameterivMESA(GL_FRAMEBUFFER, GL_FRAMEBUFFER_FLIP_Y_MESA, np.zeros(1, 'i'))
+            mesa_flip.glFramebufferParameteriMESA(
+                GL_FRAMEBUFFER, GL_FRAMEBUFFER_FLIP_Y_MESA, GL_TRUE
+            )
+            mesa_flip.glGetFramebufferParameterivMESA(
+                GL_FRAMEBUFFER, GL_FRAMEBUFFER_FLIP_Y_MESA, np.zeros(1, 'i')
+            )
 
     def test_nv_texture_barrier(self):
         self.require_extension('GL_NV_texture_barrier')
@@ -156,12 +173,17 @@ class TestStateExtensions(ESTestCase):
         self.require_extension('GL_OVR_multiview')
         with self.exercise():
             from OpenGL.GLES3 import GL_TEXTURE_2D_ARRAY, glTexStorage3D
+
             tex = glGenTextures(1)
             glBindTexture(GL_TEXTURE_2D_ARRAY, tex)
             glTexStorage3D(GL_TEXTURE_2D_ARRAY, 1, GL_RGBA8, 16, 16, 2)
             glBindFramebuffer(GL_FRAMEBUFFER, glGenFramebuffers(1))
             ovr.glFramebufferTextureMultiviewOVR(GL_FRAMEBUFFER, ATTACH, tex, 0, 0, 2)
-            ovr.glNamedFramebufferTextureMultiviewOVR  # referenced (no DSA target here)
+            # the DSA form is unsupported in ES, so this fails GL validation; the
+            # call still drives the wrapper -- exercise() tolerates the error
+            ovr.glNamedFramebufferTextureMultiviewOVR(
+                int(glGenFramebuffers(1)), ATTACH, tex, 0, 0, 2
+            )
 
     def test_ext_shader_framebuffer_fetch(self):
         self.require_extension('GL_EXT_shader_framebuffer_fetch_non_coherent')
@@ -172,6 +194,7 @@ class TestStateExtensions(ESTestCase):
         self.require_extension('GL_NV_read_buffer')
         with self.exercise():
             from OpenGL.GLES3 import GL_BACK
+
             nv_read.glReadBufferNV(GL_BACK)
 
     def test_ext_draw_buffers_indexed(self):

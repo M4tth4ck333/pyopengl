@@ -1,5 +1,6 @@
 from __future__ import print_function
 import unittest
+import checkutils
 from basetestcase import BaseTest
 from OpenGL.GL import *
 from OpenGL.GL.shaders import compileProgram, compileShader
@@ -36,4 +37,5 @@ class TestGetActiveUniform(BaseTest):
 
 
 if __name__ == "__main__":
-    unittest.main()
+    checkutils.require('OpenGL_accelerate')
+    checkutils.run()

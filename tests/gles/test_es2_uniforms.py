@@ -1,24 +1,50 @@
 #! /usr/bin/env python3
 """GLES2: uniform setters (all glUniform* variants) and vertex-attrib state."""
+
 import unittest
 import numpy as np
 
 from egltestcase import ESTestCase
 
 from OpenGL.GLES2 import (
-    GL_CURRENT_VERTEX_ATTRIB, GL_VERTEX_ATTRIB_ARRAY_ENABLED,
+    GL_CURRENT_VERTEX_ATTRIB,
+    GL_VERTEX_ATTRIB_ARRAY_ENABLED,
     GL_VERTEX_ATTRIB_ARRAY_POINTER,
-    glUseProgram, glGetUniformLocation,
-    glUniform1f, glUniform2f, glUniform3f, glUniform4f,
-    glUniform1i, glUniform2i, glUniform3i, glUniform4i,
-    glUniform1fv, glUniform2fv, glUniform3fv, glUniform4fv,
-    glUniform1iv, glUniform2iv, glUniform3iv, glUniform4iv,
-    glUniformMatrix2fv, glUniformMatrix3fv, glUniformMatrix4fv,
-    glGetUniformfv, glGetUniformiv,
-    glVertexAttrib1f, glVertexAttrib2f, glVertexAttrib3f, glVertexAttrib4f,
-    glVertexAttrib1fv, glVertexAttrib2fv, glVertexAttrib3fv, glVertexAttrib4fv,
+    glUseProgram,
+    glGetUniformLocation,
+    glUniform1f,
+    glUniform2f,
+    glUniform3f,
+    glUniform4f,
+    glUniform1i,
+    glUniform2i,
+    glUniform3i,
+    glUniform4i,
+    glUniform1fv,
+    glUniform2fv,
+    glUniform3fv,
+    glUniform4fv,
+    glUniform1iv,
+    glUniform2iv,
+    glUniform3iv,
+    glUniform4iv,
+    glUniformMatrix2fv,
+    glUniformMatrix3fv,
+    glUniformMatrix4fv,
+    glGetUniformfv,
+    glGetUniformiv,
+    glVertexAttrib1f,
+    glVertexAttrib2f,
+    glVertexAttrib3f,
+    glVertexAttrib4f,
+    glVertexAttrib1fv,
+    glVertexAttrib2fv,
+    glVertexAttrib3fv,
+    glVertexAttrib4fv,
     glDisableVertexAttribArray,
-    glGetVertexAttribfv, glGetVertexAttribiv, glGetVertexAttribPointerv,
+    glGetVertexAttribfv,
+    glGetVertexAttribiv,
+    glGetVertexAttribPointerv,
 )
 
 VERTEX = '''#version 100
@@ -46,7 +72,8 @@ class TestES2Uniforms(ESTestCase):
     def test_uniform_setters(self):
         program = self.compile_program(VERTEX, FRAGMENT)
         glUseProgram(program)
-        loc = lambda n: glGetUniformLocation(program, n)
+        def loc(n):
+            return glGetUniformLocation(program, n)
 
         glUniform1f(loc('uf'), 1.0)
         glUniform2f(loc('uv2'), 1.0, 2.0)

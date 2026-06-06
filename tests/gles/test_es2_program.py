@@ -1,24 +1,48 @@
 #! /usr/bin/env python3
 """GLES2: shader/program lifecycle and introspection entry points."""
+
 import unittest
 
 from egltestcase import ESTestCase
 
 from OpenGL.GLES2 import (
-    GL_VERTEX_SHADER, GL_FRAGMENT_SHADER,
-    GL_COMPILE_STATUS, GL_LINK_STATUS, GL_VALIDATE_STATUS,
-    GL_ACTIVE_ATTRIBUTES, GL_ACTIVE_UNIFORMS,
-    GL_HIGH_FLOAT, GL_TRUE,
-    glCreateShader, glShaderSource, glCompileShader, glGetShaderiv,
-    glGetShaderInfoLog, glGetShaderSource, glIsShader,
-    glCreateProgram, glAttachShader, glDetachShader, glBindAttribLocation,
-    glLinkProgram, glGetProgramiv, glGetProgramInfoLog, glGetAttachedShaders,
-    glValidateProgram, glIsProgram, glUseProgram,
-    glGetActiveAttrib, glGetActiveUniform,
-    glGetAttribLocation, glGetUniformLocation,
-    glGetShaderPrecisionFormat, glReleaseShaderCompiler,
-    glDeleteShader, glDeleteProgram,
-    GL_NUM_SHADER_BINARY_FORMATS, GL_SHADER_BINARY_FORMATS,
+    GL_VERTEX_SHADER,
+    GL_FRAGMENT_SHADER,
+    GL_COMPILE_STATUS,
+    GL_LINK_STATUS,
+    GL_VALIDATE_STATUS,
+    GL_ACTIVE_ATTRIBUTES,
+    GL_ACTIVE_UNIFORMS,
+    GL_HIGH_FLOAT,
+    GL_TRUE,
+    glCreateShader,
+    glShaderSource,
+    glCompileShader,
+    glGetShaderiv,
+    glGetShaderInfoLog,
+    glGetShaderSource,
+    glIsShader,
+    glCreateProgram,
+    glAttachShader,
+    glDetachShader,
+    glBindAttribLocation,
+    glLinkProgram,
+    glGetProgramiv,
+    glGetProgramInfoLog,
+    glGetAttachedShaders,
+    glValidateProgram,
+    glIsProgram,
+    glUseProgram,
+    glGetActiveAttrib,
+    glGetActiveUniform,
+    glGetAttribLocation,
+    glGetUniformLocation,
+    glGetShaderPrecisionFormat,
+    glReleaseShaderCompiler,
+    glDeleteShader,
+    glDeleteProgram,
+    GL_NUM_SHADER_BINARY_FORMATS,
+    GL_SHADER_BINARY_FORMATS,
     glShaderBinary,
 )
 import ctypes
@@ -41,8 +65,11 @@ class TestES2Program(ESTestCase):
         shader = glCreateShader(stage)
         glShaderSource(shader, source)
         glCompileShader(shader)
-        self.assertEqual(glGetShaderiv(shader, GL_COMPILE_STATUS), GL_TRUE,
-                         glGetShaderInfoLog(shader))
+        self.assertEqual(
+            glGetShaderiv(shader, GL_COMPILE_STATUS),
+            GL_TRUE,
+            glGetShaderInfoLog(shader),
+        )
         self.assertTrue(glIsShader(shader))
         return shader
 
@@ -59,8 +86,11 @@ class TestES2Program(ESTestCase):
         glAttachShader(program, fs)
         glBindAttribLocation(program, 0, 'position')
         glLinkProgram(program)
-        self.assertEqual(glGetProgramiv(program, GL_LINK_STATUS), GL_TRUE,
-                         glGetProgramInfoLog(program))
+        self.assertEqual(
+            glGetProgramiv(program, GL_LINK_STATUS),
+            GL_TRUE,
+            glGetProgramInfoLog(program),
+        )
         self.assertTrue(glIsProgram(program))
 
         attached = glGetAttachedShaders(program)

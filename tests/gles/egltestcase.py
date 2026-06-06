@@ -15,6 +15,7 @@ chosen by ``TEST_WINDOWING`` (only ``glfw`` today), mirroring basetestcase.py.
         def test_it(self):
             ...
 """
+
 from __future__ import print_function
 import os
 import ctypes
@@ -102,7 +103,7 @@ class BaseESTestCase(unittest.TestCase):
             return value.decode('ascii', 'replace')
         return value
 
-    def getInteger(self, enum, count=1) -> typing.Union[int,list]:
+    def getInteger(self, enum, count=1) -> typing.Union[int, list]:
         """Return ``glGetIntegerv`` as an ``int`` (count==1) or list of ints."""
         buf = (ctypes.c_int * count)()
         _gl.glGetIntegerv(enum, buf)
@@ -135,6 +136,7 @@ class BaseESTestCase(unittest.TestCase):
         core, where the suffixed aliases are not separately exported).
         """
         from OpenGL import error
+
         try:
             yield
         except error.NullFunctionError as err:
@@ -149,6 +151,7 @@ class BaseESTestCase(unittest.TestCase):
         driver, not full GL-semantic validation of every extension corner).
         """
         from OpenGL import error
+
         try:
             yield
         except error.NullFunctionError as err:
@@ -169,9 +172,7 @@ class BaseESTestCase(unittest.TestCase):
     def read_pixel(self, x, y):
         """Return the ``(r, g, b, a)`` bytes of the framebuffer pixel at x, y."""
         buf = (ctypes.c_ubyte * 4)()
-        _gl.glReadPixels(
-            x, y, 1, 1, _gl.GL_RGBA, _gl.GL_UNSIGNED_BYTE, buf
-        )
+        _gl.glReadPixels(x, y, 1, 1, _gl.GL_RGBA, _gl.GL_UNSIGNED_BYTE, buf)
         self.check_error('glReadPixels')
         return tuple(buf)
 

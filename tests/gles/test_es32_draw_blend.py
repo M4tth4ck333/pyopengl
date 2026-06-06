@@ -1,6 +1,7 @@
 #! /usr/bin/env python3
 """GLES3.2: base-vertex draws, per-draw-buffer blend/colour-mask, indexed
 enable, sample shading, tessellation patch and image copy entry points."""
+
 import unittest
 import ctypes
 import numpy as np
@@ -8,26 +9,58 @@ import numpy as np
 from egltestcase import ESTestCase
 
 from OpenGL.GLES3 import (
-    GL_ARRAY_BUFFER, GL_ELEMENT_ARRAY_BUFFER, GL_STATIC_DRAW,
-    GL_FLOAT, GL_FALSE, GL_TRUE, GL_TRIANGLES, GL_UNSIGNED_INT,
-    GL_BLEND, GL_FUNC_ADD, GL_FUNC_SUBTRACT, GL_ONE, GL_ZERO,
-    GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA,
-    GL_TEXTURE_2D, GL_RGBA8, GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
-    glUseProgram, glGenVertexArrays, glBindVertexArray,
-    glGenBuffers, glBindBuffer, glBufferData,
-    glEnableVertexAttribArray, glVertexAttribPointer,
-    glGenTextures, glBindTexture, glTexStorage2D,
-    glGenFramebuffers, glBindFramebuffer,
+    GL_ARRAY_BUFFER,
+    GL_ELEMENT_ARRAY_BUFFER,
+    GL_STATIC_DRAW,
+    GL_FLOAT,
+    GL_FALSE,
+    GL_TRUE,
+    GL_TRIANGLES,
+    GL_UNSIGNED_INT,
+    GL_BLEND,
+    GL_FUNC_ADD,
+    GL_FUNC_SUBTRACT,
+    GL_ONE,
+    GL_ZERO,
+    GL_SRC_ALPHA,
+    GL_ONE_MINUS_SRC_ALPHA,
+    GL_TEXTURE_2D,
+    GL_RGBA8,
+    GL_FRAMEBUFFER,
+    GL_COLOR_ATTACHMENT0,
+    glUseProgram,
+    glGenVertexArrays,
+    glBindVertexArray,
+    glGenBuffers,
+    glBindBuffer,
+    glBufferData,
+    glEnableVertexAttribArray,
+    glVertexAttribPointer,
+    glGenTextures,
+    glBindTexture,
+    glTexStorage2D,
+    glGenFramebuffers,
+    glBindFramebuffer,
 )
 from OpenGL.GLES2.ES.VERSION_3_2 import (
     GL_PATCH_VERTICES,
-    glDrawElementsBaseVertex, glDrawElementsInstancedBaseVertex,
+    glDrawElementsBaseVertex,
+    glDrawElementsInstancedBaseVertex,
     glDrawRangeElementsBaseVertex,
-    glBlendBarrier, glBlendFunci, glBlendFuncSeparatei,
-    glBlendEquationi, glBlendEquationSeparatei,
-    glColorMaski, glEnablei, glDisablei, glIsEnabledi,
-    glMinSampleShading, glPatchParameteri, glPrimitiveBoundingBox,
-    glFramebufferTexture, glCopyImageSubData,
+    glBlendBarrier,
+    glBlendFunci,
+    glBlendFuncSeparatei,
+    glBlendEquationi,
+    glBlendEquationSeparatei,
+    glColorMaski,
+    glEnablei,
+    glDisablei,
+    glIsEnabledi,
+    glMinSampleShading,
+    glPatchParameteri,
+    glPrimitiveBoundingBox,
+    glFramebufferTexture,
+    glCopyImageSubData,
 )
 
 VERTEX = '''#version 320 es
@@ -52,14 +85,19 @@ class TestES32DrawBlend(ESTestCase):
         glBindVertexArray(int(self.vao))
         vbo = glGenBuffers(1)
         glBindBuffer(GL_ARRAY_BUFFER, vbo)
-        glBufferData(GL_ARRAY_BUFFER, 48,
-                     np.array([(-1, -1), (1, -1), (0, 1), (0, 0), (0, 0), (0, 0)], 'f'),
-                     GL_STATIC_DRAW)
+        glBufferData(
+            GL_ARRAY_BUFFER,
+            48,
+            np.array([(-1, -1), (1, -1), (0, 1), (0, 0), (0, 0), (0, 0)], 'f'),
+            GL_STATIC_DRAW,
+        )
         glEnableVertexAttribArray(0)
         glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, None)
         ebo = glGenBuffers(1)
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo)
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, 12, np.array([0, 1, 2], 'u4'), GL_STATIC_DRAW)
+        glBufferData(
+            GL_ELEMENT_ARRAY_BUFFER, 12, np.array([0, 1, 2], 'u4'), GL_STATIC_DRAW
+        )
 
     def test_base_vertex_draws(self):
         glDrawElementsBaseVertex(GL_TRIANGLES, 3, GL_UNSIGNED_INT, None, 0)
@@ -93,8 +131,9 @@ class TestES32DrawBlend(ESTestCase):
         dst = glGenTextures(1)
         glBindTexture(GL_TEXTURE_2D, dst)
         glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, 8, 8)
-        glCopyImageSubData(src, GL_TEXTURE_2D, 0, 0, 0, 0,
-                           dst, GL_TEXTURE_2D, 0, 0, 0, 0, 8, 8, 1)
+        glCopyImageSubData(
+            src, GL_TEXTURE_2D, 0, 0, 0, 0, dst, GL_TEXTURE_2D, 0, 0, 0, 0, 8, 8, 1
+        )
 
         fbo = glGenFramebuffers(1)
         glBindFramebuffer(GL_FRAMEBUFFER, fbo)

@@ -1,6 +1,7 @@
 #! /usr/bin/env python3
 """Query-object extensions: timer queries, boolean occlusion queries,
 conditional render, APPLE fence sync, parallel shader compile."""
+
 import unittest
 import ctypes
 import numpy as np
@@ -11,7 +12,11 @@ from OpenGL.GLES2.EXT import occlusion_query_boolean as occ
 from OpenGL.GLES2.NV import conditional_render as cond
 from OpenGL.GLES2.KHR import parallel_shader_compile as psc
 from OpenGL.GLES2.APPLE import sync as apple
-from OpenGL.GLES3 import GL_SYNC_GPU_COMMANDS_COMPLETE, GL_SYNC_STATUS, GL_MAX_SERVER_WAIT_TIMEOUT
+from OpenGL.GLES3 import (
+    GL_SYNC_GPU_COMMANDS_COMPLETE,
+    GL_SYNC_STATUS,
+    GL_MAX_SERVER_WAIT_TIMEOUT,
+)
 
 
 class TestQueryExtensions(ESTestCase):
@@ -37,7 +42,9 @@ class TestQueryExtensions(ESTestCase):
             res_u64 = (ctypes.c_uint64 * 1)()
             timer.glGetQueryObjectui64vEXT(q, timer.GL_QUERY_RESULT_EXT, res_u64)
             qiv = np.zeros(1, 'i')
-            timer.glGetQueryivEXT(timer.GL_TIMESTAMP_EXT, timer.GL_QUERY_COUNTER_BITS_EXT, qiv)
+            timer.glGetQueryivEXT(
+                timer.GL_TIMESTAMP_EXT, timer.GL_QUERY_COUNTER_BITS_EXT, qiv
+            )
             big = np.zeros(1, 'q')
             timer.glGetInteger64vEXT(timer.GL_TIMESTAMP_EXT, big)
             # an elapsed-time query around nothing
@@ -56,7 +63,9 @@ class TestQueryExtensions(ESTestCase):
             occ.glEndQueryEXT(occ.GL_ANY_SAMPLES_PASSED_EXT)
             occ.glIsQueryEXT(q)
             cur = np.zeros(1, 'i')
-            occ.glGetQueryivEXT(occ.GL_ANY_SAMPLES_PASSED_EXT, occ.GL_CURRENT_QUERY_EXT, cur)
+            occ.glGetQueryivEXT(
+                occ.GL_ANY_SAMPLES_PASSED_EXT, occ.GL_CURRENT_QUERY_EXT, cur
+            )
             res = np.zeros(1, 'u4')
             occ.glGetQueryObjectuivEXT(q, occ.GL_QUERY_RESULT_EXT, res)
             occ.glDeleteQueriesEXT(1, [q])
@@ -66,6 +75,7 @@ class TestQueryExtensions(ESTestCase):
         self.require_extension('GL_NV_conditional_render')
         with self.exercise():
             from OpenGL.GLES3 import glGenQueries, glDeleteQueries
+
             q = glGenQueries(1)
             cond.glBeginConditionalRenderNV(q, cond.GL_QUERY_WAIT_NV)
             cond.glEndConditionalRenderNV()

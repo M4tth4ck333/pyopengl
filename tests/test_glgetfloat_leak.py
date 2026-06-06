@@ -1,6 +1,7 @@
 #!/usr/bin/python
 from __future__ import print_function
 import os, math, unittest
+import checkutils
 from basetestcase import BaseTest
 from OpenGL.GL import *
 
@@ -30,4 +31,5 @@ class TestGLGetFloatLeak(BaseTest):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    checkutils.require('OpenGL_accelerate')
+    checkutils.run()

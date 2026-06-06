@@ -6,6 +6,7 @@
 window hints.  The context is created through EGL so ES contexts work on desktop
 drivers; an unavailable context skips the test rather than failing it.
 """
+
 from __future__ import print_function
 
 import glfw

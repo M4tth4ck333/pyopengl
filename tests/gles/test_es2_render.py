@@ -9,6 +9,7 @@ Verifies, against a real OpenGL ES 2.0 context:
 
 with the result confirmed by reading pixels back out of the framebuffer.
 """
+
 import unittest
 import numpy as np
 
