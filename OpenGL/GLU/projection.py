@@ -84,9 +84,12 @@ def gluUnProject4(
     objY = _simple.GLdouble( 0.0 )
     objZ = _simple.GLdouble( 0.0 )
     objW = _simple.GLdouble( 0.0 )
-    result = baseFunction( 
-        winX,winY,winZ,
+    # clipW and the near/far depth range are part of the C signature; without
+    # them the base function is short four arguments and always raises.
+    result = baseFunction(
+        winX,winY,winZ,clipW,
         model,proj,view,
+        near,far,
         ctypes.byref(objX),ctypes.byref(objY),ctypes.byref(objZ),ctypes.byref(objW)
     )
     if not result:
