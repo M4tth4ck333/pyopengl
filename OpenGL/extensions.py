@@ -112,6 +112,12 @@ class ExtensionQuerier(object):
 
     version = extensions = None
     version_string = extensions_string = None
+    # context the cached version/extensions were pulled for; the version and
+    # extension lists are properties of the *current* context, so a cache keyed
+    # only by "have we pulled yet" leaks one context's answer into another (e.g.
+    # a desktop-GL context's extensions being reused for a later ES context in
+    # the same process).  Track the context and re-pull whenever it changes.
+    _version_context = _extensions_context = None
 
     registered = []
 
@@ -146,14 +152,28 @@ class ExtensionQuerier(object):
             extensions = self.getExtensions()
             return extensions and specifier in extensions
 
+    def _currentContext(self):
+        try:
+            from OpenGL import platform
+        except ImportError:
+            return None
+        try:
+            return platform.PLATFORM.GetCurrentContext()
+        except Exception:
+            return None
+
     def getVersion(self):
-        if not self.version:
+        context = self._currentContext()
+        if self.version is None or context != self._version_context:
             self.version = self.pullVersion()
+            self._version_context = context
         return self.version
 
     def getExtensions(self):
-        if not self.extensions:
+        context = self._currentContext()
+        if self.extensions is None or context != self._extensions_context:
             self.extensions = self.pullExtensions()
+            self._extensions_context = context
         return self.extensions
 
 
