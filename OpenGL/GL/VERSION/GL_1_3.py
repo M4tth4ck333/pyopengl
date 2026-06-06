@@ -114,7 +114,9 @@ GL_SRC2_RGB = GL_SOURCE2_RGB  # alias
 
 from OpenGL import wrapper
 from OpenGL.raw.GL.VERSION import GL_1_3 as _simple
-from OpenGL.GL import images, glget
+from OpenGL.GL import images
+from OpenGL.GL.VERSION.GL_1_1 import glGetTexLevelParameteriv as _glGetTexLevelParameteriv
+from OpenGL.raw.GL._types import GL_UNSIGNED_BYTE as _GL_UNSIGNED_BYTE
 
 for dimensions in (1, 2, 3):
     for function in ('glCompressedTexImage%sD', 'glCompressedTexSubImage%sD'):
@@ -134,10 +136,10 @@ if _simple.glGetCompressedTexImage:
     def glGetCompressedTexImage(target, level, img=None):
         """Retrieve a compressed texture image"""
         if img is None:
-            length = glget.glGetTexLevelParameteriv(
+            length = _glGetTexLevelParameteriv(
                 target,
-                0,
-                _simple.GL_TEXTURE_COMPRESSED_IMAGE_SIZE_ARB,
+                level,
+                _simple.GL_TEXTURE_COMPRESSED_IMAGE_SIZE,
             )
-            img = arrays.ArrayDataType.zeros((length,), constants.GL_UNSIGNED_BYTE)
-        return _simple.glGetCompressedTexImage(target, 0, img)
+            img = arrays.ArrayDatatype.zeros((length,), _GL_UNSIGNED_BYTE)
+        return _simple.glGetCompressedTexImage(target, level, img)
