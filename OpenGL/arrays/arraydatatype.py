@@ -130,11 +130,25 @@ if ADT is None:
             """Get our handler registry"""
             return cls.handler
 
-        @classmethod 
+        @classmethod
         @logs.logOnFailDec(_log)
         def from_param(cls, value, typeConstant=None):
             """Given a value in a known data-pointer type, convert to a ctypes pointer"""
             return cls.getHandler(value).from_param(value, cls.typeConstant)
+
+        @classmethod
+        def get_ffi_argtype(cls):
+            """Declare our ffi calling-convention type (PyPy ctypes hook)
+
+            PyPy's pure-Python ``_ctypes`` asks each argument type for its libffi
+            type when it builds a foreign function from a raw address (the path
+            PyOpenGL uses for extension/proc-address entry points).  The bare
+            ``ArrayDatatype`` marker is not itself a ctypes type, but its
+            ``from_param`` always yields a plain data pointer, so a ``void *``
+            ffi type is the correct declaration.  CPython's C ``ctypes`` never
+            calls this hook, so it is inert there.
+            """
+            return getattr(ctypes.c_void_p, 'get_ffi_argtype')()
 
         @classmethod 
         @logs.logOnFailDec(_log)

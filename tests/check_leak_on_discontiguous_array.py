@@ -1,6 +1,15 @@
 """Test for github issue #47"""
 
 import sys
+import checkutils
+
+# This check is a reference-count leak detector: it asserts that the refcount of
+# the array argument is unchanged across many GL calls.  PyPy does not use
+# reference counting and exposes no ``sys.getrefcount``, so the check is both
+# impossible to run and semantically meaningless there -- skip it.
+if not hasattr(sys, 'getrefcount'):
+    checkutils.skip('reference-count leak check requires CPython (no sys.getrefcount)')
+
 import OpenGL
 
 OpenGL.SIZE_1_ARRAY_UNPACK = False  # just for convenience

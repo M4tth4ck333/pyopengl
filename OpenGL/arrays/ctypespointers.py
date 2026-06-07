@@ -48,6 +48,16 @@ class CtypesPointerHandler( formathandler.FormatHandler ):
     def asArray( self, value, typeCode=None ):
         """Convert given value to an array value of given typeCode"""
         return value
+    def arrayByteCount( self, value, typeCode = None ):
+        """Number of bytes in the pointed-to data
+
+        A bare pointer carries no length, so we report the size of a single
+        pointed-to element.  On CPython ``ctypes.byref`` yields a lightweight
+        ``CArgObject`` (handled by CtypesParameterHandler); on PyPy it yields a
+        real ``_Pointer`` which lands here instead, so this keeps the
+        size-checked output converters working consistently across the two.
+        """
+        return ctypes.sizeof( value._type_ )
     def unitSize( self, value, typeCode=None ):
         """Determine unit size of an array (if possible)"""
         return 1
