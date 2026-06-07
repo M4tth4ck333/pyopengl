@@ -71,28 +71,28 @@ def glInitFragmentProgramNV():
     return extensions.hasGLExtension( _EXTENSION_NAME )
 
 glProgramNamedParameter4fNV=wrapper.wrapper(glProgramNamedParameter4fNV).setInputArraySize(
-    'name', 1
+    'name', None
 )
 glProgramNamedParameter4fvNV=wrapper.wrapper(glProgramNamedParameter4fvNV).setInputArraySize(
-    'name', 1
+    'name', None
 ).setInputArraySize(
     'v', 4
 )
 glProgramNamedParameter4dNV=wrapper.wrapper(glProgramNamedParameter4dNV).setInputArraySize(
-    'name', 1
+    'name', None
 )
 glProgramNamedParameter4dvNV=wrapper.wrapper(glProgramNamedParameter4dvNV).setInputArraySize(
-    'name', 1
+    'name', None
 ).setInputArraySize(
     'v', 4
 )
 glGetProgramNamedParameterfvNV=wrapper.wrapper(glGetProgramNamedParameterfvNV).setInputArraySize(
-    'name', 1
+    'name', None
 ).setOutput(
     'params',size=(4,),orPassIn=True
 )
 glGetProgramNamedParameterdvNV=wrapper.wrapper(glGetProgramNamedParameterdvNV).setInputArraySize(
-    'name', 1
+    'name', None
 ).setOutput(
     'params',size=(4,),orPassIn=True
 )
