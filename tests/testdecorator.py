@@ -32,20 +32,38 @@ if not _AVAILABLE:
     )
 
 _REQUESTED = os.environ.get('TEST_WINDOWING', '').strip().lower() or None
-if _REQUESTED and _REQUESTED not in ('pygame', 'glfw'):
+if _REQUESTED and _REQUESTED not in ('pygame', 'glfw', 'egl'):
     raise ValueError(
-        'TEST_WINDOWING=%r is not recognised (expected "pygame" or "glfw")'
+        'TEST_WINDOWING=%r is not recognised (expected "pygame", "glfw" or "egl")'
         % (_REQUESTED,)
     )
-if _REQUESTED and _REQUESTED not in _AVAILABLE:
-    raise ImportError(
-        'TEST_WINDOWING=%s requested but %s is not installed'
-        % (_REQUESTED, _REQUESTED)
-    )
+if _REQUESTED == 'egl':
+    # The headless egl backend forces PYOPENGL_PLATFORM=egl process-wide, which is
+    # incompatible with the windowed context this decorator creates.  Provide a
+    # gltest that skips rather than crashing.
+    import functools
+    import unittest
 
-_BACKEND = _REQUESTED or _AVAILABLE[0]
+    def gltest(maybe_function=None, *args, **named):
+        def wrap(function):
+            @functools.wraps(function)
+            def skipped(*a, **k):
+                raise unittest.SkipTest(
+                    'windowed gltest is unavailable under the headless egl backend')
+            return skipped
+        return wrap(maybe_function) if callable(maybe_function) else wrap
+    _BACKEND = 'egl'
+else:
+    if _REQUESTED and _REQUESTED not in _AVAILABLE:
+        raise ImportError(
+            'TEST_WINDOWING=%s requested but %s is not installed'
+            % (_REQUESTED, _REQUESTED)
+        )
+    _BACKEND = _REQUESTED or _AVAILABLE[0]
 
-if _BACKEND == 'pygame':
+if _BACKEND == 'egl':
+    pass
+elif _BACKEND == 'pygame':
     from testdecorator_pygame import *  # noqa: F401,F403
     from testdecorator_pygame import gltest  # noqa: F401
 elif _BACKEND == 'glfw':

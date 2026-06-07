@@ -49,12 +49,18 @@ glMultiDrawElements = alternate(
 
 class BaseTest( unittest.TestCase ):
     width = height = 300
+    #: show the window by default (set TEST_VISIBLE=0 for headless/CI runs).
+    visible = os.environ.get('TEST_VISIBLE', '1').lower() not in ('0', 'false', 'no')
     def setUp( self ):
         """Set up the operation"""
-        
+
+        flags = pygame.OPENGL | pygame.DOUBLEBUF
+        if not self.visible:
+            # pygame.HIDDEN was added in pygame 2.0; fall back gracefully.
+            flags |= getattr( pygame, 'HIDDEN', 0 )
         self.screen = pygame.display.set_mode(
             (self.width,self.height),
-            pygame.OPENGL | pygame.DOUBLEBUF,
+            flags,
         )
         
         pygame.display.set_caption('Testing system')
@@ -80,5 +86,6 @@ class BaseTest( unittest.TestCase ):
     def tearDown( self ):
         self.flip()
         # this is just so that you can see the effect
-        # before we run the next test...
-        time.sleep( .05 )
+        # before we run the next test (skip the dwell when hidden)...
+        if self.visible:
+            time.sleep( .05 )

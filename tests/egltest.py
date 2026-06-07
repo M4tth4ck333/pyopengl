@@ -19,6 +19,9 @@ from OpenGL.EGL import *
 
 log = logging.getLogger(__name__)
 
+#: show the window by default (set TEST_VISIBLE=0 for headless/CI runs).
+TEST_VISIBLE = os.environ.get('TEST_VISIBLE', '1').lower() not in ('0', 'false', 'no')
+
 DESIRED_ATTRIBUTES = [
     EGL_BLUE_SIZE,
     8,
@@ -86,7 +89,8 @@ def egltest(size=(300, 300), name=None, api='es2', attributes=DESIRED_ATTRIBUTES
 
             # now need to get a raw X window handle...
             pygame.init()
-            pygame.display.set_mode(size)
+            flags = getattr(pygame, 'HIDDEN', 0) if not TEST_VISIBLE else 0
+            pygame.display.set_mode(size, flags)
             window = pygame.display.get_wm_info()['window']
             surface = eglCreateWindowSurface(display, configs[0], window, None)
 

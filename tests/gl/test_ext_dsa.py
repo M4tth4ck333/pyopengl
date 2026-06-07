@@ -583,10 +583,18 @@ class TestEXTDSA(GLTestCase):
             glNamedFramebufferTextureLayerEXT(
                 int(glGenFramebuffers(1)), GL_COLOR_ATTACHMENT0, arr, 0, 0
             )
+            # A cube-map face attach needs an actual cube-map texture; attaching
+            # a 2D texture here is invalid and NVIDIA (correctly) rejects it.
+            cube = int(glGenTextures(1))
+            for face in range(6):
+                glTextureImage2DEXT(
+                    cube, GL_TEXTURE_CUBE_MAP_POSITIVE_X + face, 0, GL_RGBA8,
+                    4, 4, 0, GL_RGBA, GL_UNSIGNED_BYTE, None,
+                )
             glNamedFramebufferTextureFaceEXT(
                 int(glGenFramebuffers(1)),
                 GL_COLOR_ATTACHMENT0,
-                tex,
+                cube,
                 0,
                 GL_TEXTURE_CUBE_MAP_POSITIVE_X,
             )

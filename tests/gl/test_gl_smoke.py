@@ -45,8 +45,10 @@ class TestCoreSmoke(GLTestCase):
     gl_version = (3, 3)
 
     def test_introspection(self):
-        version = self.getString(GL_VERSION)
-        self.assertIn('Core', version)
+        self.assertTrue(self.getString(GL_VERSION))
+        # Profile is verified portably via GL_CONTEXT_PROFILE_MASK; only Mesa
+        # spells the profile out in GL_VERSION (NVIDIA reports "3.3.0 NVIDIA").
+        self.assert_profile('core')
         for enum in (GL_VENDOR, GL_RENDERER, GL_SHADING_LANGUAGE_VERSION):
             self.assertTrue(self.getString(enum))
         self.check_error('introspection')
@@ -75,7 +77,9 @@ class TestCompatSmoke(GLTestCase):
     gl_version = (2, 1)
 
     def test_immediate_mode(self):
-        self.assertIn('Compat', self.getString(GL_VERSION))
+        # Verify the profile portably (NVIDIA's GL_VERSION omits "Compatibility");
+        # the immediate-mode draw below is the real proof the profile works.
+        self.assert_profile('compatibility')
         glClear(GL_COLOR_BUFFER_BIT)
         glColor3f(0.0, 1.0, 0.0)
         glBegin(GL_TRIANGLES)

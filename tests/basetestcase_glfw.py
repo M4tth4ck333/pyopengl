@@ -50,10 +50,13 @@ glMultiDrawElements = alternate(
 
 class BaseTest( unittest.TestCase ):
     width = height = 300
+    #: show the window by default (set TEST_VISIBLE=0 for headless/CI runs).
+    visible = os.environ.get('TEST_VISIBLE', '1').lower() not in ('0', 'false', 'no')
     def setUp( self ):
         """Set up the operation"""
 
         glfw.default_window_hints()
+        glfw.window_hint( glfw.VISIBLE, glfw.TRUE if self.visible else glfw.FALSE )
         self.screen = glfw.create_window(
             self.width, self.height, 'Testing system', None, None,
         )
@@ -82,7 +85,8 @@ class BaseTest( unittest.TestCase ):
     def tearDown( self ):
         self.flip()
         # this is just so that you can see the effect
-        # before we run the next test...
-        time.sleep( .05 )
+        # before we run the next test (skip the dwell when hidden)...
+        if self.visible:
+            time.sleep( .05 )
         glfw.destroy_window( self.screen )
         self.screen = None

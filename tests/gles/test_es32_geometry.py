@@ -65,10 +65,14 @@ class TestES32Geometry(ESTestCase):
         vao = glGenVertexArrays(1)
         glBindVertexArray(int(vao))
         vbo = VBO(np.array([(0.0, 0.0)], dtype='f'))
+        # The geometry shader emits fixed positions and never reads the vertex
+        # output, so a conformant linker (NVIDIA) may drop the unused 'position'
+        # attribute and return -1; only feed the attribute when it survives.
         position = glGetAttribLocation(program, 'position')
         with vbo:
-            glEnableVertexAttribArray(position)
-            glVertexAttribPointer(position, 2, GL_FLOAT, GL_FALSE, 2 * 4, vbo)
+            if position != -1:
+                glEnableVertexAttribArray(position)
+                glVertexAttribPointer(position, 2, GL_FLOAT, GL_FALSE, 2 * 4, vbo)
             glDrawArrays(GL_POINTS, 0, 1)
         self.check_error('draw')
 

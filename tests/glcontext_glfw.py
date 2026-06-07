@@ -1,10 +1,12 @@
 #! /usr/bin/env python3
-"""glfw windowing backend for the desktop-OpenGL test base class.
+"""glfw windowing backend for :class:`glcontext.ContextTestCase`.
 
-Implements the ``_create_context`` / ``_swap`` / ``_destroy_context`` hooks of
-:class:`glutestcase.BaseGLUTestCase` using glfw window hints, honouring the
-``profile`` (core / compatibility) and ``gl_version`` requirements.  A context
-that the driver will not provide skips the test rather than failing it.
+Implements the ``_create_context`` / ``_swap`` / ``_destroy_context`` hooks for
+both desktop OpenGL and OpenGL-ES.  Which one is created is driven entirely by
+the test's ``api`` attribute (``'gl'`` / ``'gles'``); ``profile`` /
+``gl_version`` / the colour-depth-stencil-accum sizes / ``visible`` are honoured
+the same way for both.  A context the driver will not provide skips the test
+rather than failing it.
 """
 
 from __future__ import print_function
@@ -18,6 +20,8 @@ _PROFILES = {
     'any': glfw.OPENGL_ANY_PROFILE,
 }
 
+_ES_APIS = ('gles', 'es')
+
 _glfw_ready = False
 
 
@@ -30,22 +34,33 @@ def _ensure_glfw():
 
 
 class GLFWBackend(object):
-    """Mixin supplying glfw-backed desktop-GL context creation."""
+    """Mixin supplying glfw-backed context creation (desktop GL or ES)."""
+
+    #: identifies the backend to API bases that need to know (see glcontext_es).
+    backend_name = 'glfw'
 
     _window = None
 
     def _create_context(self):
         _ensure_glfw()
         glfw.default_window_hints()
-        glfw.window_hint(glfw.CLIENT_API, glfw.OPENGL_API)
 
+        api = getattr(self, 'api', 'gl').lower()
         major, minor = self.gl_version
+
+        if api in _ES_APIS:
+            glfw.window_hint(glfw.CLIENT_API, glfw.OPENGL_ES_API)
+            # Force EGL so ES contexts work on desktop drivers.
+            glfw.window_hint(glfw.CONTEXT_CREATION_API, glfw.EGL_CONTEXT_API)
+        else:
+            glfw.window_hint(glfw.CLIENT_API, glfw.OPENGL_API)
+
         glfw.window_hint(glfw.CONTEXT_VERSION_MAJOR, major)
         glfw.window_hint(glfw.CONTEXT_VERSION_MINOR, minor)
 
-        profile = self.profile.lower()
-        # GL profiles are only defined for >= 3.2
-        if (major, minor) >= (3, 2):
+        # GL profiles only exist for desktop GL >= 3.2.
+        profile = getattr(self, 'profile', 'compatibility').lower()
+        if api not in _ES_APIS and (major, minor) >= (3, 2):
             glfw.window_hint(glfw.OPENGL_PROFILE, _PROFILES[profile])
             if profile == 'core':
                 glfw.window_hint(glfw.OPENGL_FORWARD_COMPAT, glfw.TRUE)
@@ -56,13 +71,16 @@ class GLFWBackend(object):
         glfw.window_hint(glfw.ALPHA_BITS, self.alpha_size)
         glfw.window_hint(glfw.DEPTH_BITS, self.depth_size)
         glfw.window_hint(glfw.STENCIL_BITS, self.stencil_size)
+
+        accum = getattr(self, 'accum_size', 0)
         for hint in (
             'ACCUM_RED_BITS',
             'ACCUM_GREEN_BITS',
             'ACCUM_BLUE_BITS',
             'ACCUM_ALPHA_BITS',
         ):
-            glfw.window_hint(getattr(glfw, hint), self.accum_size)
+            glfw.window_hint(getattr(glfw, hint), accum)
+
         glfw.window_hint(glfw.VISIBLE, glfw.TRUE if self.visible else glfw.FALSE)
 
         try:
@@ -77,19 +95,20 @@ class GLFWBackend(object):
 
         if not window:
             self.skipTest(
-                'Could not create a %s %d.%d context via glfw: %s'
-                % (self.profile, self.gl_version[0], self.gl_version[1], reason)
+                'Could not create a %s %s %d.%d context via glfw: %s'
+                % (api, profile, major, minor, reason)
             )
 
         self._window = window
         glfw.make_context_current(window)
 
     def _window_title(self):
-        return '%s (GL %d.%d %s)' % (
+        return '%s (%s %d.%d %s)' % (
             type(self).__name__,
+            getattr(self, 'api', 'gl'),
             self.gl_version[0],
             self.gl_version[1],
-            self.profile,
+            getattr(self, 'profile', ''),
         )
 
     def _swap(self):

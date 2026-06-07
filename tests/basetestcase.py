@@ -33,19 +33,35 @@ if not _AVAILABLE:
     )
 
 _REQUESTED = os.environ.get('TEST_WINDOWING', '').strip().lower() or None
-if _REQUESTED and _REQUESTED not in ('pygame', 'glfw'):
+if _REQUESTED and _REQUESTED not in ('pygame', 'glfw', 'egl'):
     raise ValueError(
-        'TEST_WINDOWING=%r is not recognised (expected "pygame" or "glfw")'
+        'TEST_WINDOWING=%r is not recognised (expected "pygame", "glfw" or "egl")'
         % (_REQUESTED,)
     )
-if _REQUESTED and _REQUESTED not in _AVAILABLE:
-    raise ImportError(
-        'TEST_WINDOWING=%s requested but %s is not installed' % (_REQUESTED, _REQUESTED)
-    )
+if _REQUESTED == 'egl':
+    # The headless egl backend forces PYOPENGL_PLATFORM=egl process-wide; these
+    # legacy root-level tests create their own *windowed* GL context, which is
+    # incompatible with that platform (a window + egl-device platform segfaults).
+    # There is no windowed equivalent here, so provide a BaseTest that skips.
+    import unittest
 
-_BACKEND = _REQUESTED or _AVAILABLE[0]
+    class BaseTest(unittest.TestCase):
+        """Placeholder under TEST_WINDOWING=egl: windowed tests can't run headless."""
 
-if _BACKEND == 'pygame':
+        def setUp(self):
+            self.skipTest('windowed BaseTest is unavailable under the headless egl backend')
+
+    _BACKEND = 'egl'
+else:
+    if _REQUESTED and _REQUESTED not in _AVAILABLE:
+        raise ImportError(
+            'TEST_WINDOWING=%s requested but %s is not installed' % (_REQUESTED, _REQUESTED)
+        )
+    _BACKEND = _REQUESTED or _AVAILABLE[0]
+
+if _BACKEND == 'egl':
+    pass
+elif _BACKEND == 'pygame':
     from basetestcase_pygame import *  # noqa: F401,F403
     from basetestcase_pygame import BaseTest  # noqa: F401
 elif _BACKEND == 'glfw':

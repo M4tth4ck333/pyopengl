@@ -1,0 +1,4396 @@
+{
+ "api": "gles2",
+ "extensions": {
+  "GL_AMD_framebuffer_multisample_advanced": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_COLOR_FRAMEBUFFER_SAMPLES_AMD",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/AMD/AMD_framebuffer_multisample_advanced.txt",
+     "value": "0x91B3"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_COLOR_FRAMEBUFFER_STORAGE_SAMPLES_AMD",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/AMD/AMD_framebuffer_multisample_advanced.txt",
+     "value": "0x91B4"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_DEPTH_STENCIL_FRAMEBUFFER_SAMPLES_AMD",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/AMD/AMD_framebuffer_multisample_advanced.txt",
+     "value": "0x91B5"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_NUM_SUPPORTED_MULTISAMPLE_MODES_AMD",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/AMD/AMD_framebuffer_multisample_advanced.txt",
+     "value": "0x91B6"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_SUPPORTED_MULTISAMPLE_MODES_AMD",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/AMD/AMD_framebuffer_multisample_advanced.txt",
+     "value": "0x91B7"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_AMD_performance_monitor": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_PERFMON_RESULT_AVAILABLE_AMD",
+     "size": "(1,)#TODO Review http://www.opengl.org/registry/specs//AMD/performance_monitor.txt",
+     "value": "0x8BC4"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_PERFMON_RESULT_SIZE_AMD",
+     "size": "(1,)#TODO Review http://www.opengl.org/registry/specs//AMD/performance_monitor.txt",
+     "value": "0x8BC5"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_PERFMON_RESULT_AMD",
+     "size": "(1,)#TODO Review http://www.opengl.org/registry/specs//AMD/performance_monitor.txt",
+     "value": "0x8BC6"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_ANGLE_pack_reverse_row_order": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_PACK_REVERSE_ROW_ORDER_ANGLE",
+     "size": "(1,)",
+     "value": "0x93A4"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_ARM_shader_core_properties": {
+   "glgets": [
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_SHADER_CORE_COUNT_ARM",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/ARM/ARM_shader_core_properties.txt",
+     "value": "0x96F0"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_SHADER_CORE_ACTIVE_COUNT_ARM",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/ARM/ARM_shader_core_properties.txt",
+     "value": "0x96F1"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_SHADER_CORE_PRESENT_MASK_ARM",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/ARM/ARM_shader_core_properties.txt",
+     "value": "0x96F2"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_SHADER_CORE_MAX_WARP_COUNT_ARM",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/ARM/ARM_shader_core_properties.txt",
+     "value": "0x96F3"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_SHADER_CORE_PIXEL_RATE_ARM",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/ARM/ARM_shader_core_properties.txt",
+     "value": "0x96F4"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_SHADER_CORE_TEXEL_RATE_ARM",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/ARM/ARM_shader_core_properties.txt",
+     "value": "0x96F5"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_SHADER_CORE_FMA_RATE_ARM",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/ARM/ARM_shader_core_properties.txt",
+     "value": "0x96F6"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_ARM_shader_framebuffer_fetch": {
+   "glgets": [
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_FRAGMENT_SHADER_FRAMEBUFFER_FETCH_MRT_ARM",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/ARM/ARM_shader_framebuffer_fetch.txt",
+     "value": "0x8F66"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_EXT_YUV_target": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TEXTURE_BINDING_EXTERNAL_OES",
+     "size": "(1,)",
+     "value": "0x8D67"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_EXT_blend_minmax": {
+   "glgets": [
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_BLEND_EQUATION_EXT",
+     "size": "(1,)",
+     "value": "0x8009"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_EXT_disjoint_timer_query": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_GPU_DISJOINT_EXT",
+     "size": "(1,)",
+     "value": "0x8FBB"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_EXT_draw_buffers": {
+   "glgets": [
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_COLOR_ATTACHMENTS_EXT",
+     "size": "(1,)",
+     "value": "0x8CDF"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_EXT_draw_buffers_indexed": {
+   "glgets": [
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_BLEND_EQUATION_RGB",
+     "size": "(1,)",
+     "value": "0x8009"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_BLEND_EQUATION_ALPHA",
+     "size": "(1,)",
+     "value": "0x883D"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_BLEND_SRC_RGB",
+     "size": "(1,)",
+     "value": "0x80C9"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_BLEND_SRC_ALPHA",
+     "size": "(1,)",
+     "value": "0x80CB"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_BLEND_DST_RGB",
+     "size": "(1,)",
+     "value": "0x80C8"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_BLEND_DST_ALPHA",
+     "size": "(1,)",
+     "value": "0x80CA"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_COLOR_WRITEMASK",
+     "size": "(4,)",
+     "value": "0x0C23"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_EXT_fragment_shading_rate": {
+   "glgets": [
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_SHADING_RATE_EXT",
+     "size": "(1,)",
+     "value": "0x96D0"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MIN_FRAGMENT_SHADING_RATE_ATTACHMENT_TEXEL_WIDTH_EXT",
+     "size": "(1,)",
+     "value": "0x96D7"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_FRAGMENT_SHADING_RATE_ATTACHMENT_TEXEL_WIDTH_EXT",
+     "size": "(1,)",
+     "value": "0x96D8"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MIN_FRAGMENT_SHADING_RATE_ATTACHMENT_TEXEL_HEIGHT_EXT",
+     "size": "(1,)",
+     "value": "0x96D9"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_FRAGMENT_SHADING_RATE_ATTACHMENT_TEXEL_HEIGHT_EXT",
+     "size": "(1,)",
+     "value": "0x96DA"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_FRAGMENT_SHADING_RATE_ATTACHMENT_TEXEL_ASPECT_RATIO_EXT",
+     "size": "(1,)",
+     "value": "0x96DB"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_FRAGMENT_SHADING_RATE_ATTACHMENT_LAYERS_EXT",
+     "size": "(1,)",
+     "value": "0x96DC"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_FRAGMENT_SHADING_RATE_WITH_SHADER_DEPTH_STENCIL_WRITES_SUPPORTED_EXT",
+     "size": "(1,)",
+     "value": "0x96DD"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_FRAGMENT_SHADING_RATE_WITH_SAMPLE_MASK_SUPPORTED_EXT",
+     "size": "(1,)",
+     "value": "0x96DE"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_FRAGMENT_SHADING_RATE_ATTACHMENT_WITH_DEFAULT_FRAMEBUFFER_SUPPORTED_EXT",
+     "size": "(1,)",
+     "value": "0x96DF"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_FRAGMENT_SHADING_RATE_NON_TRIVIAL_COMBINERS_SUPPORTED_EXT",
+     "size": "(1,)",
+     "value": "0x8F6F"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_FRAGMENT_SHADING_RATE_PRIMITIVE_RATE_WITH_MULTI_VIEWPORT_SUPPORTED_EXT",
+     "size": "(1,)",
+     "value": "0x9780"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_EXT_geometry_shader": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_GEOMETRY_LINKED_VERTICES_OUT_EXT",
+     "size": "(1,)",
+     "value": "0x8916"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_GEOMETRY_LINKED_INPUT_TYPE_EXT",
+     "size": "(1,)",
+     "value": "0x8917"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_GEOMETRY_LINKED_OUTPUT_TYPE_EXT",
+     "size": "(1,)",
+     "value": "0x8918"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_GEOMETRY_UNIFORM_COMPONENTS_EXT",
+     "size": "(1,)",
+     "value": "0x8DDF"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_GEOMETRY_OUTPUT_VERTICES_EXT",
+     "size": "(1,)",
+     "value": "0x8DE0"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_GEOMETRY_TOTAL_OUTPUT_COMPONENTS_EXT",
+     "size": "(1,)",
+     "value": "0x8DE1"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_GEOMETRY_TEXTURE_IMAGE_UNITS_EXT",
+     "size": "(1,)",
+     "value": "0x8C29"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_EXT_mesh_shader": {
+   "glgets": [
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_TASK_WORK_GROUP_TOTAL_COUNT_EXT",
+     "size": "(1,)",
+     "value": "0x9740"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_MESH_WORK_GROUP_TOTAL_COUNT_EXT",
+     "size": "(1,)",
+     "value": "0x9741"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_MESH_WORK_GROUP_INVOCATIONS_EXT",
+     "size": "(1,)",
+     "value": "0x9757"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_TASK_WORK_GROUP_INVOCATIONS_EXT",
+     "size": "(1,)",
+     "value": "0x9759"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_TASK_PAYLOAD_SIZE_EXT",
+     "size": "(1,)",
+     "value": "0x9742"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_TASK_SHARED_MEMORY_SIZE_EXT",
+     "size": "(1,)",
+     "value": "0x9743"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_MESH_SHARED_MEMORY_SIZE_EXT",
+     "size": "(1,)",
+     "value": "0x9744"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_TASK_PAYLOAD_AND_SHARED_MEMORY_SIZE_EXT",
+     "size": "(1,)",
+     "value": "0x9745"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_MESH_PAYLOAD_AND_SHARED_MEMORY_SIZE_EXT",
+     "size": "(1,)",
+     "value": "0x9746"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_MESH_OUTPUT_MEMORY_SIZE_EXT",
+     "size": "(1,)",
+     "value": "0x9747"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_MESH_PAYLOAD_AND_OUTPUT_MEMORY_SIZE_EXT",
+     "size": "(1,)",
+     "value": "0x9748"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_MESH_OUTPUT_PRIMITIVES_EXT",
+     "size": "(1,)",
+     "value": "0x9756"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_MESH_OUTPUT_COMPONENTS_EXT",
+     "size": "(1,)",
+     "value": "0x9749"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_MESH_OUTPUT_LAYERS_EXT",
+     "size": "(1,)",
+     "value": "0x974A"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_PREFERRED_TASK_WORK_GROUP_INVOCATIONS_EXT",
+     "size": "(1,)",
+     "value": "0x974B"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_PREFERRED_MESH_WORK_GROUP_INVOCATIONS_EXT",
+     "size": "(1,)",
+     "value": "0x974C"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MESH_PREFERS_LOCAL_INVOCATION_VERTEX_OUTPUT_EXT",
+     "size": "(1,)",
+     "value": "0x974D"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MESH_PREFERS_LOCAL_INVOCATION_PRIMITIVE_OUTPUT_EXT",
+     "size": "(1,)",
+     "value": "0x974E"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MESH_PREFERS_COMPACT_VERTEX_OUTPUT_EXT",
+     "size": "(1,)",
+     "value": "0x974F"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MESH_PREFERS_COMPACT_PRIMITIVE_OUTPUT_EXT",
+     "size": "(1,)",
+     "value": "0x9750"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_TASK_WORK_GROUP_COUNT_EXT",
+     "size": "(3,)",
+     "value": "0x9751"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_MESH_WORK_GROUP_COUNT_EXT",
+     "size": "(3,)",
+     "value": "0x9752"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_MESH_WORK_GROUP_SIZE_EXT",
+     "size": "(3,)",
+     "value": "0x9758"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_TASK_WORK_GROUP_SIZE_EXT",
+     "size": "(3,)",
+     "value": "0x975A"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_EXT_multisampled_compatibility": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MULTISAMPLE_EXT",
+     "size": "(1,)",
+     "value": "0x809D"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_SAMPLE_ALPHA_TO_ONE_EXT",
+     "size": "(1,)",
+     "value": "0x809F"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_EXT_multisampled_render_to_texture": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_SAMPLES_EXT",
+     "size": "(1,)",
+     "value": "0x8D57"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_EXT_multiview_draw_buffers": {
+   "glgets": [
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_DRAW_BUFFER_EXT",
+     "size": "(1,)",
+     "value": "0x0C01"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_READ_BUFFER_EXT",
+     "size": "(1,)",
+     "value": "0x0C02"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_EXT_polygon_offset_clamp": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_POLYGON_OFFSET_CLAMP_EXT",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/EXT/EXT_polygon_offset_clamp.txt",
+     "value": "0x8E1B"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_EXT_primitive_bounding_box": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_PRIMITIVE_BOUNDING_BOX_EXT",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/EXT/EXT_primitive_bounding_box.txt",
+     "value": "0x92BE"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_EXT_raster_multisample": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_RASTER_SAMPLES_EXT",
+     "size": "(1,)",
+     "value": "0x9328"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_RASTER_SAMPLES_EXT",
+     "size": "(1,)",
+     "value": "0x9329"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_RASTER_FIXED_SAMPLE_LOCATIONS_EXT",
+     "size": "(1,)",
+     "value": "0x932A"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MULTISAMPLE_RASTERIZATION_ALLOWED_EXT",
+     "size": "(1,)",
+     "value": "0x932B"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_EFFECTIVE_RASTER_SAMPLES_EXT",
+     "size": "(1,)",
+     "value": "0x932C"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_EXT_sRGB_write_control": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_FRAMEBUFFER_SRGB_EXT",
+     "size": "(1,)",
+     "value": "0x8DB9"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_EXT_shader_framebuffer_fetch": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_FRAGMENT_SHADER_DISCARDS_SAMPLES_EXT",
+     "size": "(1,)",
+     "value": "0x8A52"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_EXT_shader_framebuffer_fetch_non_coherent": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_FRAGMENT_SHADER_DISCARDS_SAMPLES_EXT",
+     "size": "(1,)",
+     "value": "0x8A52"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_EXT_shader_pixel_local_storage": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_SHADER_PIXEL_LOCAL_STORAGE_FAST_SIZE_EXT",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/EXT/EXT_shader_pixel_local_storage.txt",
+     "value": "0x8F63"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_SHADER_PIXEL_LOCAL_STORAGE_SIZE_EXT",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/EXT/EXT_shader_pixel_local_storage.txt",
+     "value": "0x8F67"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_SHADER_PIXEL_LOCAL_STORAGE_EXT",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/EXT/EXT_shader_pixel_local_storage.txt",
+     "value": "0x8F64"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_EXT_shader_pixel_local_storage2": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_SHADER_COMBINED_LOCAL_STORAGE_FAST_SIZE_EXT",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/EXT/EXT_shader_pixel_local_storage2.txt",
+     "value": "0x9650"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_SHADER_COMBINED_LOCAL_STORAGE_SIZE_EXT",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/EXT/EXT_shader_pixel_local_storage2.txt",
+     "value": "0x9651"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_EXT_sparse_texture": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_NUM_SPARSE_LEVELS_EXT",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/EXT/EXT_sparse_texture.txt",
+     "value": "0x91AA"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_SPARSE_TEXTURE_SIZE_EXT",
+     "size": "(1,)",
+     "value": "0x9198"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_SPARSE_3D_TEXTURE_SIZE_EXT",
+     "size": "(1,)",
+     "value": "0x9199"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_SPARSE_TEXTURE_FULL_ARRAY_CUBE_MIPMAPS_EXT",
+     "size": "(1,)",
+     "value": "0x91A9"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_EXT_tessellation_shader": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_PRIMITIVE_RESTART_FOR_PATCHES_SUPPORTED",
+     "size": "(1,)",
+     "value": "0x8221"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_EXT_texture_buffer": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TEXTURE_BUFFER_EXT",
+     "size": "(1,)",
+     "value": "0x8C2A"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TEXTURE_BUFFER_BINDING_EXT",
+     "size": "(1,)",
+     "value": "0x8C2A"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_TEXTURE_BUFFER_SIZE_EXT",
+     "size": "(1,)",
+     "value": "0x8C2B"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TEXTURE_BINDING_BUFFER_EXT",
+     "size": "(1,)",
+     "value": "0x8C2C"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TEXTURE_BUFFER_DATA_STORE_BINDING_EXT",
+     "size": "(1,)",
+     "value": "0x8C2D"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_EXT_texture_filter_anisotropic": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TEXTURE_MAX_ANISOTROPY_EXT",
+     "size": "(1,)",
+     "value": "0x84FE"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT",
+     "size": "(1,)",
+     "value": "0x84FF"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_EXT_texture_sRGB_decode": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TEXTURE_SRGB_DECODE_EXT",
+     "size": "(1,)",
+     "value": "0x8A48"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_EXT_texture_view": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TEXTURE_IMMUTABLE_LEVELS",
+     "size": "(1,)",
+     "value": "0x82DF"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_EXT_window_rectangles": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_WINDOW_RECTANGLE_EXT",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/EXT/EXT_window_rectangles.txt",
+     "value": "0x8F12"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_WINDOW_RECTANGLE_MODE_EXT",
+     "size": "(1,)",
+     "value": "0x8F13"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_WINDOW_RECTANGLES_EXT",
+     "size": "(1,)",
+     "value": "0x8F14"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_NUM_WINDOW_RECTANGLES_EXT",
+     "size": "(1,)",
+     "value": "0x8F15"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_IMG_framebuffer_downsample": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_NUM_DOWNSAMPLE_SCALES_IMG",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/IMG/IMG_framebuffer_downsample.txt",
+     "value": "0x913D"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_DOWNSAMPLE_SCALES_IMG",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/IMG/IMG_framebuffer_downsample.txt",
+     "value": "0x913E"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_IMG_multisampled_render_to_texture": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_SAMPLES_IMG",
+     "size": "(1,)",
+     "value": "0x9135"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TEXTURE_SAMPLES_IMG",
+     "size": "(1,)",
+     "value": "0x9136"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_INTEL_performance_query": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_PERFQUERY_QUERY_NAME_LENGTH_MAX_INTEL",
+     "size": "(1,)#TODO Review http://www.opengl.org/registry/specs//INTEL/performance_query.txt",
+     "value": "0x94FD"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_PERFQUERY_COUNTER_NAME_LENGTH_MAX_INTEL",
+     "size": "(1,)#TODO Review http://www.opengl.org/registry/specs//INTEL/performance_query.txt",
+     "value": "0x94FE"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_PERFQUERY_COUNTER_DESC_LENGTH_MAX_INTEL",
+     "size": "(1,)#TODO Review http://www.opengl.org/registry/specs//INTEL/performance_query.txt",
+     "value": "0x94FF"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_PERFQUERY_GPA_EXTENDED_COUNTERS_INTEL",
+     "size": "(1,)#TODO Review http://www.opengl.org/registry/specs//INTEL/performance_query.txt",
+     "value": "0x9500"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_KHR_blend_equation_advanced_coherent": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_BLEND_ADVANCED_COHERENT_KHR",
+     "size": "(1,)",
+     "value": "0x9285"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_KHR_debug": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_DEBUG_NEXT_LOGGED_MESSAGE_LENGTH",
+     "size": "(1,)",
+     "value": "0x8243"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_DEBUG_GROUP_STACK_DEPTH",
+     "size": "(1,)",
+     "value": "0x826C"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_DEBUG_GROUP_STACK_DEPTH",
+     "size": "(1,)",
+     "value": "0x826D"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_LABEL_LENGTH",
+     "size": "(1,)",
+     "value": "0x82E8"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_DEBUG_MESSAGE_LENGTH",
+     "size": "(1,)",
+     "value": "0x9143"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_DEBUG_LOGGED_MESSAGES",
+     "size": "(1,)",
+     "value": "0x9144"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_DEBUG_LOGGED_MESSAGES",
+     "size": "(1,)",
+     "value": "0x9145"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_KHR_parallel_shader_compile": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_SHADER_COMPILER_THREADS_KHR",
+     "size": "(1,)",
+     "value": "0x91B0"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_KHR_robustness": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_CONTEXT_ROBUST_ACCESS",
+     "size": "(1,)",
+     "value": "0x90F3"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_LOSE_CONTEXT_ON_RESET",
+     "size": "(1,)#TODO Review http://www.opengl.org/registry/specs//KHR/robustness.txt",
+     "value": "0x8252"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_RESET_NOTIFICATION_STRATEGY",
+     "size": "(1,)",
+     "value": "0x8256"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_NO_RESET_NOTIFICATION",
+     "size": "(1,)#TODO Review http://www.opengl.org/registry/specs//KHR/robustness.txt",
+     "value": "0x8261"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_KHR_shader_subgroup": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_SUBGROUP_SIZE_KHR",
+     "size": "(1,)",
+     "value": "0x9532"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_SUBGROUP_SUPPORTED_STAGES_KHR",
+     "size": "(1,)",
+     "value": "0x9533"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_SUBGROUP_SUPPORTED_FEATURES_KHR",
+     "size": "(1,)",
+     "value": "0x9534"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_SUBGROUP_QUAD_ALL_STAGES_KHR",
+     "size": "(1,)",
+     "value": "0x9535"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_MESA_sampler_objects": {
+   "glgets": [
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_SAMPLER_BINDING",
+     "size": "(1,)",
+     "value": "0x8919"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_NV_blend_equation_advanced": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_BLEND_OVERLAP_NV",
+     "size": "(1,)",
+     "value": "0x9281"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_BLEND_PREMULTIPLIED_SRC_NV",
+     "size": "(1,)",
+     "value": "0x9280"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_NV_blend_equation_advanced_coherent": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_BLEND_ADVANCED_COHERENT_NV",
+     "size": "(1,)",
+     "value": "0x9285"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_NV_clip_space_w_scaling": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_VIEWPORT_POSITION_W_SCALE_X_COEFF_NV",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/NV/NV_clip_space_w_scaling.txt",
+     "value": "0x937D"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_VIEWPORT_POSITION_W_SCALE_Y_COEFF_NV",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/NV/NV_clip_space_w_scaling.txt",
+     "value": "0x937E"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_NV_conservative_raster": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_SUBPIXEL_PRECISION_BIAS_X_BITS_NV",
+     "size": "(1,)",
+     "value": "0x9347"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_SUBPIXEL_PRECISION_BIAS_Y_BITS_NV",
+     "size": "(1,)",
+     "value": "0x9348"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_SUBPIXEL_PRECISION_BIAS_BITS_NV",
+     "size": "(1,)",
+     "value": "0x9349"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_NV_conservative_raster_pre_snap_triangles": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_CONSERVATIVE_RASTER_MODE_NV",
+     "size": "(1,)",
+     "value": "0x954D"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_NV_coverage_sample": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_COVERAGE_SAMPLES_NV",
+     "size": "(1,)",
+     "value": "0x8ED4"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_NV_fbo_color_attachments": {
+   "glgets": [
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_COLOR_ATTACHMENTS_NV",
+     "size": "(1,)",
+     "value": "0x8CDF"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_NV_fragment_coverage_to_color": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_FRAGMENT_COVERAGE_COLOR_NV",
+     "size": "(1,)",
+     "value": "0x92DE"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_NV_framebuffer_mixed_samples": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_RASTER_SAMPLES_EXT",
+     "size": "(1,)",
+     "value": "0x9328"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_RASTER_SAMPLES_EXT",
+     "size": "(1,)",
+     "value": "0x9329"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_RASTER_FIXED_SAMPLE_LOCATIONS_EXT",
+     "size": "(1,)",
+     "value": "0x932A"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MULTISAMPLE_RASTERIZATION_ALLOWED_EXT",
+     "size": "(1,)",
+     "value": "0x932B"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_EFFECTIVE_RASTER_SAMPLES_EXT",
+     "size": "(1,)",
+     "value": "0x932C"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_COLOR_SAMPLES_NV",
+     "size": "(1,)",
+     "value": "0x8E20"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_DEPTH_SAMPLES_NV",
+     "size": "(1,)",
+     "value": "0x932D"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_STENCIL_SAMPLES_NV",
+     "size": "(1,)",
+     "value": "0x932E"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MIXED_DEPTH_SAMPLES_SUPPORTED_NV",
+     "size": "(1,)",
+     "value": "0x932F"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MIXED_STENCIL_SAMPLES_SUPPORTED_NV",
+     "size": "(1,)",
+     "value": "0x9330"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_COVERAGE_MODULATION_NV",
+     "size": "(1,)",
+     "value": "0x9332"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_COVERAGE_MODULATION_TABLE_SIZE_NV",
+     "size": "(1,)",
+     "value": "0x9333"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_NV_internalformat_sample_query": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MULTISAMPLES_NV",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/NV/NV_internalformat_sample_query.txt",
+     "value": "0x9371"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_SUPERSAMPLE_SCALE_X_NV",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/NV/NV_internalformat_sample_query.txt",
+     "value": "0x9372"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_SUPERSAMPLE_SCALE_Y_NV",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/NV/NV_internalformat_sample_query.txt",
+     "value": "0x9373"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_CONFORMANT_NV",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/NV/NV_internalformat_sample_query.txt",
+     "value": "0x9374"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_NV_memory_attachment": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_DETACHED_MEMORY_INCARNATION_NV",
+     "size": "(1,)",
+     "value": "0x95A9"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_DETACHED_TEXTURES_NV",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/NV/NV_memory_attachment.txt",
+     "value": "0x95AA"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_DETACHED_BUFFERS_NV",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/NV/NV_memory_attachment.txt",
+     "value": "0x95AB"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_NV_mesh_shader": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_MESH_UNIFORM_BLOCKS_NV",
+     "size": "(1,)",
+     "value": "0x8E60"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_MESH_TEXTURE_IMAGE_UNITS_NV",
+     "size": "(1,)",
+     "value": "0x8E61"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_MESH_IMAGE_UNIFORMS_NV",
+     "size": "(1,)",
+     "value": "0x8E62"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_MESH_UNIFORM_COMPONENTS_NV",
+     "size": "(1,)",
+     "value": "0x8E63"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_MESH_ATOMIC_COUNTER_BUFFERS_NV",
+     "size": "(1,)",
+     "value": "0x8E64"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_MESH_ATOMIC_COUNTERS_NV",
+     "size": "(1,)",
+     "value": "0x8E65"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_MESH_SHADER_STORAGE_BLOCKS_NV",
+     "size": "(1,)",
+     "value": "0x8E66"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_COMBINED_MESH_UNIFORM_COMPONENTS_NV",
+     "size": "(1,)",
+     "value": "0x8E67"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_TASK_UNIFORM_BLOCKS_NV",
+     "size": "(1,)",
+     "value": "0x8E68"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_TASK_TEXTURE_IMAGE_UNITS_NV",
+     "size": "(1,)",
+     "value": "0x8E69"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_TASK_IMAGE_UNIFORMS_NV",
+     "size": "(1,)",
+     "value": "0x8E6A"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_TASK_UNIFORM_COMPONENTS_NV",
+     "size": "(1,)",
+     "value": "0x8E6B"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_TASK_ATOMIC_COUNTER_BUFFERS_NV",
+     "size": "(1,)",
+     "value": "0x8E6C"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_TASK_ATOMIC_COUNTERS_NV",
+     "size": "(1,)",
+     "value": "0x8E6D"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_TASK_SHADER_STORAGE_BLOCKS_NV",
+     "size": "(1,)",
+     "value": "0x8E6E"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_COMBINED_TASK_UNIFORM_COMPONENTS_NV",
+     "size": "(1,)",
+     "value": "0x8E6F"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_MESH_WORK_GROUP_INVOCATIONS_NV",
+     "size": "(1,)",
+     "value": "0x95A2"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_TASK_WORK_GROUP_INVOCATIONS_NV",
+     "size": "(1,)",
+     "value": "0x95A3"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_MESH_TOTAL_MEMORY_SIZE_NV",
+     "size": "(1,)",
+     "value": "0x9536"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_TASK_TOTAL_MEMORY_SIZE_NV",
+     "size": "(1,)",
+     "value": "0x9537"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_MESH_OUTPUT_VERTICES_NV",
+     "size": "(1,)",
+     "value": "0x9538"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_MESH_OUTPUT_PRIMITIVES_NV",
+     "size": "(1,)",
+     "value": "0x9539"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_TASK_OUTPUT_COUNT_NV",
+     "size": "(1,)",
+     "value": "0x953A"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_DRAW_MESH_TASKS_COUNT_NV",
+     "size": "(1,)",
+     "value": "0x953D"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_MESH_VIEWS_NV",
+     "size": "(1,)",
+     "value": "0x9557"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MESH_OUTPUT_PER_VERTEX_GRANULARITY_NV",
+     "size": "(1,)",
+     "value": "0x92DF"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MESH_OUTPUT_PER_PRIMITIVE_GRANULARITY_NV",
+     "size": "(1,)",
+     "value": "0x9543"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_MESH_WORK_GROUP_SIZE_NV",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/NV/NV_mesh_shader.txt",
+     "value": "0x953B"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_TASK_WORK_GROUP_SIZE_NV",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/NV/NV_mesh_shader.txt",
+     "value": "0x953C"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MESH_WORK_GROUP_SIZE_NV",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/NV/NV_mesh_shader.txt",
+     "value": "0x953E"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TASK_WORK_GROUP_SIZE_NV",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/NV/NV_mesh_shader.txt",
+     "value": "0x953F"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MESH_VERTICES_OUT_NV",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/NV/NV_mesh_shader.txt",
+     "value": "0x9579"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MESH_PRIMITIVES_OUT_NV",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/NV/NV_mesh_shader.txt",
+     "value": "0x957A"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MESH_OUTPUT_TYPE_NV",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/NV/NV_mesh_shader.txt",
+     "value": "0x957B"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_UNIFORM_BLOCK_REFERENCED_BY_MESH_SHADER_NV",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/NV/NV_mesh_shader.txt",
+     "value": "0x959C"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_UNIFORM_BLOCK_REFERENCED_BY_TASK_SHADER_NV",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/NV/NV_mesh_shader.txt",
+     "value": "0x959D"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_ATOMIC_COUNTER_BUFFER_REFERENCED_BY_MESH_SHADER_NV",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/NV/NV_mesh_shader.txt",
+     "value": "0x959E"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_ATOMIC_COUNTER_BUFFER_REFERENCED_BY_TASK_SHADER_NV",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/NV/NV_mesh_shader.txt",
+     "value": "0x959F"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_NV_path_rendering": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_PATH_ERROR_POSITION_NV",
+     "size": "(1,)",
+     "value": "0x90AB"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_PATH_GEN_MODE_NV",
+     "size": "(1,)#TODO Review http://www.opengl.org/registry/specs//NV/path_rendering.txt",
+     "value": "0x90B0"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_PATH_GEN_COEFF_NV",
+     "size": "(1,)#TODO Review http://www.opengl.org/registry/specs//NV/path_rendering.txt",
+     "value": "0x90B1"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_PATH_GEN_COMPONENTS_NV",
+     "size": "(1,)#TODO Review http://www.opengl.org/registry/specs//NV/path_rendering.txt",
+     "value": "0x90B3"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_PATH_STENCIL_FUNC_NV",
+     "size": "(1,)",
+     "value": "0x90B7"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_PATH_STENCIL_REF_NV",
+     "size": "(1,)",
+     "value": "0x90B8"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_PATH_STENCIL_VALUE_MASK_NV",
+     "size": "(1,)",
+     "value": "0x90B9"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_PATH_STENCIL_DEPTH_OFFSET_FACTOR_NV",
+     "size": "(1,)",
+     "value": "0x90BD"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_PATH_STENCIL_DEPTH_OFFSET_UNITS_NV",
+     "size": "(1,)",
+     "value": "0x90BE"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_PATH_COVER_DEPTH_FUNC_NV",
+     "size": "(1,)",
+     "value": "0x90BF"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_PATH_FOG_GEN_MODE_NV",
+     "size": "(1,)",
+     "value": "0x90AC"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_PATH_GEN_COLOR_FORMAT_NV",
+     "size": "(1,)#TODO Review http://www.opengl.org/registry/specs//NV/path_rendering.txt",
+     "value": "0x90B2"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_NV_polygon_mode": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_POINT_NV",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/NV/NV_polygon_mode.txt",
+     "value": "0x1B00"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_LINE_NV",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/NV/NV_polygon_mode.txt",
+     "value": "0x1B01"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_NV_primitive_shading_rate": {
+   "glgets": [
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_SHADING_RATE_IMAGE_PALETTE_COUNT_NV",
+     "size": "(1,)",
+     "value": "0x95B2"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_NV_read_buffer": {
+   "glgets": [
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_READ_BUFFER_NV",
+     "size": "(1,)",
+     "value": "0x0C02"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_NV_representative_fragment_test": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_REPRESENTATIVE_FRAGMENT_TEST_NV",
+     "size": "(1,)",
+     "value": "0x937F"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_NV_sample_locations": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_SAMPLE_LOCATION_SUBPIXEL_BITS_NV",
+     "size": "(1,)",
+     "value": "0x933D"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_SAMPLE_LOCATION_PIXEL_GRID_WIDTH_NV",
+     "size": "(1,)",
+     "value": "0x933E"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_SAMPLE_LOCATION_PIXEL_GRID_HEIGHT_NV",
+     "size": "(1,)",
+     "value": "0x933F"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_PROGRAMMABLE_SAMPLE_LOCATION_TABLE_SIZE_NV",
+     "size": "(1,)",
+     "value": "0x9340"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_SAMPLE_LOCATION_NV",
+     "size": "(2,)",
+     "value": "0x8E50"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_PROGRAMMABLE_SAMPLE_LOCATION_NV",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/NV/NV_sample_locations.txt",
+     "value": "0x9341"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_NV_scissor_exclusive": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_SCISSOR_TEST_EXCLUSIVE_NV",
+     "size": "(1,)",
+     "value": "0x9555"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_SCISSOR_BOX_EXCLUSIVE_NV",
+     "size": "(4,)",
+     "value": "0x9556"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_NV_shading_rate_image": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_SHADING_RATE_IMAGE_NV",
+     "size": "(1,)",
+     "value": "0x9563"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_SHADING_RATE_IMAGE_BINDING_NV",
+     "size": "(1,)",
+     "value": "0x955B"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_SHADING_RATE_IMAGE_TEXEL_WIDTH_NV",
+     "size": "(1,)",
+     "value": "0x955C"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_SHADING_RATE_IMAGE_TEXEL_HEIGHT_NV",
+     "size": "(1,)",
+     "value": "0x955D"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_SHADING_RATE_IMAGE_PALETTE_SIZE_NV",
+     "size": "(1,)",
+     "value": "0x955E"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_COARSE_FRAGMENT_SAMPLES_NV",
+     "size": "(1,)",
+     "value": "0x955F"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_NV_timeline_semaphore": {
+   "glgets": [
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_TIMELINE_SEMAPHORE_VALUE_DIFFERENCE_NV",
+     "size": "(1,)",
+     "value": "0x95B6"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_NV_viewport_array": {
+   "glgets": [
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_SCISSOR_BOX",
+     "size": "(4,)",
+     "value": "0x0C10"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_VIEWPORT",
+     "size": "(4,)",
+     "value": "0x0BA2"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_DEPTH_RANGE",
+     "size": "(2,)",
+     "value": "0x0B70"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_NV_viewport_swizzle": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_VIEWPORT_SWIZZLE_X_NV",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/NV/NV_viewport_swizzle.txt",
+     "value": "0x9358"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_VIEWPORT_SWIZZLE_Y_NV",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/NV/NV_viewport_swizzle.txt",
+     "value": "0x9359"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_VIEWPORT_SWIZZLE_Z_NV",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/NV/NV_viewport_swizzle.txt",
+     "value": "0x935A"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_VIEWPORT_SWIZZLE_W_NV",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/NV/NV_viewport_swizzle.txt",
+     "value": "0x935B"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_OES_EGL_image_external": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TEXTURE_BINDING_EXTERNAL_OES",
+     "size": "(1,)",
+     "value": "0x8D67"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_OES_draw_buffers_indexed": {
+   "glgets": [
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_BLEND_EQUATION_RGB",
+     "size": "(1,)",
+     "value": "0x8009"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_BLEND_EQUATION_ALPHA",
+     "size": "(1,)",
+     "value": "0x883D"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_BLEND_SRC_RGB",
+     "size": "(1,)",
+     "value": "0x80C9"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_BLEND_SRC_ALPHA",
+     "size": "(1,)",
+     "value": "0x80CB"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_BLEND_DST_RGB",
+     "size": "(1,)",
+     "value": "0x80C8"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_BLEND_DST_ALPHA",
+     "size": "(1,)",
+     "value": "0x80CA"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_COLOR_WRITEMASK",
+     "size": "(4,)",
+     "value": "0x0C23"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_OES_geometry_shader": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_GEOMETRY_LINKED_VERTICES_OUT_OES",
+     "size": "(1,)",
+     "value": "0x8916"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_GEOMETRY_LINKED_INPUT_TYPE_OES",
+     "size": "(1,)",
+     "value": "0x8917"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_GEOMETRY_LINKED_OUTPUT_TYPE_OES",
+     "size": "(1,)",
+     "value": "0x8918"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_OES_primitive_bounding_box": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_PRIMITIVE_BOUNDING_BOX_OES",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/OES/OES_primitive_bounding_box.txt",
+     "value": "0x92BE"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_OES_sample_shading": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_SAMPLE_SHADING_OES",
+     "size": "(1,)",
+     "value": "0x8C36"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MIN_SAMPLE_SHADING_VALUE_OES",
+     "size": "(1,)",
+     "value": "0x8C37"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_OES_texture_buffer": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TEXTURE_BUFFER_BINDING_OES",
+     "size": "(1,)",
+     "value": "0x8C2A"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_OES_texture_view": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TEXTURE_IMMUTABLE_LEVELS",
+     "size": "(1,)",
+     "value": "0x82DF"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_OES_viewport_array": {
+   "glgets": [
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_SCISSOR_BOX",
+     "size": "(4,)",
+     "value": "0x0C10"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_VIEWPORT",
+     "size": "(4,)",
+     "value": "0x0BA2"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_DEPTH_RANGE",
+     "size": "(2,)",
+     "value": "0x0B70"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_OVR_multiview": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_VIEWS_OVR",
+     "size": "(1,)",
+     "value": "0x9631"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_QCOM_alpha_test": {
+   "glgets": [
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_ALPHA_TEST_QCOM",
+     "size": "(1,)",
+     "value": "0x0BC0"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_ALPHA_TEST_FUNC_QCOM",
+     "size": "(1,)",
+     "value": "0x0BC1"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_ALPHA_TEST_REF_QCOM",
+     "size": "(1,)",
+     "value": "0x0BC2"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_QCOM_motion_estimation": {
+   "glgets": [
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MOTION_ESTIMATION_SEARCH_BLOCK_X_QCOM",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/QCOM/QCOM_motion_estimation.txt",
+     "value": "0x8C90"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MOTION_ESTIMATION_SEARCH_BLOCK_Y_QCOM",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/QCOM/QCOM_motion_estimation.txt",
+     "value": "0x8C91"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_QCOM_shading_rate": {
+   "glgets": [
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_SHADING_RATE_QCOM",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/QCOM/QCOM_shading_rate.txt",
+     "value": "0x96A4"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_QCOM_texture_foveated": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TEXTURE_FOVEATED_FEATURE_QUERY_QCOM",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/QCOM/QCOM_texture_foveated.txt",
+     "value": "0x8BFD"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TEXTURE_FOVEATED_NUM_FOCAL_POINTS_QUERY_QCOM",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/QCOM/QCOM_texture_foveated.txt",
+     "value": "0x8BFE"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_QCOM_texture_foveated_subsampled_layout": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_SHADER_SUBSAMPLED_IMAGE_UNITS_QCOM",
+     "size": "(1,)#TODO Review /home/mcfletch/OpenGL-dev/pyopengl/src/khronosapi/extensions/QCOM/QCOM_texture_foveated_subsampled_layout.txt",
+     "value": "0x8FA1"
+    }
+   ],
+   "missing_size": []
+  }
+ },
+ "features": {
+  "GL_ES_VERSION_2_0": {
+   "glgets": [
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_BLEND_EQUATION",
+     "size": "(1,)",
+     "value": "0x8009"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_BLEND_EQUATION_RGB",
+     "size": "(1,)",
+     "value": "0x8009"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_BLEND_EQUATION_ALPHA",
+     "size": "(1,)",
+     "value": "0x883D"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_BLEND_DST_RGB",
+     "size": "(1,)",
+     "value": "0x80C8"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_BLEND_SRC_RGB",
+     "size": "(1,)",
+     "value": "0x80C9"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_BLEND_DST_ALPHA",
+     "size": "(1,)",
+     "value": "0x80CA"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_BLEND_SRC_ALPHA",
+     "size": "(1,)",
+     "value": "0x80CB"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_BLEND_COLOR",
+     "size": "(4,)",
+     "value": "0x8005"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_ARRAY_BUFFER_BINDING",
+     "size": "(1,)",
+     "value": "0x8894"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_ELEMENT_ARRAY_BUFFER_BINDING",
+     "size": "(1,)",
+     "value": "0x8895"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_LINE_WIDTH",
+     "size": "(1,)",
+     "value": "0x0B21"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_ALIASED_POINT_SIZE_RANGE",
+     "size": "(2,)",
+     "value": "0x846D"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_ALIASED_LINE_WIDTH_RANGE",
+     "size": "(2,)",
+     "value": "0x846E"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_CULL_FACE_MODE",
+     "size": "(1,)",
+     "value": "0x0B45"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_FRONT_FACE",
+     "size": "(1,)",
+     "value": "0x0B46"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_DEPTH_RANGE",
+     "size": "(2,)",
+     "value": "0x0B70"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_DEPTH_WRITEMASK",
+     "size": "(1,)",
+     "value": "0x0B72"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_DEPTH_CLEAR_VALUE",
+     "size": "(1,)",
+     "value": "0x0B73"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_DEPTH_FUNC",
+     "size": "(1,)",
+     "value": "0x0B74"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_STENCIL_CLEAR_VALUE",
+     "size": "(1,)",
+     "value": "0x0B91"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_STENCIL_FUNC",
+     "size": "(1,)",
+     "value": "0x0B92"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_STENCIL_FAIL",
+     "size": "(1,)",
+     "value": "0x0B94"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_STENCIL_PASS_DEPTH_FAIL",
+     "size": "(1,)",
+     "value": "0x0B95"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_STENCIL_PASS_DEPTH_PASS",
+     "size": "(1,)",
+     "value": "0x0B96"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_STENCIL_REF",
+     "size": "(1,)",
+     "value": "0x0B97"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_STENCIL_VALUE_MASK",
+     "size": "(1,)",
+     "value": "0x0B93"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_STENCIL_WRITEMASK",
+     "size": "(1,)",
+     "value": "0x0B98"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_STENCIL_BACK_FUNC",
+     "size": "(1,)",
+     "value": "0x8800"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_STENCIL_BACK_FAIL",
+     "size": "(1,)",
+     "value": "0x8801"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_STENCIL_BACK_PASS_DEPTH_FAIL",
+     "size": "(1,)",
+     "value": "0x8802"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_STENCIL_BACK_PASS_DEPTH_PASS",
+     "size": "(1,)",
+     "value": "0x8803"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_STENCIL_BACK_REF",
+     "size": "(1,)",
+     "value": "0x8CA3"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_STENCIL_BACK_VALUE_MASK",
+     "size": "(1,)",
+     "value": "0x8CA4"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_STENCIL_BACK_WRITEMASK",
+     "size": "(1,)",
+     "value": "0x8CA5"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_VIEWPORT",
+     "size": "(4,)",
+     "value": "0x0BA2"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_SCISSOR_BOX",
+     "size": "(4,)",
+     "value": "0x0C10"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_COLOR_CLEAR_VALUE",
+     "size": "(4,)",
+     "value": "0x0C22"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_COLOR_WRITEMASK",
+     "size": "(4,)",
+     "value": "0x0C23"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_TEXTURE_SIZE",
+     "size": "(1,)",
+     "value": "0x0D33"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_VIEWPORT_DIMS",
+     "size": "(2,)",
+     "value": "0x0D3A"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_SUBPIXEL_BITS",
+     "size": "(1,)",
+     "value": "0x0D50"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_RED_BITS",
+     "size": "(1,)",
+     "value": "0x0D52"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_GREEN_BITS",
+     "size": "(1,)",
+     "value": "0x0D53"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_BLUE_BITS",
+     "size": "(1,)",
+     "value": "0x0D54"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_ALPHA_BITS",
+     "size": "(1,)",
+     "value": "0x0D55"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_DEPTH_BITS",
+     "size": "(1,)",
+     "value": "0x0D56"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_STENCIL_BITS",
+     "size": "(1,)",
+     "value": "0x0D57"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_POLYGON_OFFSET_UNITS",
+     "size": "(1,)",
+     "value": "0x2A00"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_POLYGON_OFFSET_FACTOR",
+     "size": "(1,)",
+     "value": "0x8038"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_TEXTURE_BINDING_2D",
+     "size": "(1,)",
+     "value": "0x8069"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_SAMPLE_COVERAGE_VALUE",
+     "size": "(1,)",
+     "value": "0x80AA"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_SAMPLE_COVERAGE_INVERT",
+     "size": "(1,)",
+     "value": "0x80AB"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_NUM_COMPRESSED_TEXTURE_FORMATS",
+     "size": "(1,)",
+     "value": "0x86A2"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_COMPRESSED_TEXTURE_FORMATS",
+     "size": "(_L(0x86A2),)",
+     "value": "0x86A3"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_VERTEX_ATTRIBS",
+     "size": "(1,)",
+     "value": "0x8869"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_VERTEX_UNIFORM_VECTORS",
+     "size": "(1,)",
+     "value": "0x8DFB"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_VARYING_VECTORS",
+     "size": "(1,)",
+     "value": "0x8DFC"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS",
+     "size": "(1,)",
+     "value": "0x8B4D"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS",
+     "size": "(1,)",
+     "value": "0x8B4C"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_TEXTURE_IMAGE_UNITS",
+     "size": "(1,)",
+     "value": "0x8872"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_FRAGMENT_UNIFORM_VECTORS",
+     "size": "(1,)",
+     "value": "0x8DFD"
+    },
+    {
+     "family": "shader",
+     "group": "ShaderParameterName",
+     "name": "GL_SHADER_TYPE",
+     "size": "(1,)",
+     "value": "0x8B4F"
+    },
+    {
+     "family": "program",
+     "group": "ProgramPropertyARB",
+     "name": "GL_LINK_STATUS",
+     "size": "(1,)",
+     "value": "0x8B82"
+    },
+    {
+     "family": "program",
+     "group": "ProgramPropertyARB",
+     "name": "GL_VALIDATE_STATUS",
+     "size": "(1,)",
+     "value": "0x8B83"
+    },
+    {
+     "family": "program",
+     "group": "ProgramPropertyARB",
+     "name": "GL_ATTACHED_SHADERS",
+     "size": "(1,)",
+     "value": "0x8B85"
+    },
+    {
+     "family": "program",
+     "group": "ProgramPropertyARB",
+     "name": "GL_ACTIVE_UNIFORMS",
+     "size": "(1,)",
+     "value": "0x8B86"
+    },
+    {
+     "family": "program",
+     "group": "ProgramPropertyARB",
+     "name": "GL_ACTIVE_UNIFORM_MAX_LENGTH",
+     "size": "(1,)",
+     "value": "0x8B87"
+    },
+    {
+     "family": "program",
+     "group": "ProgramPropertyARB",
+     "name": "GL_ACTIVE_ATTRIBUTES",
+     "size": "(1,)",
+     "value": "0x8B89"
+    },
+    {
+     "family": "program",
+     "group": "ProgramPropertyARB",
+     "name": "GL_ACTIVE_ATTRIBUTE_MAX_LENGTH",
+     "size": "(1,)",
+     "value": "0x8B8A"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_CURRENT_PROGRAM",
+     "size": "(1,)",
+     "value": "0x8B8D"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_TEXTURE_BINDING_CUBE_MAP",
+     "size": "(1,)",
+     "value": "0x8514"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_CUBE_MAP_TEXTURE_SIZE",
+     "size": "(1,)",
+     "value": "0x851C"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_ACTIVE_TEXTURE",
+     "size": "(1,)",
+     "value": "0x84E0"
+    },
+    {
+     "family": "shader",
+     "group": "ShaderParameterName",
+     "name": "GL_COMPILE_STATUS",
+     "size": "(1,)",
+     "value": "0x8B81"
+    },
+    {
+     "family": "shader",
+     "group": "ShaderParameterName",
+     "name": "GL_SHADER_SOURCE_LENGTH",
+     "size": "(1,)",
+     "value": "0x8B88"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_SHADER_COMPILER",
+     "size": "(1,)",
+     "value": "0x8DFA"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_SHADER_BINARY_FORMATS",
+     "size": "(_L(0x8DF9),)",
+     "value": "0x8DF8"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_NUM_SHADER_BINARY_FORMATS",
+     "size": "(1,)",
+     "value": "0x8DF9"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_RENDERBUFFER_BINDING",
+     "size": "(1,)",
+     "value": "0x8CA7"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_RENDERBUFFER_SIZE",
+     "size": "(1,)",
+     "value": "0x84E8"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_ES_VERSION_3_0": {
+   "glgets": [
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_READ_BUFFER",
+     "size": "(1,)",
+     "value": "0x0C02"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_TEXTURE_BINDING_3D",
+     "size": "(1,)",
+     "value": "0x806A"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_3D_TEXTURE_SIZE",
+     "size": "(1,)",
+     "value": "0x8073"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_ELEMENTS_VERTICES",
+     "size": "(1,)",
+     "value": "0x80E8"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_ELEMENTS_INDICES",
+     "size": "(1,)",
+     "value": "0x80E9"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_TEXTURE_LOD_BIAS",
+     "size": "(1,)",
+     "value": "0x84FD"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_DRAW_BUFFERS",
+     "size": "(1,)",
+     "value": "0x8824"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_DRAW_BUFFER0",
+     "size": "(1,)",
+     "value": "0x8825"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_DRAW_BUFFER1",
+     "size": "(1,)",
+     "value": "0x8826"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_DRAW_BUFFER2",
+     "size": "(1,)",
+     "value": "0x8827"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_DRAW_BUFFER3",
+     "size": "(1,)",
+     "value": "0x8828"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_DRAW_BUFFER4",
+     "size": "(1,)",
+     "value": "0x8829"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_DRAW_BUFFER5",
+     "size": "(1,)",
+     "value": "0x882A"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_DRAW_BUFFER6",
+     "size": "(1,)",
+     "value": "0x882B"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_DRAW_BUFFER7",
+     "size": "(1,)",
+     "value": "0x882C"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_DRAW_BUFFER8",
+     "size": "(1,)",
+     "value": "0x882D"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_DRAW_BUFFER9",
+     "size": "(1,)",
+     "value": "0x882E"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_DRAW_BUFFER10",
+     "size": "(1,)",
+     "value": "0x882F"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_DRAW_BUFFER11",
+     "size": "(1,)",
+     "value": "0x8830"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_DRAW_BUFFER12",
+     "size": "(1,)",
+     "value": "0x8831"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_DRAW_BUFFER13",
+     "size": "(1,)",
+     "value": "0x8832"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_DRAW_BUFFER14",
+     "size": "(1,)",
+     "value": "0x8833"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_DRAW_BUFFER15",
+     "size": "(1,)",
+     "value": "0x8834"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_FRAGMENT_UNIFORM_COMPONENTS",
+     "size": "(1,)",
+     "value": "0x8B49"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_VERTEX_UNIFORM_COMPONENTS",
+     "size": "(1,)",
+     "value": "0x8B4A"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_PIXEL_PACK_BUFFER_BINDING",
+     "size": "(1,)",
+     "value": "0x88ED"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_PIXEL_UNPACK_BUFFER_BINDING",
+     "size": "(1,)",
+     "value": "0x88EF"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAJOR_VERSION",
+     "size": "(1,)",
+     "value": "0x821B"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MINOR_VERSION",
+     "size": "(1,)",
+     "value": "0x821C"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_NUM_EXTENSIONS",
+     "size": "(1,)",
+     "value": "0x821D"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_ARRAY_TEXTURE_LAYERS",
+     "size": "(1,)",
+     "value": "0x88FF"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MIN_PROGRAM_TEXEL_OFFSET",
+     "size": "(1,)",
+     "value": "0x8904"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_PROGRAM_TEXEL_OFFSET",
+     "size": "(1,)",
+     "value": "0x8905"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_VARYING_COMPONENTS",
+     "size": "(1,)",
+     "value": "0x8B4B"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_TEXTURE_BINDING_2D_ARRAY",
+     "size": "(1,)",
+     "value": "0x8C1D"
+    },
+    {
+     "family": "program",
+     "group": "ProgramPropertyARB",
+     "name": "GL_TRANSFORM_FEEDBACK_VARYING_MAX_LENGTH",
+     "size": "(1,)",
+     "value": "0x8C76"
+    },
+    {
+     "family": "program",
+     "group": "ProgramPropertyARB",
+     "name": "GL_TRANSFORM_FEEDBACK_BUFFER_MODE",
+     "size": "(1,)",
+     "value": "0x8C7F"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_TRANSFORM_FEEDBACK_SEPARATE_COMPONENTS",
+     "size": "(1,)",
+     "value": "0x8C80"
+    },
+    {
+     "family": "program",
+     "group": "ProgramPropertyARB",
+     "name": "GL_TRANSFORM_FEEDBACK_VARYINGS",
+     "size": "(1,)",
+     "value": "0x8C83"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_TRANSFORM_FEEDBACK_INTERLEAVED_COMPONENTS",
+     "size": "(1,)",
+     "value": "0x8C8A"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_TRANSFORM_FEEDBACK_SEPARATE_ATTRIBS",
+     "size": "(1,)",
+     "value": "0x8C8B"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_DRAW_FRAMEBUFFER_BINDING",
+     "size": "(1,)",
+     "value": "0x8CA6"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_READ_FRAMEBUFFER_BINDING",
+     "size": "(1,)",
+     "value": "0x8CAA"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_COLOR_ATTACHMENTS",
+     "size": "(1,)",
+     "value": "0x8CDF"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_SAMPLES",
+     "size": "(1,)",
+     "value": "0x8D57"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_VERTEX_ARRAY_BINDING",
+     "size": "(1,)",
+     "value": "0x85B5"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_UNIFORM_BUFFER_BINDING",
+     "size": "(1,)",
+     "value": "0x8A28"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_UNIFORM_BUFFER_START",
+     "size": "(1,)",
+     "value": "0x8A29"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_UNIFORM_BUFFER_SIZE",
+     "size": "(1,)",
+     "value": "0x8A2A"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_VERTEX_UNIFORM_BLOCKS",
+     "size": "(1,)",
+     "value": "0x8A2B"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_FRAGMENT_UNIFORM_BLOCKS",
+     "size": "(1,)",
+     "value": "0x8A2D"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_COMBINED_UNIFORM_BLOCKS",
+     "size": "(1,)",
+     "value": "0x8A2E"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_UNIFORM_BUFFER_BINDINGS",
+     "size": "(1,)",
+     "value": "0x8A2F"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_UNIFORM_BLOCK_SIZE",
+     "size": "(1,)",
+     "value": "0x8A30"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_COMBINED_VERTEX_UNIFORM_COMPONENTS",
+     "size": "(1,)",
+     "value": "0x8A31"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_COMBINED_FRAGMENT_UNIFORM_COMPONENTS",
+     "size": "(1,)",
+     "value": "0x8A33"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_UNIFORM_BUFFER_OFFSET_ALIGNMENT",
+     "size": "(1,)",
+     "value": "0x8A34"
+    },
+    {
+     "family": "program",
+     "group": "ProgramPropertyARB",
+     "name": "GL_ACTIVE_UNIFORM_BLOCK_MAX_NAME_LENGTH",
+     "size": "(1,)",
+     "value": "0x8A35"
+    },
+    {
+     "family": "program",
+     "group": "ProgramPropertyARB",
+     "name": "GL_ACTIVE_UNIFORM_BLOCKS",
+     "size": "(1,)",
+     "value": "0x8A36"
+    },
+    {
+     "family": "uniform_block",
+     "group": "UniformBlockPName",
+     "name": "GL_UNIFORM_BLOCK_BINDING",
+     "size": "(1,)",
+     "value": "0x8A3F"
+    },
+    {
+     "family": "uniform_block",
+     "group": "UniformBlockPName",
+     "name": "GL_UNIFORM_BLOCK_DATA_SIZE",
+     "size": "(1,)",
+     "value": "0x8A40"
+    },
+    {
+     "family": "uniform_block",
+     "group": "UniformBlockPName",
+     "name": "GL_UNIFORM_BLOCK_NAME_LENGTH",
+     "size": "(1,)",
+     "value": "0x8A41"
+    },
+    {
+     "family": "uniform_block",
+     "group": "UniformBlockPName",
+     "name": "GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS",
+     "size": "(1,)",
+     "value": "0x8A42"
+    },
+    {
+     "family": "uniform_block",
+     "group": "UniformBlockPName",
+     "name": "GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES",
+     "size": "(1,)",
+     "value": "0x8A43"
+    },
+    {
+     "family": "uniform_block",
+     "group": "UniformBlockPName",
+     "name": "GL_UNIFORM_BLOCK_REFERENCED_BY_VERTEX_SHADER",
+     "size": "(1,)",
+     "value": "0x8A44"
+    },
+    {
+     "family": "uniform_block",
+     "group": "UniformBlockPName",
+     "name": "GL_UNIFORM_BLOCK_REFERENCED_BY_FRAGMENT_SHADER",
+     "size": "(1,)",
+     "value": "0x8A46"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_VERTEX_OUTPUT_COMPONENTS",
+     "size": "(1,)",
+     "value": "0x9122"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_FRAGMENT_INPUT_COMPONENTS",
+     "size": "(1,)",
+     "value": "0x9125"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_SERVER_WAIT_TIMEOUT",
+     "size": "(1,)",
+     "value": "0x9111"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_SAMPLER_BINDING",
+     "size": "(1,)",
+     "value": "0x8919"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TRANSFORM_FEEDBACK_BINDING",
+     "size": "(1,)",
+     "value": "0x8E25"
+    },
+    {
+     "family": "program",
+     "group": "ProgramPropertyARB",
+     "name": "GL_PROGRAM_BINARY_LENGTH",
+     "size": "(1,)",
+     "value": "0x8741"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_NUM_PROGRAM_BINARY_FORMATS",
+     "size": "(1,)",
+     "value": "0x87FE"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_PROGRAM_BINARY_FORMATS",
+     "size": "(1,)",
+     "value": "0x87FF"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TEXTURE_IMMUTABLE_FORMAT",
+     "size": "(1,)",
+     "value": "0x912F"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_ELEMENT_INDEX",
+     "size": "(1,)",
+     "value": "0x8D6B"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TEXTURE_IMMUTABLE_LEVELS",
+     "size": "(1,)",
+     "value": "0x82DF"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_ES_VERSION_3_1": {
+   "glgets": [
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_COMPUTE_UNIFORM_BLOCKS",
+     "size": "(1,)",
+     "value": "0x91BB"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_COMPUTE_TEXTURE_IMAGE_UNITS",
+     "size": "(1,)",
+     "value": "0x91BC"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_COMPUTE_IMAGE_UNIFORMS",
+     "size": "(1,)",
+     "value": "0x91BD"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_COMPUTE_SHARED_MEMORY_SIZE",
+     "size": "(1,)",
+     "value": "0x8262"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_COMPUTE_UNIFORM_COMPONENTS",
+     "size": "(1,)",
+     "value": "0x8263"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_COMPUTE_ATOMIC_COUNTER_BUFFERS",
+     "size": "(1,)",
+     "value": "0x8264"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_COMPUTE_ATOMIC_COUNTERS",
+     "size": "(1,)",
+     "value": "0x8265"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_COMBINED_COMPUTE_UNIFORM_COMPONENTS",
+     "size": "(1,)",
+     "value": "0x8266"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_COMPUTE_WORK_GROUP_INVOCATIONS",
+     "size": "(1,)",
+     "value": "0x90EB"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_COMPUTE_WORK_GROUP_COUNT",
+     "size": "(3,)",
+     "value": "0x91BE"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_COMPUTE_WORK_GROUP_SIZE",
+     "size": "(3,)",
+     "value": "0x91BF"
+    },
+    {
+     "family": "program",
+     "group": "ProgramPropertyARB",
+     "name": "GL_COMPUTE_WORK_GROUP_SIZE",
+     "size": "(3,)",
+     "value": "0x8267"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_DISPATCH_INDIRECT_BUFFER_BINDING",
+     "size": "(1,)",
+     "value": "0x90EF"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_DRAW_INDIRECT_BUFFER_BINDING",
+     "size": "(1,)",
+     "value": "0x8F43"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_UNIFORM_LOCATIONS",
+     "size": "(1,)",
+     "value": "0x826E"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_FRAMEBUFFER_WIDTH",
+     "size": "(1,)",
+     "value": "0x9315"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_FRAMEBUFFER_HEIGHT",
+     "size": "(1,)",
+     "value": "0x9316"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_FRAMEBUFFER_SAMPLES",
+     "size": "(1,)",
+     "value": "0x9318"
+    },
+    {
+     "family": "program_interface",
+     "group": "ProgramInterfacePName",
+     "name": "GL_ACTIVE_RESOURCES",
+     "size": "(1,)",
+     "value": "0x92F5"
+    },
+    {
+     "family": "program_interface",
+     "group": "ProgramInterfacePName",
+     "name": "GL_MAX_NAME_LENGTH",
+     "size": "(1,)",
+     "value": "0x92F6"
+    },
+    {
+     "family": "program_interface",
+     "group": "ProgramInterfacePName",
+     "name": "GL_MAX_NUM_ACTIVE_VARIABLES",
+     "size": "(1,)",
+     "value": "0x92F7"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_PROGRAM_PIPELINE_BINDING",
+     "size": "(1,)",
+     "value": "0x825A"
+    },
+    {
+     "family": "atomic_counter_buffer",
+     "group": "AtomicCounterBufferPName",
+     "name": "GL_ATOMIC_COUNTER_BUFFER_BINDING",
+     "size": "(1,)",
+     "value": "0x92C1"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_ATOMIC_COUNTER_BUFFER_START",
+     "size": "(1,)#TODO Is actually GL_ATOMIC_COUNTER_BUFFER_ACTIVE_ATOMIC_COUNTERS",
+     "value": "0x92C2"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_ATOMIC_COUNTER_BUFFER_SIZE",
+     "size": "(1,)#TODO Is actually GL_ATOMIC_COUNTER_BUFFER_ACTIVE_ATOMIC_COUNTERS",
+     "value": "0x92C3"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_VERTEX_ATOMIC_COUNTER_BUFFERS",
+     "size": "(1,)",
+     "value": "0x92CC"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_FRAGMENT_ATOMIC_COUNTER_BUFFERS",
+     "size": "(1,)",
+     "value": "0x92D0"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_COMBINED_ATOMIC_COUNTER_BUFFERS",
+     "size": "(1,)",
+     "value": "0x92D1"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_VERTEX_ATOMIC_COUNTERS",
+     "size": "(1,)",
+     "value": "0x92D2"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_FRAGMENT_ATOMIC_COUNTERS",
+     "size": "(1,)",
+     "value": "0x92D6"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_COMBINED_ATOMIC_COUNTERS",
+     "size": "(1,)",
+     "value": "0x92D7"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_ATOMIC_COUNTER_BUFFER_SIZE",
+     "size": "(1,)",
+     "value": "0x92D8"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_ATOMIC_COUNTER_BUFFER_BINDINGS",
+     "size": "(1,)",
+     "value": "0x92DC"
+    },
+    {
+     "family": "program",
+     "group": "ProgramPropertyARB",
+     "name": "GL_ACTIVE_ATOMIC_COUNTER_BUFFERS",
+     "size": "(1,)",
+     "value": "0x92D9"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_IMAGE_UNITS",
+     "size": "(1,)",
+     "value": "0x8F38"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_VERTEX_IMAGE_UNIFORMS",
+     "size": "(1,)",
+     "value": "0x90CA"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_FRAGMENT_IMAGE_UNIFORMS",
+     "size": "(1,)",
+     "value": "0x90CE"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_COMBINED_IMAGE_UNIFORMS",
+     "size": "(1,)",
+     "value": "0x90CF"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_SHADER_STORAGE_BUFFER_BINDING",
+     "size": "(1,)",
+     "value": "0x90D3"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_SHADER_STORAGE_BUFFER_START",
+     "size": "(1,)",
+     "value": "0x90D4"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_SHADER_STORAGE_BUFFER_SIZE",
+     "size": "(1,)",
+     "value": "0x90D5"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_VERTEX_SHADER_STORAGE_BLOCKS",
+     "size": "(1,)",
+     "value": "0x90D6"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_FRAGMENT_SHADER_STORAGE_BLOCKS",
+     "size": "(1,)",
+     "value": "0x90DA"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_COMPUTE_SHADER_STORAGE_BLOCKS",
+     "size": "(1,)",
+     "value": "0x90DB"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_COMBINED_SHADER_STORAGE_BLOCKS",
+     "size": "(1,)",
+     "value": "0x90DC"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_SHADER_STORAGE_BUFFER_BINDINGS",
+     "size": "(1,)",
+     "value": "0x90DD"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_SHADER_STORAGE_BLOCK_SIZE",
+     "size": "(1,)",
+     "value": "0x90DE"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_SHADER_STORAGE_BUFFER_OFFSET_ALIGNMENT",
+     "size": "(1,)",
+     "value": "0x90DF"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_SAMPLE_MASK_VALUE",
+     "size": "(1,)",
+     "value": "0x8E52"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_SAMPLE_MASK_WORDS",
+     "size": "(1,)",
+     "value": "0x8E59"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_COLOR_TEXTURE_SAMPLES",
+     "size": "(1,)",
+     "value": "0x910E"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_DEPTH_TEXTURE_SAMPLES",
+     "size": "(1,)",
+     "value": "0x910F"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_INTEGER_SAMPLES",
+     "size": "(1,)",
+     "value": "0x9110"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_TEXTURE_BINDING_2D_MULTISAMPLE",
+     "size": "(1,)",
+     "value": "0x9104"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TEXTURE_SAMPLES",
+     "size": "(1,)",
+     "value": "0x9106"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TEXTURE_FIXED_SAMPLE_LOCATIONS",
+     "size": "(1,)",
+     "value": "0x9107"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TEXTURE_DEPTH",
+     "size": "(1,)",
+     "value": "0x8071"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TEXTURE_DEPTH_SIZE",
+     "size": "(1,)",
+     "value": "0x884A"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TEXTURE_STENCIL_SIZE",
+     "size": "(1,)",
+     "value": "0x88F1"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TEXTURE_RED_TYPE",
+     "size": "(1,)",
+     "value": "0x8C10"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TEXTURE_GREEN_TYPE",
+     "size": "(1,)",
+     "value": "0x8C11"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TEXTURE_BLUE_TYPE",
+     "size": "(1,)",
+     "value": "0x8C12"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TEXTURE_ALPHA_TYPE",
+     "size": "(1,)",
+     "value": "0x8C13"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TEXTURE_DEPTH_TYPE",
+     "size": "(1,)",
+     "value": "0x8C16"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_VERTEX_BINDING_DIVISOR",
+     "size": "(1,)",
+     "value": "0x82D6"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_VERTEX_BINDING_OFFSET",
+     "size": "(1,)",
+     "value": "0x82D7"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_VERTEX_BINDING_STRIDE",
+     "size": "(1,)",
+     "value": "0x82D8"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_VERTEX_ATTRIB_RELATIVE_OFFSET",
+     "size": "(1,)",
+     "value": "0x82D9"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_VERTEX_ATTRIB_BINDINGS",
+     "size": "(1,)",
+     "value": "0x82DA"
+    }
+   ],
+   "missing_size": []
+  },
+  "GL_ES_VERSION_3_2": {
+   "glgets": [
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_DEBUG_NEXT_LOGGED_MESSAGE_LENGTH",
+     "size": "(1,)",
+     "value": "0x8243"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_DEBUG_GROUP_STACK_DEPTH",
+     "size": "(1,)",
+     "value": "0x826C"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_DEBUG_GROUP_STACK_DEPTH",
+     "size": "(1,)",
+     "value": "0x826D"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_LABEL_LENGTH",
+     "size": "(1,)",
+     "value": "0x82E8"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_DEBUG_MESSAGE_LENGTH",
+     "size": "(1,)",
+     "value": "0x9143"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_DEBUG_LOGGED_MESSAGES",
+     "size": "(1,)",
+     "value": "0x9144"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_DEBUG_LOGGED_MESSAGES",
+     "size": "(1,)",
+     "value": "0x9145"
+    },
+    {
+     "family": "program",
+     "group": "ProgramPropertyARB",
+     "name": "GL_GEOMETRY_VERTICES_OUT",
+     "size": "(1,)",
+     "value": "0x8916"
+    },
+    {
+     "family": "program",
+     "group": "ProgramPropertyARB",
+     "name": "GL_GEOMETRY_INPUT_TYPE",
+     "size": "(1,)",
+     "value": "0x8917"
+    },
+    {
+     "family": "program",
+     "group": "ProgramPropertyARB",
+     "name": "GL_GEOMETRY_OUTPUT_TYPE",
+     "size": "(1,)",
+     "value": "0x8918"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_GEOMETRY_SHADER_INVOCATIONS",
+     "size": "(1,)#TODO Review http://www.opengl.org/registry/specs//ARB/gpu_shader5.txt",
+     "value": "0x887F"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_LAYER_PROVOKING_VERTEX",
+     "size": "(1,)",
+     "value": "0x825E"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_GEOMETRY_UNIFORM_COMPONENTS",
+     "size": "(1,)",
+     "value": "0x8DDF"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_GEOMETRY_UNIFORM_BLOCKS",
+     "size": "(1,)",
+     "value": "0x8A2C"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_COMBINED_GEOMETRY_UNIFORM_COMPONENTS",
+     "size": "(1,)",
+     "value": "0x8A32"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_GEOMETRY_INPUT_COMPONENTS",
+     "size": "(1,)",
+     "value": "0x9123"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_GEOMETRY_OUTPUT_COMPONENTS",
+     "size": "(1,)",
+     "value": "0x9124"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_GEOMETRY_OUTPUT_VERTICES",
+     "size": "(1,)",
+     "value": "0x8DE0"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_GEOMETRY_TOTAL_OUTPUT_COMPONENTS",
+     "size": "(1,)",
+     "value": "0x8DE1"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_GEOMETRY_SHADER_INVOCATIONS",
+     "size": "(1,)",
+     "value": "0x8E5A"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_GEOMETRY_TEXTURE_IMAGE_UNITS",
+     "size": "(1,)",
+     "value": "0x8C29"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_GEOMETRY_ATOMIC_COUNTER_BUFFERS",
+     "size": "(1,)",
+     "value": "0x92CF"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_GEOMETRY_ATOMIC_COUNTERS",
+     "size": "(1,)",
+     "value": "0x92D5"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_GEOMETRY_IMAGE_UNIFORMS",
+     "size": "(1,)",
+     "value": "0x90CD"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_GEOMETRY_SHADER_STORAGE_BLOCKS",
+     "size": "(1,)",
+     "value": "0x90D7"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_FRAMEBUFFER_LAYERS",
+     "size": "(1,)",
+     "value": "0x9317"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_CONTEXT_FLAGS",
+     "size": "(1,)",
+     "value": "0x821E"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_LOSE_CONTEXT_ON_RESET",
+     "size": "(1,)#TODO Review http://www.opengl.org/registry/specs//KHR/robustness.txt",
+     "value": "0x8252"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_RESET_NOTIFICATION_STRATEGY",
+     "size": "(1,)",
+     "value": "0x8256"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_NO_RESET_NOTIFICATION",
+     "size": "(1,)#TODO Review http://www.opengl.org/registry/specs//KHR/robustness.txt",
+     "value": "0x8261"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MIN_FRAGMENT_INTERPOLATION_OFFSET",
+     "size": "(1,)",
+     "value": "0x8E5B"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_FRAGMENT_INTERPOLATION_OFFSET",
+     "size": "(1,)",
+     "value": "0x8E5C"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_FRAGMENT_INTERPOLATION_OFFSET_BITS",
+     "size": "(1,)",
+     "value": "0x8E5D"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TESS_CONTROL_OUTPUT_VERTICES",
+     "size": "(1,)#TODO Review http://www.opengl.org/registry/specs//ARB/tessellation_shader.txt",
+     "value": "0x8E75"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TESS_GEN_MODE",
+     "size": "(1,)",
+     "value": "0x8E76"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TESS_GEN_SPACING",
+     "size": "(1,)",
+     "value": "0x8E77"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TESS_GEN_VERTEX_ORDER",
+     "size": "(1,)",
+     "value": "0x8E78"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TESS_GEN_POINT_MODE",
+     "size": "(1,)",
+     "value": "0x8E79"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_PATCH_VERTICES",
+     "size": "(1,)",
+     "value": "0x8E7D"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_TESS_GEN_LEVEL",
+     "size": "(1,)",
+     "value": "0x8E7E"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_TESS_CONTROL_UNIFORM_COMPONENTS",
+     "size": "(1,)",
+     "value": "0x8E7F"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_TESS_EVALUATION_UNIFORM_COMPONENTS",
+     "size": "(1,)",
+     "value": "0x8E80"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_TESS_CONTROL_TEXTURE_IMAGE_UNITS",
+     "size": "(1,)",
+     "value": "0x8E81"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_TESS_EVALUATION_TEXTURE_IMAGE_UNITS",
+     "size": "(1,)",
+     "value": "0x8E82"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_TESS_CONTROL_OUTPUT_COMPONENTS",
+     "size": "(1,)",
+     "value": "0x8E83"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_TESS_PATCH_COMPONENTS",
+     "size": "(1,)",
+     "value": "0x8E84"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_TESS_CONTROL_TOTAL_OUTPUT_COMPONENTS",
+     "size": "(1,)",
+     "value": "0x8E85"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_TESS_EVALUATION_OUTPUT_COMPONENTS",
+     "size": "(1,)",
+     "value": "0x8E86"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_TESS_CONTROL_UNIFORM_BLOCKS",
+     "size": "(1,)",
+     "value": "0x8E89"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_TESS_EVALUATION_UNIFORM_BLOCKS",
+     "size": "(1,)",
+     "value": "0x8E8A"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_TESS_CONTROL_INPUT_COMPONENTS",
+     "size": "(1,)",
+     "value": "0x886C"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_TESS_EVALUATION_INPUT_COMPONENTS",
+     "size": "(1,)",
+     "value": "0x886D"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_COMBINED_TESS_CONTROL_UNIFORM_COMPONENTS",
+     "size": "(1,)",
+     "value": "0x8E1E"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_COMBINED_TESS_EVALUATION_UNIFORM_COMPONENTS",
+     "size": "(1,)",
+     "value": "0x8E1F"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_TESS_CONTROL_ATOMIC_COUNTER_BUFFERS",
+     "size": "(1,)",
+     "value": "0x92CD"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_TESS_EVALUATION_ATOMIC_COUNTER_BUFFERS",
+     "size": "(1,)",
+     "value": "0x92CE"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_TESS_CONTROL_ATOMIC_COUNTERS",
+     "size": "(1,)",
+     "value": "0x92D3"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_TESS_EVALUATION_ATOMIC_COUNTERS",
+     "size": "(1,)",
+     "value": "0x92D4"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_TESS_CONTROL_IMAGE_UNIFORMS",
+     "size": "(1,)",
+     "value": "0x90CB"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_MAX_TESS_EVALUATION_IMAGE_UNIFORMS",
+     "size": "(1,)",
+     "value": "0x90CC"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_TESS_CONTROL_SHADER_STORAGE_BLOCKS",
+     "size": "(1,)",
+     "value": "0x90D8"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_TESS_EVALUATION_SHADER_STORAGE_BLOCKS",
+     "size": "(1,)",
+     "value": "0x90D9"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_PRIMITIVE_RESTART_FOR_PATCHES_SUPPORTED",
+     "size": "(1,)",
+     "value": "0x8221"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_MAX_TEXTURE_BUFFER_SIZE",
+     "size": "(1,)",
+     "value": "0x8C2B"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_TEXTURE_BINDING_BUFFER",
+     "size": "(1,)",
+     "value": "0x8C2C"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TEXTURE_BUFFER_DATA_STORE_BINDING",
+     "size": "(1,)",
+     "value": "0x8C2D"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_TEXTURE_BUFFER_OFFSET_ALIGNMENT",
+     "size": "(1,)",
+     "value": "0x919F"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TEXTURE_BUFFER_OFFSET",
+     "size": "(1,)",
+     "value": "0x919D"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TEXTURE_BUFFER_SIZE",
+     "size": "(1,)",
+     "value": "0x919E"
+    },
+    {
+     "family": "state?",
+     "group": null,
+     "name": "GL_TEXTURE_BINDING_CUBE_MAP_ARRAY",
+     "size": "(1,)",
+     "value": "0x900A"
+    },
+    {
+     "family": "state",
+     "group": "GetPName",
+     "name": "GL_TEXTURE_BINDING_2D_MULTISAMPLE_ARRAY",
+     "size": "(1,)",
+     "value": "0x9105"
+    }
+   ],
+   "missing_size": []
+  }
+ },
+ "suite": "gles"
+}

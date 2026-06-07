@@ -66,6 +66,12 @@ def check_test(func):
     @wraps(func)
     def test_x():
         log.info('Starting test: %s', filename)
+        # These are stand-alone *windowed* scripts; the headless egl backend
+        # (PYOPENGL_PLATFORM=egl + no window) has no equivalent for them, so run
+        # them in the default windowed mode rather than propagating egl.
+        env = dict(os.environ)
+        if env.get('TEST_WINDOWING', '').strip().lower() == 'egl':
+            env.pop('TEST_WINDOWING', None)
         pipe = subprocess.Popen(
             [
                 sys.executable,
@@ -73,6 +79,7 @@ def check_test(func):
             ],
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
+            env=env,
         )
         try:
             stdout, stderr = pipe.communicate()

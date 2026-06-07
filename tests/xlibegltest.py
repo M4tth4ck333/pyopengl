@@ -2,7 +2,11 @@
 """Raw xlib based test setup"""
 from Xlib import X, display, error
 import ctypes
+import os
 from functools import wraps
+
+#: show the window by default (set TEST_VISIBLE=0 for headless/CI runs).
+TEST_VISIBLE = os.environ.get('TEST_VISIBLE', '1').lower() not in ('0', 'false', 'no')
 
 from OpenGL import arrays
 from OpenGL.EGL import *
@@ -80,7 +84,10 @@ class EGLWindow(object):
             foreground=self.screen.black_pixel,
             background=self.screen.white_pixel,
         )
-        self.window.map()
+        # mapping the window is what makes it appear on screen; skip it for
+        # headless/CI runs (the EGL window surface still works unmapped).
+        if TEST_VISIBLE:
+            self.window.map()
         self.api = api
         self.attributes = attributes
 
