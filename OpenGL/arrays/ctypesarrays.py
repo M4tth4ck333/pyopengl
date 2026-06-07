@@ -27,19 +27,28 @@ class CtypesArrayHandler( formathandler.FormatHandler ):
         return ctypes.byref( value )
     @classmethod
     def zeros( cls, dims, typeCode ):
-        """Return Numpy array of zeros in given size"""
+        """Return ctypes array of zeros in given size"""
         type = GL_TYPE_TO_ARRAY_MAPPING[ typeCode ]
-        for dim in dims:
+        # build inner-most dimension first so the array indexes outer->inner,
+        # matching numpy's row-major shape (zeros((2,3)) -> 2 rows of 3)
+        for dim in reversed(dims):
             type *= int(dim)
-        return type() # should expicitly set to 0s
+        return type() # ctypes arrays are zero-initialised
     @classmethod
     def ones( cls, dims, typeCode='d' ):
-        """Return numpy array of ones in given size"""
-        raise NotImplementedError( """Haven't got a good ones implementation yet""" )
-##		type = GL_TYPE_TO_ARRAY_MAPPING[ typeCode ]
-##		for dim in dims:
-##			type *= dim 
-##		return type() # should expicitly set to 0s
+        """Return ctypes array of ones in given size"""
+        result = cls.zeros( dims, typeCode )
+        cls._fill( result, 1 )
+        return result
+    @classmethod
+    def _fill( cls, value, scalar ):
+        """Recursively set every scalar element of a (possibly nested) array"""
+        for i in range( len( value ) ):
+            element = value[i]
+            if isinstance( element, _ctypes.Array ):
+                cls._fill( element, scalar )
+            else:
+                value[i] = scalar
     @classmethod
     def arrayToGLType( cls, value ):
         """Given a value, guess OpenGL type of the corresponding pointer"""
@@ -146,6 +155,8 @@ GL_TYPE_TO_ARRAY_MAPPING = {
     'I': _types.GLuint,
     'h': _types.GLshort,
     'H': _types.GLushort,
+    'q': _types.GLint64,
+    'Q': _types.GLuint64,
     'b': _types.GLbyte,
     'B': _types.GLubyte,
     's': _types.GLchar,
