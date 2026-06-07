@@ -170,10 +170,27 @@ def %(name)s(%(argNames)s):pass"""
         for output_group in output_group_names.keys():
             log.debug('Output parameter group: %s', output_group)
             for name in self.registry.enum_groups.get(output_group, []):
+                if name in self.NON_GLGET:
+                    continue
                 if name not in table:
                     log.info('New %s value: %r', output_group, name)
                     table[name] = ''
         return table
+
+    #: Constants the registry files under a glGet output group but that are NOT
+    #: served by the size-mapped array getters: they are read with
+    #: glGetUnsignedBytev/i_v (byte arrays sized via setInputArraySize).  They must
+    #: not enter glgetsizes.csv -- a blind glGetFloatv/glGetIntegerv on them
+    #: returns garbage and crashes some drivers (llvmpipe segfaults on
+    #: GL_DEVICE_LUID_EXT).  The registry can't distinguish them (glGetUnsignedBytev
+    #: shares the GetPName group), so they are listed explicitly.
+    NON_GLGET = {
+        'GL_DEVICE_UUID_EXT',
+        'GL_DRIVER_UUID_EXT',
+        'GL_DEVICE_LUID_EXT',
+        'GL_DEVICE_NODE_MASK_EXT',
+        'GL_NUM_DEVICE_UUIDS_EXT',
+    }
 
     def saveGLGetSizes(self):
         """Save out sorted list of glGet sizes to disk"""
