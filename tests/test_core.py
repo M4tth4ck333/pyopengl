@@ -285,17 +285,19 @@ class TestCore(basetestcase.BaseTest):
                         assert mapped.value == expected, (param, mapped, expected)
                     else:
                         mapped = glGetBufferParameteriv(GL_ARRAY_BUFFER, param)
-                        if param == GL_BUFFER_USAGE:
-                            assert mapped[0] == expected, (param, mapped, expected)
+                        # every one of these pnames is a single value; with
+                        # SIZE_1_ARRAY_UNPACK the result is unpacked to a scalar.
+                        # (GL_BUFFER_USAGE used to need [0] only because its size
+                        # was wrongly (4,) -- clobbered by GL_OBJECT_BUFFER_USAGE_ATI
+                        # sharing enum value 0x8765; that is fixed in glgetsizes.csv.)
+                        if OpenGL.SIZE_1_ARRAY_UNPACK:
+                            assert mapped == expected, (param, mapped, expected)
                         else:
-                            if OpenGL.SIZE_1_ARRAY_UNPACK:
-                                assert mapped == expected, (param, mapped, expected)
-                            else:
-                                assert mapped[0] == expected, (
-                                    param,
-                                    mapped[0],
-                                    expected,
-                                )
+                            assert mapped[0] == expected, (
+                                param,
+                                mapped[0],
+                                expected,
+                            )
             finally:
                 glBindBuffer(GL_ARRAY_BUFFER, 0)
                 glDeleteVertexArrays(1, vertex_array)
