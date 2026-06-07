@@ -4,7 +4,7 @@ invalidation, copy-image, multi-draw-indirect, texture storage/views."""
 
 import unittest
 import ctypes
-import numpy as np
+from arraycompat import np  # numpy, or a ctypes fallback when numpy is absent
 
 from gltestcase import GLTestCase
 from OpenGL.GL import *  # noqa: F401,F403

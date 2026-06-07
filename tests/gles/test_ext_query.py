@@ -4,7 +4,7 @@ conditional render, APPLE fence sync, parallel shader compile."""
 
 import unittest
 import ctypes
-import numpy as np
+from arraycompat import np  # numpy, or a ctypes fallback when numpy is absent
 
 from egltestcase import ESTestCase
 from OpenGL.GLES2.EXT import disjoint_timer_query as timer

@@ -6,7 +6,7 @@ Skipped where the driver tops out below 4.6 / lacks the entry points.
 
 import unittest
 import ctypes
-import numpy as np
+from arraycompat import np  # numpy, or a ctypes fallback when numpy is absent
 
 from gltestcase import GLTestCase
 from OpenGL.GL import *  # noqa: F401,F403

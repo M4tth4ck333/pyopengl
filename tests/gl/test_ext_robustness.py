@@ -3,7 +3,7 @@
 and GL_KHR_robustness.  Compatibility context so the imaging getters resolve."""
 
 import unittest
-import numpy as np
+from arraycompat import np, nbytes  # numpy, or a ctypes fallback when numpy is absent
 
 from gltestcase import GLTestCase
 from OpenGL.GL import *  # noqa: F401,F403
@@ -23,7 +23,7 @@ class TestARBRobustness(GLTestCase):
         with self.allow_missing():
             glGetGraphicsResetStatusARB()
             buf = np.zeros((1, 1, 4), 'B')
-            glReadnPixelsARB(0, 0, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, buf.nbytes, buf)
+            glReadnPixelsARB(0, 0, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, nbytes(buf), buf)
             prog = self.compile_program(VS, FS)
             glUseProgram(prog)
             uf = glGetUniformLocation(prog, 'uf')
@@ -102,8 +102,8 @@ class TestKHRRobustness(GLTestCase):
             glGetGraphicsResetStatus()
             glGetGraphicsResetStatusKHR()
             buf = np.zeros((1, 1, 4), 'B')
-            glReadnPixels(0, 0, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, buf.nbytes, buf)
-            glReadnPixelsKHR(0, 0, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, buf.nbytes, buf)
+            glReadnPixels(0, 0, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, nbytes(buf), buf)
+            glReadnPixelsKHR(0, 0, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, nbytes(buf), buf)
             prog = self.compile_program(
                 '#version 150\nin vec4 p; void main(){ gl_Position = p; }',
                 '#version 150\nuniform float uf; out vec4 c; void main(){ c = vec4(uf); }',

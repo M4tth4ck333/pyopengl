@@ -5,7 +5,7 @@ gluNurbsCallbackData(EXT), gluNurbsCurve / gluNurbsSurface (auto-computed order
 and stride), the gluBegin*/gluEnd* scoping, and gluPwlCurve trimming."""
 
 import unittest
-import numpy as np
+from arraycompat import np  # numpy, or a ctypes fallback when numpy is absent
 
 from glutestcase import GLUTestCase
 from OpenGL.GL import GL_MAP1_VERTEX_3, GL_MAP2_VERTEX_3
@@ -44,11 +44,12 @@ def _curve_control():
 
 
 def _surface_control():
-    ctrl = np.zeros((4, 4, 3), 'f')
-    for i in range(4):
-        for j in range(4):
-            ctrl[i, j] = [i / 3.0 - 0.5, j / 3.0 - 0.5, 0.0]
-    return ctrl
+    # built as nested lists so it works on the ctypes fallback (no numpy
+    # multi-index assignment) as well as numpy
+    return np.array(
+        [[[i / 3.0 - 0.5, j / 3.0 - 0.5, 0.0] for j in range(4)] for i in range(4)],
+        'f',
+    )
 
 
 class TestGLUNurbs(GLUTestCase):

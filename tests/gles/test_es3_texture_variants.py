@@ -9,7 +9,8 @@ Verifies the input image entry points (which forward numpy data) actually round
 """
 
 import unittest
-import numpy as np
+import pytest
+np = pytest.importorskip('numpy')  # numpy-specific test: skip without numpy
 
 from egltestcase import ESTestCase
 

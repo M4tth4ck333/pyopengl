@@ -3,7 +3,7 @@
 arrays, polygon-offset clamp, clip control, framebuffer attach, multiview."""
 
 import unittest
-import numpy as np
+from arraycompat import np  # numpy, or a ctypes fallback when numpy is absent
 
 from egltestcase import ESTestCase
 from OpenGL.GLES3 import (

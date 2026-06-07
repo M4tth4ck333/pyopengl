@@ -3,7 +3,7 @@
 
 import unittest
 import ctypes
-import numpy as np
+from arraycompat import np, nbytes  # numpy, or a ctypes fallback when numpy is absent
 
 from gltestcase import GLTestCase
 from OpenGL.GL import *  # noqa: F401,F403
@@ -126,20 +126,20 @@ class TestGL45(GLTestCase):
         ctex = _create(glCreateTextures, GL_TEXTURE_2D)
         glTextureStorage2D(ctex, 1, GL_COMPRESSED_RGB8_ETC2, 4, 4)
         glCompressedTextureSubImage2D(
-            ctex, 0, 0, 0, 4, 4, GL_COMPRESSED_RGB8_ETC2, block.nbytes, block
+            ctex, 0, 0, 0, 4, 4, GL_COMPRESSED_RGB8_ETC2, nbytes(block), block
         )
-        glGetCompressedTextureImage(ctex, 0, block.nbytes, np.zeros(8, 'B'))
+        glGetCompressedTextureImage(ctex, 0, nbytes(block), np.zeros(8, 'B'))
         glGetCompressedTextureSubImage(
-            ctex, 0, 0, 0, 0, 4, 4, 1, block.nbytes, np.zeros(8, 'B')
+            ctex, 0, 0, 0, 0, 4, 4, 1, nbytes(block), np.zeros(8, 'B')
         )
         with self.exercise():  # 1D/3D compressed targets are format-restricted
             c1 = _create(glCreateTextures, GL_TEXTURE_1D)
             glCompressedTextureSubImage1D(
-                c1, 0, 0, 4, GL_COMPRESSED_RGB8_ETC2, block.nbytes, block
+                c1, 0, 0, 4, GL_COMPRESSED_RGB8_ETC2, nbytes(block), block
             )
             c3 = _create(glCreateTextures, GL_TEXTURE_3D)
             glCompressedTextureSubImage3D(
-                c3, 0, 0, 0, 0, 4, 4, 1, GL_COMPRESSED_RGB8_ETC2, block.nbytes, block
+                c3, 0, 0, 0, 0, 4, 4, 1, GL_COMPRESSED_RGB8_ETC2, nbytes(block), block
             )
         self.check_error('dsa textures')
 

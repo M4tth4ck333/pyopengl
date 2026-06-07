@@ -2,7 +2,7 @@
 """GLES3.0: sampler objects and fence sync objects."""
 
 import unittest
-import numpy as np
+from arraycompat import np  # numpy, or a ctypes fallback when numpy is absent
 
 from egltestcase import ESTestCase
 

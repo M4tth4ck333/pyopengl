@@ -9,7 +9,7 @@ render-to-texture, and using the rendered texture as input -- the ES way to
 """
 
 import unittest
-import numpy as np
+from arraycompat import np  # numpy, or a ctypes fallback when numpy is absent
 
 from egltestcase import ESTestCase
 

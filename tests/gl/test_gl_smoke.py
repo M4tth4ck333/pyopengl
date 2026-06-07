@@ -2,7 +2,7 @@
 """Smoke tests: core-profile shader render and compatibility immediate-mode."""
 
 import unittest
-import numpy as np
+from arraycompat import np  # numpy, or a ctypes fallback when numpy is absent
 
 from gltestcase import GLTestCase
 

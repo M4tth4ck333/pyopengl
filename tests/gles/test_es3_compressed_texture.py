@@ -9,7 +9,7 @@ decoder-defined, so it is not hard-coded.)
 """
 
 import unittest
-import numpy as np
+from arraycompat import np  # numpy, or a ctypes fallback when numpy is absent
 
 from egltestcase import ESTestCase
 
@@ -99,8 +99,9 @@ class TestES3CompressedTexture(ESTestCase):
 
         image = self.read_image()
         qx, qy = self.width // 4, self.height // 4
+        # chained indexing works for both numpy and the ctypes fallback
         samples = [
-            tuple(int(c) for c in image[int(y), int(x)])
+            tuple(int(c) for c in image[int(y)][int(x)])
             for y in (qy, 3 * qy)
             for x in (qx, 3 * qx)
         ]

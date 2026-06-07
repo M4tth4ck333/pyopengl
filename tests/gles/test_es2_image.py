@@ -8,7 +8,7 @@ checks each quadrant against the source texels.
 """
 
 import unittest
-import numpy as np
+from arraycompat import np, shape  # numpy, or a ctypes fallback when numpy is absent
 
 from egltestcase import ESTestCase
 
@@ -111,14 +111,15 @@ class TestES2Image(ESTestCase):
         self.check_error('draw')
 
         image = self.read_image()
-        self.assertEqual(image.shape, (self.height, self.width, 4))
+        self.assertEqual(shape(image), (self.height, self.width, 4))
         qx, qy = self.width // 4, self.height // 4
         # image is indexed [y][x]; y grows upward from the bottom-left origin
+        # (chained indexing works for both numpy and the ctypes fallback)
         corners = {
-            'bottom-left': (image[qy, qx], RED),
-            'bottom-right': (image[qy, 3 * qx], GREEN),
-            'top-left': (image[3 * qy, qx], BLUE),
-            'top-right': (image[3 * qy, 3 * qx], YELLOW),
+            'bottom-left': (image[qy][qx], RED),
+            'bottom-right': (image[qy][3 * qx], GREEN),
+            'top-left': (image[3 * qy][qx], BLUE),
+            'top-right': (image[3 * qy][3 * qx], YELLOW),
         }
         for name, (actual, expected) in corners.items():
             self.assertEqual(

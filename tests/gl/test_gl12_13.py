@@ -2,7 +2,7 @@
 """GL 1.2 / 1.3 (compatibility): 3D textures, multitexture, compressed, transpose."""
 
 import unittest
-import numpy as np
+from arraycompat import np  # numpy, or a ctypes fallback when numpy is absent
 
 from gltestcase import GLTestCase
 from OpenGL.GL import *  # noqa: F401,F403

@@ -7,7 +7,8 @@ checks the values.
 
 import unittest
 import ctypes
-import numpy as np
+import pytest
+np = pytest.importorskip('numpy')  # numpy-specific test: skip without numpy
 
 from egltestcase import ESTestCase
 

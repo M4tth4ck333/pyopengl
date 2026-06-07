@@ -4,7 +4,7 @@ multi-draw / separate-program entry points."""
 
 import unittest
 import ctypes
-import numpy as np
+from arraycompat import np  # numpy, or a ctypes fallback when numpy is absent
 
 from egltestcase import ESTestCase
 from OpenGL.GLES2 import (

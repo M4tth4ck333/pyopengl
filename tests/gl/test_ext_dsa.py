@@ -7,7 +7,7 @@ for state reasons still exercise the wrapper and are tolerated by exercise()."""
 
 import unittest
 import ctypes
-import numpy as np
+from arraycompat import np, nbytes  # numpy, or a ctypes fallback when numpy is absent
 
 from gltestcase import GLTestCase
 from OpenGL.GL import *  # noqa: F401,F403
@@ -230,10 +230,10 @@ class TestEXTDSA(GLTestCase):
         with self.allow_missing():
             t2 = int(glGenTextures(1))
             glCompressedTextureImage2DEXT(
-                t2, GL_TEXTURE_2D, 0, fmt, 4, 4, 0, cdata.nbytes, cdata
+                t2, GL_TEXTURE_2D, 0, fmt, 4, 4, 0, nbytes(cdata), cdata
             )
             glCompressedTextureSubImage2DEXT(
-                t2, GL_TEXTURE_2D, 0, 0, 0, 4, 4, fmt, cdata.nbytes, cdata
+                t2, GL_TEXTURE_2D, 0, 0, 0, 4, 4, fmt, nbytes(cdata), cdata
             )
             glGetCompressedTextureImageEXT(t2, GL_TEXTURE_2D, 0, np.zeros(8, 'B'))
         self.check_error('dsa compressed texture')
@@ -242,17 +242,17 @@ class TestEXTDSA(GLTestCase):
         with self.exercise():
             t1 = int(glGenTextures(1))
             glCompressedTextureImage1DEXT(
-                t1, GL_TEXTURE_1D, 0, fmt, 4, 0, cdata.nbytes, cdata
+                t1, GL_TEXTURE_1D, 0, fmt, 4, 0, nbytes(cdata), cdata
             )
             glCompressedTextureSubImage1DEXT(
-                t1, GL_TEXTURE_1D, 0, 0, 4, fmt, cdata.nbytes, cdata
+                t1, GL_TEXTURE_1D, 0, 0, 4, fmt, nbytes(cdata), cdata
             )
             t3 = int(glGenTextures(1))
             glCompressedTextureImage3DEXT(
-                t3, GL_TEXTURE_3D, 0, fmt, 4, 4, 1, 0, cdata.nbytes, cdata
+                t3, GL_TEXTURE_3D, 0, fmt, 4, 4, 1, 0, nbytes(cdata), cdata
             )
             glCompressedTextureSubImage3DEXT(
-                t3, GL_TEXTURE_3D, 0, 0, 0, 0, 4, 4, 1, fmt, cdata.nbytes, cdata
+                t3, GL_TEXTURE_3D, 0, 0, 0, 0, 4, 4, 1, fmt, nbytes(cdata), cdata
             )
 
     def test_multitex(self):
@@ -435,7 +435,7 @@ class TestEXTDSA(GLTestCase):
                 GL_COMPRESSED_RGBA,
                 4,
                 0,
-                cdata.nbytes,
+                nbytes(cdata),
                 cdata,
             )
             glCompressedMultiTexImage2DEXT(
@@ -446,7 +446,7 @@ class TestEXTDSA(GLTestCase):
                 4,
                 4,
                 0,
-                cdata.nbytes,
+                nbytes(cdata),
                 cdata,
             )
             glCompressedMultiTexImage3DEXT(
@@ -458,7 +458,7 @@ class TestEXTDSA(GLTestCase):
                 4,
                 1,
                 0,
-                cdata.nbytes,
+                nbytes(cdata),
                 cdata,
             )
             glCompressedMultiTexSubImage1DEXT(
@@ -468,7 +468,7 @@ class TestEXTDSA(GLTestCase):
                 0,
                 4,
                 GL_COMPRESSED_RGBA,
-                cdata.nbytes,
+                nbytes(cdata),
                 cdata,
             )
             glCompressedMultiTexSubImage2DEXT(
@@ -480,7 +480,7 @@ class TestEXTDSA(GLTestCase):
                 4,
                 4,
                 GL_COMPRESSED_RGBA,
-                cdata.nbytes,
+                nbytes(cdata),
                 cdata,
             )
             glCompressedMultiTexSubImage3DEXT(
@@ -494,7 +494,7 @@ class TestEXTDSA(GLTestCase):
                 4,
                 1,
                 GL_COMPRESSED_RGBA,
-                cdata.nbytes,
+                nbytes(cdata),
                 cdata,
             )
             glGetCompressedMultiTexImageEXT(

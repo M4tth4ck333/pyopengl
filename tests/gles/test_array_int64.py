@@ -64,7 +64,10 @@ class TestArrayInt64Live(ESTestCase):
 
     def test_timer_query_uint64_buffers(self):
         self.require_extension('GL_EXT_disjoint_timer_query')
-        import numpy as np
+        try:
+            import numpy as np
+        except ImportError:
+            self.skipTest('numpy not available')
         from OpenGL.GLES2.EXT import disjoint_timer_query as timer
 
         with self.allow_missing():
@@ -96,7 +99,10 @@ class TestArrayInt64Live(ESTestCase):
 
     def test_auto_alloc_int64_getter(self):
         """glGetInteger64v auto-allocates an int64 (previously segfaulted)."""
-        import numpy as np
+        try:
+            import numpy as np
+        except ImportError:
+            self.skipTest('numpy not available')
         from OpenGL.GLES3 import glGetInteger64v, GL_MAX_ELEMENT_INDEX
 
         value = glGetInteger64v(GL_MAX_ELEMENT_INDEX)

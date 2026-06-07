@@ -2,7 +2,7 @@
 """GLES2: texture parameters, buffer objects, renderbuffers and FBO queries."""
 
 import unittest
-import numpy as np
+from arraycompat import np  # numpy, or a ctypes fallback when numpy is absent
 
 from egltestcase import ESTestCase
 

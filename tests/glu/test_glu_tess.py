@@ -5,7 +5,7 @@ with original-object return), gluTessProperty / gluGetTessProperty / gluTessNorm
 and the legacy gluBeginPolygon / gluNextContour / gluEndPolygon path."""
 
 import unittest
-import numpy as np
+from arraycompat import np  # numpy, or a ctypes fallback when numpy is absent
 
 from glutestcase import GLUTestCase
 from OpenGL.GLU import (

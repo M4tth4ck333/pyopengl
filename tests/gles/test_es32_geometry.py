@@ -7,7 +7,7 @@ Skips where an ES3.2 context is unavailable.
 """
 
 import unittest
-import numpy as np
+from arraycompat import np  # numpy, or a ctypes fallback when numpy is absent
 
 from egltestcase import ESTestCase
 

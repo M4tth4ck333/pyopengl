@@ -2,7 +2,7 @@
 """GL 1.0 (compatibility): texture images, parameters, env, texgen, queries."""
 
 import unittest
-import numpy as np
+from arraycompat import np  # numpy, or a ctypes fallback when numpy is absent
 
 from gltestcase import GLTestCase
 from OpenGL.GL import *  # noqa: F401,F403

@@ -4,7 +4,7 @@ core blit/multisample/layered-attachment, GL_EXT_memory_object (+ _fd external
 import) and GL_ATI_fragment_shader (legacy register combiners)."""
 
 import unittest
-import numpy as np
+from arraycompat import np  # numpy, or a ctypes fallback when numpy is absent
 
 from gltestcase import GLTestCase
 from OpenGL.GL import *  # noqa: F401,F403

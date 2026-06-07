@@ -4,7 +4,7 @@ storage, copy-image and EGL-image targets."""
 
 import unittest
 import ctypes
-import numpy as np
+from arraycompat import np  # numpy, or a ctypes fallback when numpy is absent
 
 from egltestcase import ESTestCase
 from OpenGL.GLES3 import (

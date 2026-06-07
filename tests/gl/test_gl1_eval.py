@@ -2,7 +2,7 @@
 """GL 1.0 (compatibility): evaluators, maps and grids."""
 
 import unittest
-import numpy as np
+from arraycompat import np, astype  # numpy, or a ctypes fallback when numpy is absent
 
 from gltestcase import GLTestCase
 from OpenGL.GL import *  # noqa: F401,F403
@@ -18,7 +18,7 @@ class TestGL1Eval(GLTestCase):
     def test_map1(self):
         # PyOpenGL's friendly wrapper derives stride/order from the array
         glMap1f(GL_MAP1_VERTEX_3, 0.0, 1.0, CTRL)
-        glMap1d(GL_MAP1_VERTEX_3, 0.0, 1.0, CTRL.astype('d'))
+        glMap1d(GL_MAP1_VERTEX_3, 0.0, 1.0, astype(CTRL, 'd'))
         glEnable(GL_MAP1_VERTEX_3)
         glMapGrid1f(4, 0.0, 1.0)
         glMapGrid1d(4, 0.0, 1.0)
@@ -38,7 +38,7 @@ class TestGL1Eval(GLTestCase):
 
     def test_map2(self):
         glMap2f(GL_MAP2_VERTEX_3, 0.0, 1.0, 0.0, 1.0, CTRL2)
-        glMap2d(GL_MAP2_VERTEX_3, 0.0, 1.0, 0.0, 1.0, CTRL2.astype('d'))
+        glMap2d(GL_MAP2_VERTEX_3, 0.0, 1.0, 0.0, 1.0, astype(CTRL2, 'd'))
         glEnable(GL_MAP2_VERTEX_3)
         glMapGrid2f(4, 0.0, 1.0, 4, 0.0, 1.0)
         glMapGrid2d(4, 0.0, 1.0, 4, 0.0, 1.0)
