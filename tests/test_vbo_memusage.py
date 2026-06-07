@@ -1,5 +1,5 @@
 import testdecorator
-import os, sys
+import os, sys, platform
 
 # We have to import at least *one* VBO implementation...
 from OpenGL import GL, arrays
@@ -48,7 +48,14 @@ def test_sf_2980896():
         chunk = ArrayDatatype.arrayByteCount(data)  # bytes transferred per bind
     except Exception:
         chunk = len(data) * 4
-    warmup, iterations = 5, 25
+    # PyPy reaches steady state later (the JIT compiles this loop over the first
+    # several iterations) and its incremental GC releases arenas lazily, so its
+    # resident set steps up more often without any leak.  Give it a longer warm-up
+    # and a looser step tolerance; a real leak still grows on (nearly) all 25
+    # iterations, far above either tolerance.
+    is_pypy = platform.python_implementation() == 'PyPy'
+    warmup, iterations = (10, 30) if is_pypy else (5, 25)
+    leak_step_tolerance = 8 if is_pypy else 3
     samples = []
     for i in range(iterations):
         new_vbo = vbo.VBO(data)
@@ -65,7 +72,7 @@ def test_sf_2980896():
     tail = samples[warmup:]
     leak_steps = sum(1 for a, b in zip(tail, tail[1:]) if b - a >= chunk)
     # a real leak grows on (nearly) every iteration; tolerate a few one-time jumps.
-    assert leak_steps <= 3, (
+    assert leak_steps <= leak_step_tolerance, (
         "VBO transfer appears to leak: %d of %d post-warm-up iterations grew by "
         ">=%d bytes\nRSS samples: %s" % (leak_steps, len(tail) - 1, chunk, samples)
     )
