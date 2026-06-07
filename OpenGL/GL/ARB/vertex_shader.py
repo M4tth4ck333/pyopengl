@@ -145,6 +145,9 @@ def glGetActiveAttribARB(baseOperation, program, index, bufSize=None):
             name = name.tostring().rstrip(b'\000')
         elif hasattr(name, 'value'):
             name = name.value
+        elif isinstance(name, ctypes.Array):
+            # no-numpy backend: name is a raw GLchar ctypes array
+            name = bytes(name).rstrip(b'\000')
         return name, size, type
     raise IndexError('index out of range from zero to %i' % (max_index - 1,))
 

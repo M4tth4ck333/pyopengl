@@ -447,6 +447,9 @@ def glGetActiveUniform(baseOperation, program, index, bufSize=None, *args):
             name = name.tostring().rstrip(b'\000')
         elif hasattr(name, 'value'):
             name = name.value
+        elif isinstance(name, ctypes.Array):
+            # no-numpy backend: name is a raw GLchar ctypes array
+            name = bytes(name).rstrip(b'\000')
         return name, size, type
     raise IndexError(
         'Index %s out of range 0 to %i'
