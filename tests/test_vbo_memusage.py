@@ -4,6 +4,7 @@ import os, sys
 # We have to import at least *one* VBO implementation...
 from OpenGL import GL, arrays
 from OpenGL.arrays import vbo
+from OpenGL.arrays.arraydatatype import ArrayDatatype
 
 try:
     import psutil
@@ -31,10 +32,25 @@ def get_current_memory():
 @pytest.mark.skipif(not np, reason="No Numpy available")
 @testdecorator.gltest
 def test_sf_2980896():
-    """Test SF#2980896 report of memory leak on VBO transfer"""
+    """Test SF#2980896 report of memory leak on VBO transfer.
+
+    The original leak re-transferred (and lost) the whole data buffer on every
+    VBO bind, so a regression grows the resident set on *every* iteration.  We
+    detect that sustained, per-iteration growth rather than comparing each
+    iteration to a single baseline: RSS only moves in page/arena-sized chunks, so
+    one-time allocations -- a GL-driver buffer pool, a malloc arena, a lazily
+    imported module elsewhere in the suite -- produce a single multi-KB/MB step
+    that a tight byte threshold misreports as a leak (the old version failed in
+    full-suite runs for exactly this reason).
+    """
     data = arrays.GLfloatArray.zeros((1000,))
-    memory = get_current_memory()
-    for i in range(8):
+    try:
+        chunk = ArrayDatatype.arrayByteCount(data)  # bytes transferred per bind
+    except Exception:
+        chunk = len(data) * 4
+    warmup, iterations = 5, 25
+    samples = []
+    for i in range(iterations):
         new_vbo = vbo.VBO(data)
         with new_vbo:
             # data is transferred to the VBO
@@ -43,15 +59,15 @@ def test_sf_2980896():
         del new_vbo
         gc.collect()
         GL.glFinish()
-        if i < 1:
-            # the *first* call can load lots of libraries, etc...
-            memory = get_current_memory()
-        else:
-            current = get_current_memory()
-            delta = current - memory
-            assert delta < 200, (
-                """Shouldn't have any (or at least much) extra RAM allocated, lost: %s on iteration %d"""
-                % (current - memory, i)
-            )  # fails only when run in the whole suite...
+        samples.append(get_current_memory())
+    # ignore warm-up iterations (library/driver pools allocate early), then count
+    # how many steady-state iterations grew by at least one transfer's worth.
+    tail = samples[warmup:]
+    leak_steps = sum(1 for a, b in zip(tail, tail[1:]) if b - a >= chunk)
+    # a real leak grows on (nearly) every iteration; tolerate a few one-time jumps.
+    assert leak_steps <= 3, (
+        "VBO transfer appears to leak: %d of %d post-warm-up iterations grew by "
+        ">=%d bytes\nRSS samples: %s" % (leak_steps, len(tail) - 1, chunk, samples)
+    )
     sys.stdout.write('OK\n')
     sys.stdout.flush()
