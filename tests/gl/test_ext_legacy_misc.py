@@ -52,7 +52,7 @@ class TestLegacyCompat(GLTestCase):
             glBufferDataARB(GL_ARRAY_BUFFER, 64, np.zeros(16, 'f'), GL_STATIC_DRAW)
             glBufferSubDataARB(GL_ARRAY_BUFFER, 0, 16, np.ones(4, 'f'))
             glGetBufferParameterivARB(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, np.zeros(1, 'i'))
-            glGetBufferSubDataARB(GL_ARRAY_BUFFER, 0, 16, np.zeros(4, 'f'))
+            glGetBufferSubDataARB(GL_ARRAY_BUFFER, 0, 16, np.zeros(16, 'B'))
             ptr = ctypes.c_void_p()
             glGetBufferPointervARB(
                 GL_ARRAY_BUFFER, GL_BUFFER_MAP_POINTER, ctypes.byref(ptr)

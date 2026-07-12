@@ -78,7 +78,7 @@ class TestEXTDSA(GLTestCase):
             glNamedBufferStorageEXT(int(glGenBuffers(1)), 64, None, GL_MAP_READ_BIT)
             glNamedBufferSubDataEXT(buf, 0, 16, np.ones(4, 'f'))
             glGetNamedBufferParameterivEXT(buf, GL_BUFFER_SIZE, np.zeros(1, 'i'))
-            glGetNamedBufferSubDataEXT(buf, 0, 16, np.zeros(4, 'f'))
+            glGetNamedBufferSubDataEXT(buf, 0, 16, np.zeros(16, 'B'))
             ptr = ctypes.c_void_p()
             glGetNamedBufferPointervEXT(buf, GL_BUFFER_MAP_POINTER, ctypes.byref(ptr))
             other = int(glGenBuffers(1))
