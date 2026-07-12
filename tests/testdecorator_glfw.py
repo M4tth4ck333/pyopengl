@@ -36,26 +36,29 @@ def gltest(maybe_function=None, *, size=(300, 300), name=None):
             global SCREEN
             if not glfw.init():
                 raise RuntimeError('Failed to initialise GLFW')
+            glfw.default_window_hints()
+            SCREEN = glfw.create_window(
+                size[0],
+                size[1],
+                name or function.__name__,
+                None,
+                None,
+            )
+            if not SCREEN:
+                raise RuntimeError('Failed to create GLFW window')
+            glfw.make_context_current(SCREEN)
             try:
-                glfw.default_window_hints()
-                SCREEN = glfw.create_window(
-                    size[0],
-                    size[1],
-                    name or function.__name__,
-                    None,
-                    None,
-                )
-                if not SCREEN:
-                    raise RuntimeError('Failed to create GLFW window')
-                glfw.make_context_current(SCREEN)
-                try:
-                    return function(*args, **named)
-                finally:
-                    glfw.swap_buffers(SCREEN)
-                    glfw.destroy_window(SCREEN)
-                    SCREEN = None
+                return function(*args, **named)
             finally:
-                glfw.terminate()
+                glfw.swap_buffers(SCREEN)
+                glfw.destroy_window(SCREEN)
+                SCREEN = None
+                # Intentionally NOT calling glfw.terminate(): it segfaults inside
+                # libwayland-client's wl_display_disconnect() during the GLFW
+                # Wayland backend teardown (provoked by swap_buffers on an
+                # NVIDIA-EGL Wayland surface -- verified via gdb). basetestcase_glfw
+                # takes the same window-only-teardown approach; the binding
+                # registers no atexit terminate, so process exit reclaims the rest.
 
         return test_function
 
