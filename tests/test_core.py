@@ -303,6 +303,37 @@ class TestCore(basetestcase.BaseTest):
                 glDeleteVertexArrays(1, vertex_array)
                 glDeleteBuffers(1, buffer)
 
+    def test_glgetbuffersubdata_output_array(self):
+        """Pass-in output arrays for glGetBufferSubData must be filled or rejected.
+
+        A correctly-typed (ubyte) output array is filled in place. A
+        mismatched-dtype array would be coerced to a *copy* (the GL result written
+        into the copy, never reaching the caller's buffer, and truncated to the
+        wrong element count), so the wrapper must raise instead of silently
+        returning zeroes -- the reported bug.
+        """
+        if not glGenBuffers:
+            return
+        src = array([0x04030201, 0x08070605, 0x0C0B0A09], dtype='uint32')
+        nbytes = int(src.nbytes)
+        buf = glGenBuffers(1)
+        glBindBuffer(GL_ARRAY_BUFFER, buf)
+        try:
+            glBufferData(GL_ARRAY_BUFFER, nbytes, src, GL_STATIC_DRAW)
+
+            # correct-type output buffer: filled in place, bytes match.
+            out = array([0] * nbytes, dtype='uint8')
+            glGetBufferSubData(GL_ARRAY_BUFFER, 0, nbytes, out)
+            assert (out.view('uint32') == src).all(), list(out)
+
+            # mismatched dtype would silently lose the result -> must raise.
+            with pytest.raises((TypeError, ValueError)):
+                glGetBufferSubData(GL_ARRAY_BUFFER, 0, nbytes,
+                                   array([0, 0, 0], dtype='uint32'))
+        finally:
+            glBindBuffer(GL_ARRAY_BUFFER, 0)
+            glDeleteBuffers(1, buf)
+
     def test_fbo(self):
         """Test that we support framebuffer objects
 
