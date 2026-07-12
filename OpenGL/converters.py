@@ -233,6 +233,34 @@ if CallFuncPyConverter is None:
             """Retrieve the array size for this argument"""
             return self.size
 
+        def orInput(self, pyArgs, index):
+            """Coerce a passed-in output array, refusing a lossy copy.
+
+            When the caller's array is already an acceptable buffer, asArray
+            returns it unchanged and the GL result is written straight back into
+            it. When it is the wrong type, asArray must *copy* it to match; if
+            that copy is smaller than the caller's buffer, the read is truncated
+            into the copy and never reaches the caller's array -- the silent
+            "returns zeroes" bug. Detect the shrinking copy and raise, so the
+            caller passes a correctly-typed array (or None to allocate one).
+            """
+            value = pyArgs[index]
+            result = self.arrayType.asArray(value)
+            if result is not value:
+                try:
+                    rbytes = self.arrayType.arrayByteCount(result)
+                    vbytes = self.arrayType.arrayByteCount(value)
+                except Exception:
+                    return result   # can't measure; keep old behaviour
+                if rbytes < vbytes:
+                    raise TypeError(
+                        '%s: pass-in output array was coerced to a smaller buffer '
+                        '(%d < %d bytes), so the GL result cannot be written back '
+                        'into your array. Pass a correctly-typed array, or None to '
+                        'have one allocated.' % (self.name, rbytes, vbytes)
+                    )
+            return result
+
         def oldStyleReturn(self, result, baseOperation, pyArgs, cArgs):
             """Retrieve cArgs[ self.index ]"""
             result = cArgs[self.outIndex]
@@ -257,7 +285,7 @@ if CallFuncPyConverter is None:
                     return super(OutputOrInput, self).__call__(
                         pyArgs, index, baseOperation
                     )
-            return self.arrayType.asArray(pyArgs[index])
+            return self.orInput(pyArgs, index)
 
     class SizedOutput(Output):
         """Output generating dynamically-sized typed output arrays
@@ -297,7 +325,7 @@ if CallFuncPyConverter is None:
                     return super(SizedOutputOrInput, self).__call__(
                         pyArgs, index, baseOperation
                     )
-            return self.arrayType.asArray(pyArgs[index])
+            return self.orInput(pyArgs, index)
 
     class returnCArgument(ReturnValues):
         """ReturnValues returning the named cArgs value"""

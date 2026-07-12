@@ -292,7 +292,35 @@ cdef class Output(cArgConverter):
     cdef object c_call( self, tuple pyArgs, int index, object baseOperation ):
         """Return pyArgs[ self.index ]"""
         return self.arrayType.c_zeros( self.c_getSize(pyArgs), self.arrayType.typeConstant )
-    
+
+    cdef object c_orInput( self, tuple pyArgs, int index ):
+        """Coerce a passed-in output array, refusing a lossy copy.
+
+        When the caller's array is already an acceptable buffer, asArray returns
+        it unchanged and the GL result is written straight back into it. When it
+        is the wrong type, asArray must *copy* it to match; if that copy is
+        smaller than the caller's buffer, the read is truncated into the copy and
+        never reaches the caller's array -- the silent "returns zeroes" bug.
+        Detect the shrinking copy and raise. Correctly-typed arrays are not
+        copied, so they never trip this.
+        """
+        value = pyArgs[index]
+        result = self.arrayType.asArray( value )
+        if result is not value:
+            try:
+                rbytes = self.arrayType.arrayByteCount( result )
+                vbytes = self.arrayType.arrayByteCount( value )
+            except Exception:
+                return result
+            if rbytes < vbytes:
+                raise TypeError(
+                    '%s: pass-in output array was coerced to a smaller buffer '
+                    '(%d < %d bytes), so the GL result cannot be written back '
+                    'into your array. Pass a correctly-typed array, or None to '
+                    'have one allocated.' % ( self.name, rbytes, vbytes )
+                )
+        return result
+
     def oldStyleReturn( self, object result, object baseOperation, tuple pyArgs, tuple cArgs ):
         """Retrieve cArgs[ self.index ]"""
         #TODO: make this a c_api-bearing value, not a Python function call
@@ -313,7 +341,7 @@ cdef class OutputOrInput( Output ):
     cdef object c_call( self, tuple pyArgs, int index, object baseOperation ):
         """Return pyArgs[ self.index ]"""
         if pyArgs[index] is not DO_OUTPUT[0] and pyArgs[index] is not DO_OUTPUT[1]:
-            return self.arrayType.asArray( pyArgs[index] )
+            return self.c_orInput( pyArgs, index )
         return self.arrayType.c_zeros( self.c_getSize(pyArgs), self.arrayType.typeConstant )
 
 cdef class SizedOutput( Output ):
@@ -353,7 +381,7 @@ cdef class SizedOutputOrInput( SizedOutput ):
     cdef object c_call( self, tuple pyArgs, int index, object baseOperation ):
         """Return pyArgs[ self.index ]"""
         if pyArgs[index] is not DO_OUTPUT[0] and pyArgs[index] is not DO_OUTPUT[1]:
-            return self.arrayType.asArray( pyArgs[index] )
+            return self.c_orInput( pyArgs, index )
         return self.arrayType.c_zeros( self.c_getSize(pyArgs), self.arrayType.typeConstant )
     
 
