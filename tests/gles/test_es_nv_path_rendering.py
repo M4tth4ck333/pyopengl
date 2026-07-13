@@ -9,7 +9,7 @@ not exercised.
 """
 
 import unittest
-from arraycompat import np  # numpy, or a ctypes fallback when numpy is absent
+from arraycompat import np, ravel  # numpy, or a ctypes fallback when numpy is absent
 
 from egltestcase import ESTestCase
 
@@ -77,8 +77,8 @@ class TestESNVPathRendering(ESTestCase):
     def test_path_matrices(self):
         self.require_extension('GL_NV_path_rendering')
         m = GL_PATH_MODELVIEW_NV
-        ident = np.eye(4, dtype='f').ravel()
-        identd = np.eye(4, dtype='d').ravel()
+        ident = ravel(np.eye(4, dtype='f'))
+        identd = ravel(np.eye(4, dtype='d'))
         glMatrixLoadIdentityEXT(GL_PATH_PROJECTION_NV)
         glMatrixOrthoEXT(GL_PATH_PROJECTION_NV, 0, 16, 0, 16, -1, 1)
         glMatrixFrustumEXT(GL_PATH_PROJECTION_NV, -1, 1, -1, 1, 1, 10)

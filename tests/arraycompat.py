@@ -52,8 +52,19 @@ except ImportError:
     }
 
     def _typecode(dtype):
-        """Normalise a numpy-ish dtype to a handler typecode string."""
-        return _NUMPY_TYPECODES.get(dtype, dtype)
+        """Normalise a numpy-ish dtype to a handler typecode string.
+
+        Accepts the shim's own typecode chars ('f', 'Q', ...), numpy
+        "kind+itemsize" strings ('u8', 'f4', ...) and full numpy dtype *names*
+        passed as plain strings ('uint64', 'float32', ...).  The last case is
+        why we consult ``_DTYPES``: ``np.zeros(4, 'uint64')`` hands us the
+        string 'uint64', which the handler does not understand on its own.
+        """
+        if dtype in _NUMPY_TYPECODES:
+            return _NUMPY_TYPECODES[dtype]
+        if dtype in _DTYPES:
+            return _DTYPES[dtype]
+        return dtype
 
     def _as_shape(shape):
         if isinstance(shape, (list, tuple)):
@@ -142,6 +153,31 @@ def astype(a, dtype):
     if hasattr(a, 'astype'):  # numpy
         return a.astype(dtype)
     return np.array(_to_list(a), dtype)
+
+
+def ravel(a):
+    """Flatten a numpy or (nested) ctypes array to a contiguous 1-D array.
+
+    numpy arrays defer to ``a.ravel()``.  ctypes arrays -- which the no-numpy
+    shim produces -- have no such method, so we walk the nested array to its
+    scalar leaves and rebuild a flat ctypes array of the same element type.
+    """
+    if hasattr(a, 'ravel'):  # numpy
+        return a.ravel()
+    scalars = []
+
+    def _walk(node):
+        if isinstance(node, _ctypes.Array):
+            for element in node:
+                _walk(element)
+        else:
+            scalars.append(node)
+
+    _walk(a)
+    base = type(a)
+    while isinstance(getattr(base, '_type_', None), type):
+        base = base._type_
+    return (base * len(scalars))(*scalars)
 
 
 def shape(a):

@@ -190,7 +190,10 @@ class TestARBExtra(GLTestCase):
 
         white = np.ones((4, 4), 'f')
         glColorTable(GL_COLOR_TABLE, GL_RGBA8, 4, GL_RGBA, GL_FLOAT, white)
-        glColorSubTable(GL_COLOR_TABLE, 0, 2, GL_RGBA, GL_FLOAT, white[:2])
+        # A fresh 2-row array rather than white[:2]: slicing a ctypes array (the
+        # no-numpy path) yields a Python list of ctypes sub-arrays that the list
+        # handler cannot marshal.  Two RGBA rows of ones is the same input.
+        glColorSubTable(GL_COLOR_TABLE, 0, 2, GL_RGBA, GL_FLOAT, np.ones((2, 4), 'f'))
         glColorTableParameterfv(GL_COLOR_TABLE, GL_COLOR_TABLE_SCALE, np.ones(4, 'f'))
         glColorTableParameteriv(GL_COLOR_TABLE, GL_COLOR_TABLE_SCALE, np.ones(4, 'i'))
         glGetColorTable(GL_COLOR_TABLE, GL_RGBA, GL_FLOAT)
